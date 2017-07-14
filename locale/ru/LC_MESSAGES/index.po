@@ -1,30 +1,33 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C)
 # This file is distributed under the same license as the Tarantool package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Tarantool 1.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-11 17:16+0300\n"
-"PO-Revision-Date: 2016-06-07 13:44+0300\n"
-"Last-Translator: \n"
-"Language-Team: \n"
+"POT-Creation-Date: 2017-07-14 13:24+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.3.4\n"
+"Generated-By: Babel 2.4.0\n"
 
-#: ../index.rst:33
-msgid "Tarantool - Index"
+#: ../index.rst:34
+msgid ""
+"Tarantool - Get your data in RAM. Get compute close to data. Enjoy the "
+"performance."
 msgstr ""
 
-#: ../index.rst:40
+#: ../index.rst:41
 msgid "<hidden>"
 msgstr ""
 
-#: ../index.rst:44
+#: ../index.rst:45
 msgid "Get your data in RAM. Get compute close to data. Enjoy the performance."
 msgstr ""
 
@@ -36,73 +39,64 @@ msgstr ""
 msgid "simply use #!/usr/bin/tarantool instead of #!/usr/bin/lua in your script"
 msgstr ""
 
-#: ../index.rst:67
+#: ../index.rst:68
 msgid "**Lua packages** for non-blocking I/O, fibers and HTTP"
 msgstr ""
 
-#: ../index.rst:68
-msgid "**indexes**: `secondary indexes`_, `range queries`_, `index iterators`_"
-msgstr ""
-
 #: ../index.rst:69
-msgid "**transactions**: `ACID transactions`_"
-msgstr ""
-
-#: ../index.rst:70
 msgid ""
-"**replication**: asynchronous `master-slave`_ and `master-master`_ "
-"replication"
+"**indexes**:  :ref:`secondary indexes <box_index>`, :ref:`range queries "
+"<box_index>`, :ref:`index iterators <box_index>`"
 msgstr ""
 
 #: ../index.rst:71
-msgid "**query language**: `server-side scripting and stored procedures`_"
+msgid "**transactions**: :ref:`ACID transactions <atomic-atomic_execution>`"
 msgstr ""
 
 #: ../index.rst:72
-msgid "**security**: `authentication and access control`_"
+msgid ""
+"**replication**: asynchronous :ref:`master-slave <replication>` and :ref"
+":`master-master <replication>` replication"
 msgstr ""
 
-#: ../index.rst:78
+#: ../index.rst:74
+msgid ""
+"**query language**: :ref:`server-side scripting and stored procedures "
+"<lua_tutorials>`"
+msgstr ""
+
+#: ../index.rst:76
+msgid "**security**: :ref:`authentication and access control <authentication>`"
+msgstr ""
+
+#: ../index.rst:82
 msgid ""
 "Terms and conditions of all commercial services are available upon "
 "request, please send an inquiry to support@tarantool.org."
 msgstr ""
 
-#: ../index.rst:80
+#: ../index.rst:84
 msgid ""
 "We offer 24x7 business support at very moderate pricing, along with "
 "consulting, implementation and training."
 msgstr ""
 
-#: ../index.rst:82
+#: ../index.rst:86
 msgid ""
 "**Our support is conducted by real software engineers of the Tarantool "
 "core engine!**"
 msgstr ""
 
-#: ../index.rst:84
+#: ../index.rst:88
 msgid ""
 "All Tarantool users can get help on support@tarantool.org and "
 "`tarantool@groups.google.com "
 "<https://groups.google.com/forum/#!forum/tarantool>`_."
 msgstr ""
 
-#: ../index.rst:86
+#: ../index.rst:90
 msgid ""
 "If you need immediate help, try to ping Tarantool maintainers on "
 "`telegram <http://telegram.me/tarantool>`_."
 msgstr ""
-
-#~ msgid "Documentation"
-#~ msgstr "Документация"
-
-#~ msgid ":ref:`genindex`"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "For one page HTML documentation, please,"
-#~ " use `this link </doc/singlehtml.html>`_."
-#~ msgstr ""
-#~ "Одностраничная документация доступна по `этой"
-#~ " ссылке <singlehtml.html>`_."
 

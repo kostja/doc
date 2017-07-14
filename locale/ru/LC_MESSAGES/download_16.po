@@ -1,81 +1,90 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C)
 # This file is distributed under the same license as the Tarantool package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2016.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2017.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: Tarantool 1.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-11-11 16:19+0300\n"
+"POT-Creation-Date: 2017-07-14 13:24+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.3.4\n"
+"Generated-By: Babel 2.4.0\n"
 
-#: ../download_16.rst:33
+#: ../download_16.rst:34
 msgid "Tarantool - Downloads (1.6)"
 msgstr ""
 
-msgid "Available version: 1.6 / 1.7"
+msgid "Available versions: 1.6 (stable) / 1.7 (rc) / 1.8 (alpha)"
 msgstr ""
 
-#: ../download_16.rst:38
-msgid "Available version: 1.6 / :doc:`1.7 <download>`"
+#: ../download_16.rst:39
+msgid ""
+"Available versions: 1.6 (stable) / :doc:`1.7 (rc) <download>` / :doc:`1.8"
+" (alpha) <download_18>`"
 msgstr ""
 
 msgid ""
 "To simplify problem analysis and avoid various bugs induced by "
 "compilation parameters and environment, it is recommended that production"
-" systems use the builds provided on this site.All published releases are "
-"available at http://tarantool.org/dist/1.6Hosting is powered by "
-"packagecloud."
+" systems use the builds provided on this site.We're building packages for"
+" x86_64 platform only.Hosting is powered by packagecloud."
 msgstr ""
 
-#: ../download_16.rst:44
+#: ../download_16.rst:45
 msgid ""
 "To simplify problem analysis and avoid various bugs induced by "
 "compilation parameters and environment, it is recommended that production"
 " systems use the builds provided on this site."
 msgstr ""
 
-#: ../download_16.rst:48
-msgid "All published releases are available at `<http://tarantool.org/dist/1.6>`_"
+#: ../download_16.rst:49
+msgid "We're building packages for x86_64 platform only."
 msgstr ""
 
-#: ../download_16.rst:50
+#: ../download_16.rst:51
 msgid "Hosting is powered by |packagecloud|."
 msgstr ""
 
-#: ../download_16.rst:57
+#: ../download_16.rst:58
+msgid "Docker Hub"
+msgstr ""
+
+#: ../download_16.rst:60
+msgid "Tarantool images are available at `Docker Hub`_."
+msgstr ""
+
+#: ../download_16.rst:64
 msgid "Ubuntu"
 msgstr ""
 
-#: ../download_16.rst:59
+#: ../download_16.rst:66
 msgid ""
 "We maintain an always up-to-date Ubuntu package repository. At the "
 "moment, the repository contains builds for Ubuntu \"xenial\", \"wily\", "
 "\"trusty\", \"precise\"."
 msgstr ""
 
-#: ../download_16.rst:63
+#: ../download_16.rst:70
 msgid ""
 "In these instructions, ``$release`` is an environment variable which will"
 " contain the Ubuntu version code (e.g. \"precise\")."
 msgstr ""
 
-#: ../download_16.rst:66
+#: ../download_16.rst:73
 msgid ""
 "Copy and paste the script below to the terminal prompt (if you want the "
 "version that comes with Ubuntu, start with the lines that follow the '# "
 "install' comment):"
 msgstr ""
 
-#: ../download_16.rst:70
+#: ../download_16.rst:77
 msgid ""
 "curl http://download.tarantool.org/tarantool/1.6/gpgkey | sudo apt-key "
 "add -\n"
@@ -97,11 +106,11 @@ msgid ""
 "sudo apt-get -y install tarantool"
 msgstr ""
 
-#: ../download_16.rst:89
+#: ../download_16.rst:96
 msgid "Debian Stretch, Jessie and newer"
 msgstr ""
 
-#: ../download_16.rst:91
+#: ../download_16.rst:98
 msgid ""
 "We maintain an always up-to-date Debian GNU/Linux package repository. At "
 "the moment, the repository contains builds for Debian \"stretch\" and "
@@ -109,18 +118,18 @@ msgid ""
 "page."
 msgstr ""
 
-#: ../download_16.rst:96
+#: ../download_16.rst:103
 msgid ""
 "In these instructions, ``$release`` is an environment variable which will"
 " contain the Debian version code (e.g. \"jessie\")."
 msgstr ""
 
-#: ../download_16.rst:99 ../download_16.rst:124 ../download_16.rst:156
-#: ../download_16.rst:192 ../download_16.rst:234 ../download_16.rst:274
+#: ../download_16.rst:106 ../download_16.rst:131 ../download_16.rst:163
+#: ../download_16.rst:199 ../download_16.rst:241 ../download_16.rst:281
 msgid "Copy and paste the script below to the terminal prompt:"
 msgstr ""
 
-#: ../download_16.rst:101
+#: ../download_16.rst:108
 msgid ""
 "curl http://download.tarantool.org/tarantool/1.6/gpgkey | sudo apt-key "
 "add -\n"
@@ -142,15 +151,15 @@ msgid ""
 "sudo apt-get -y install tarantool"
 msgstr ""
 
-#: ../download_16.rst:120
+#: ../download_16.rst:127
 msgid "Debian Wheezy"
 msgstr ""
 
-#: ../download_16.rst:122
+#: ../download_16.rst:129
 msgid "We maintain an always up-to-date package repository for Debian \"wheezy\"."
 msgstr ""
 
-#: ../download_16.rst:126
+#: ../download_16.rst:133
 msgid ""
 "curl http://download.tarantool.org/tarantool/1.6/gpgkey | sudo apt-key "
 "add -\n"
@@ -171,11 +180,11 @@ msgid ""
 "sudo apt-get -y install tarantool"
 msgstr ""
 
-#: ../download_16.rst:145
+#: ../download_16.rst:152
 msgid "Fedora"
 msgstr ""
 
-#: ../download_16.rst:147
+#: ../download_16.rst:154
 msgid ""
 "We maintain an always up-to-date Fedora package repository. At the "
 "moment, the repository contains builds for Fedora 23 and 24."
@@ -195,7 +204,7 @@ msgstr ""
 msgid "``$basearch`` (i.e. base architecture) must be either i386 or x86_64."
 msgstr ""
 
-#: ../download_16.rst:158
+#: ../download_16.rst:165
 msgid ""
 "sudo rm -f /etc/yum.repos.d/*tarantool*.repo\n"
 "sudo tee /etc/yum.repos.d/tarantool_1_6.repo <<- EOF\n"
@@ -221,11 +230,11 @@ msgid ""
 "sudo dnf -y install tarantool"
 msgstr ""
 
-#: ../download_16.rst:181
+#: ../download_16.rst:188
 msgid "RHEL 6 and CentOS 6"
 msgstr ""
 
-#: ../download_16.rst:183
+#: ../download_16.rst:190
 msgid ""
 "We maintain an always up-to-date package repository for RHEL 6 "
 "derivatives. You may need to enable the `EPEL`_ repository for some "
@@ -236,7 +245,7 @@ msgstr ""
 msgid "``$releasever`` (i.e. CentOS release version) must be 6, and"
 msgstr ""
 
-#: ../download_16.rst:194
+#: ../download_16.rst:201
 msgid ""
 "# Enable EPEL repository\n"
 "sudo yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-"
@@ -270,11 +279,11 @@ msgid ""
 "sudo yum -y install tarantool"
 msgstr ""
 
-#: ../download_16.rst:225
+#: ../download_16.rst:232
 msgid "RHEL 7 and CentOS 7"
 msgstr ""
 
-#: ../download_16.rst:227
+#: ../download_16.rst:234
 msgid ""
 "We maintain an always up-to-date package repository for RHEL 7 "
 "derivatives."
@@ -288,7 +297,7 @@ msgstr ""
 msgid "``$releasever`` (i.e. CentOS release version) must be 7, and"
 msgstr ""
 
-#: ../download_16.rst:236
+#: ../download_16.rst:243
 msgid ""
 "# Add Tarantool repository\n"
 "sudo rm -f /etc/yum.repos.d/*tarantool*.repo\n"
@@ -316,11 +325,11 @@ msgid ""
 "sudo yum -y install tarantool"
 msgstr ""
 
-#: ../download_16.rst:263
+#: ../download_16.rst:270
 msgid "Amazon Linux"
 msgstr ""
 
-#: ../download_16.rst:265
+#: ../download_16.rst:272
 msgid ""
 "Amazon Linux is based on RHEL 6 / CentOS 6. We maintain an always up-to-"
 "date package repository for RHEL 6 derivatives. You may need to enable "
@@ -331,7 +340,7 @@ msgstr ""
 msgid "``$releasever`` (i.e. RHEL / CentOS release version) must be 6, and"
 msgstr ""
 
-#: ../download_16.rst:276
+#: ../download_16.rst:283
 msgid ""
 "# Enable EPEL repository\n"
 "sudo yum -y install http://dl.fedoraproject.org/pub/epel/epel-release-"
@@ -365,15 +374,15 @@ msgid ""
 "sudo yum -y install tarantool"
 msgstr ""
 
-#: ../download_16.rst:307
+#: ../download_16.rst:314
 msgid "OS X"
 msgstr ""
 
-#: ../download_16.rst:309
+#: ../download_16.rst:316
 msgid "You can install Tarantool using ``homebrew``:"
 msgstr ""
 
-#: ../download_16.rst:311
+#: ../download_16.rst:318
 msgid ""
 "$ brew install tarantool\n"
 "==> Downloading "
@@ -385,116 +394,134 @@ msgid ""
 "/usr/local/Cellar/tarantool/1.6.8-653: 17 files, 2.2M"
 msgstr ""
 
-#: ../download_16.rst:319
+#: ../download_16.rst:326
 msgid "FreeBSD"
 msgstr ""
 
-#: ../download_16.rst:321
+#: ../download_16.rst:328
 msgid "Tarantool is available from the FreeBSD Ports collection."
 msgstr ""
 
-#: ../download_16.rst:323
+#: ../download_16.rst:330
 msgid ""
 "With your browser, go to the `FreeBSD Ports`_ page. Enter the search "
 "term: `tarantool`. Choose the package you want."
 msgstr ""
 
-#: ../download_16.rst:327
+#: ../download_16.rst:334
 msgid "Also, look at the `Fresh Ports`_ page."
 msgstr ""
 
-#: ../download_16.rst:332
+#: ../download_16.rst:339
 msgid "Microsoft Azure"
 msgstr ""
 
-#: ../download_16.rst:334
+#: ../download_16.rst:341
 msgid "Tarantool images are available at `Microsoft Azure`_."
 msgstr ""
 
-#: ../download_16.rst:338
-msgid "Docker Hub"
-msgstr ""
-
-#: ../download_16.rst:340
-msgid "Tarantool images are available at `Docker Hub`_."
-msgstr ""
-
-#: ../download_16.rst:344
+#: ../download_16.rst:345
 msgid "Building from source"
 msgstr ""
 
-#: ../download_16.rst:346
+#: ../download_16.rst:347
 msgid ""
 "To get the latest source files for version 1.6, you can clone or download"
 " them from the Tarantool repository at `GitHub`_, or download them as a "
 "`tarball`_."
 msgstr ""
 
-#: ../download_16.rst:350
+#: ../download_16.rst:351
 msgid ""
 "Please consult with the Tarantool documentation for :ref:`build-from-"
 "source <building_from_source>` instructions on your system."
 msgstr ""
 
-#: ../download_16.rst:364
+#: ../download_16.rst:365
 msgid "Connectors"
 msgstr ""
 
-#: ../download_16.rst:366
+#: ../download_16.rst:367
 msgid "PHP PECL driver,       `<https://github.com/tarantool/tarantool-php>`_"
 msgstr ""
 
-#: ../download_16.rst:367
+#: ../download_16.rst:368
 msgid "Pure PHP driver,       `<https://github.com/tarantool-php/client>`_"
 msgstr ""
 
-#: ../download_16.rst:368
+#: ../download_16.rst:369
 msgid ""
 "Java driver,           `Maven repository`_ or `Java connector GitHub "
 "page`_"
 msgstr ""
 
-#: ../download_16.rst:369
+#: ../download_16.rst:370
 msgid "Python driver,         `<http://pypi.python.org/pypi/tarantool>`_"
 msgstr ""
 
-#: ../download_16.rst:370
-msgid "Ruby driver,           `<https://github.com/tarantool/tarantool-ruby>`_"
-msgstr ""
-
 #: ../download_16.rst:371
-msgid "Perl driver,           `DR:Tarantool`_"
+msgid "Python Gevent driver,  `<https://github.com/shveenkov/gtarantool>`_"
 msgstr ""
 
 #: ../download_16.rst:372
-msgid "C connector            `<https://github.com/tarantool/tarantool-c>`_"
+msgid "Python AIO driver,     `<https://github.com/shveenkov/aiotarantool>`_"
 msgstr ""
 
 #: ../download_16.rst:373
+msgid "Ruby driver,           `<https://github.com/tarantool/tarantool-ruby>`_"
+msgstr ""
+
+#: ../download_16.rst:374
+msgid "Perl driver,           `DR:Tarantool`_"
+msgstr ""
+
+#: ../download_16.rst:375
+msgid "C connector            `<https://github.com/tarantool/tarantool-c>`_"
+msgstr ""
+
+#: ../download_16.rst:376
 msgid ""
 "node.js driver,        `<https://github.com/KlonD90/node-tarantool-"
 "driver>`_"
 msgstr ""
 
-#: ../download_16.rst:374
-msgid "Erlang driver,         `<https://github.com/rtsisyk/etarantool>`_"
-msgstr ""
-
-#: ../download_16.rst:375
-msgid "Go driver,             `<https://github.com/tarantool/go-tarantool>`_"
-msgstr ""
-
-#: ../download_16.rst:376
-msgid "Lua-nginx driver,      `<https://github.com/ziontab/lua-nginx-tarantool>`_"
-msgstr ""
-
 #: ../download_16.rst:377
-msgid "Lua-resty driver,      `<https://github.com/perusio/lua-resty-tarantool>`_"
+msgid "Erlang driver,         `<https://github.com/umatomba/tara>`_"
 msgstr ""
 
 #: ../download_16.rst:378
+msgid "Erlang driver,         `<https://github.com/stofel/taran>`_"
+msgstr ""
+
+#: ../download_16.rst:379
+msgid "Go driver,             `<https://github.com/tarantool/go-tarantool>`_"
+msgstr ""
+
+#: ../download_16.rst:380
+msgid "Lua-nginx driver,      `<https://github.com/ziontab/lua-nginx-tarantool>`_"
+msgstr ""
+
+#: ../download_16.rst:381
+msgid "Lua-resty driver,      `<https://github.com/perusio/lua-resty-tarantool>`_"
+msgstr ""
+
+#: ../download_16.rst:382
 msgid ""
 "Nginx Upstream module, "
 "`<https://github.com/tarantool/nginx_upstream_module>`_"
+msgstr ""
+
+#: ../download_16.rst:383
+msgid "C# driver,             `<https://github.com/progaudi/tarantool-csharp>`_"
+msgstr ""
+
+#: ../download_16.rst:384
+msgid "C# driver,             `<https://github.com/donmikel/tarantool-net>`_"
+msgstr ""
+
+#: ../download_16.rst:385
+msgid ""
+"Swift driver and stored procedures, `<https://github.com/tris-"
+"foundation/tarantool>`_"
 msgstr ""
 

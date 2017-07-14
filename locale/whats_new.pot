@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tarantool 1.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-23 12:27+0300\n"
+"POT-Creation-Date: 2017-07-14 13:15+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,43 +16,123 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../whats_new.rst:30
+#: ../doc/1.7/whats_new.rst:33
 msgid "What's new?"
 msgstr ""
 
-#: ../whats_new.rst:32
+#: ../doc/1.7/whats_new.rst:35
 msgid "Here is a summary of significant changes introduced in specific versions of Tarantool."
 msgstr ""
 
-#: ../whats_new.rst:35
+#: ../doc/1.7/whats_new.rst:38
 msgid "For smaller feature changes and bug fixes, see closed `milestones <https://github.com/tarantool/tarantool/milestones?state=closed>`_ at GitHub."
 msgstr ""
 
-#: ../whats_new.rst:43
+#: ../doc/1.7/whats_new.rst:46
 msgid "What's new in Tarantool 1.7?"
 msgstr ""
 
-#: ../whats_new.rst:45
-msgid "The disk-based storge engine, which was called `sophia` or `phia` in earlier versions, is superseded by the `vinyl` storage engine."
+#: ../doc/1.7/whats_new.rst:48
+msgid "The disk-based storage engine, which was called `sophia` or `phia` in earlier versions, is superseded by the `vinyl` storage engine."
 msgstr ""
 
-#: ../whats_new.rst:48
+#: ../doc/1.7/whats_new.rst:51
 msgid "There are new types for indexed fields."
 msgstr ""
 
-#: ../whats_new.rst:50
+#: ../doc/1.7/whats_new.rst:53
 msgid "The LuaJIT version is updated."
 msgstr ""
 
-#: ../whats_new.rst:52
-msgid "Automatic replication cluster bootstrap (to make it easier to configure a new replication cluster) is supported."
+#: ../doc/1.7/whats_new.rst:55
+msgid "Automatic replica set bootstrap (for easier configuration of a new replica set) is supported."
 msgstr ""
 
-#: ../whats_new.rst:55
+#: ../doc/1.7/whats_new.rst:58
 msgid "The ``space_object:inc()`` function is removed."
 msgstr ""
 
-#: ../whats_new.rst:57
+#: ../doc/1.7/whats_new.rst:60
 msgid "The ``space_object:dec()`` function is removed."
+msgstr ""
+
+#: ../doc/1.7/whats_new.rst:62
+msgid "The ``space_object:bsize()`` function is added."
+msgstr ""
+
+#: ../doc/1.7/whats_new.rst:64
+msgid "The ``box.coredump()`` function is removed, for an alternative see :ref:`Core dumps <admin-core_dumps>`."
+msgstr ""
+
+#: ../doc/1.7/whats_new.rst:67
+msgid "The ``hot_standby`` configuration option is added."
+msgstr ""
+
+#: ../doc/1.7/whats_new.rst:69
+msgid "Configuration parameters revised:"
+msgstr ""
+
+#: ../doc/1.7/whats_new.rst:71
+msgid "Parameters renamed:"
+msgstr ""
+
+#: ../doc/1.7/whats_new.rst:73
+msgid "``slab_alloc_arena`` (in gigabytes) to ``memtx_memory`` (in bytes),"
+msgstr ""
+
+#: ../doc/1.7/whats_new.rst:74
+msgid "``slab_alloc_minimal`` to ``memtx_min_tuple_size``,"
+msgstr ""
+
+#: ../doc/1.7/whats_new.rst:75
+msgid "``slab_alloc_maximal`` to ``memtx_max_tuple_size``,"
+msgstr ""
+
+#: ../doc/1.7/whats_new.rst:76
+msgid "``replication_source`` to ``replication``,"
+msgstr ""
+
+#: ../doc/1.7/whats_new.rst:77
+msgid "``snap_dir`` to ``memtx_dir``,"
+msgstr ""
+
+#: ../doc/1.7/whats_new.rst:78
+msgid "``logger`` to ``log``,"
+msgstr ""
+
+#: ../doc/1.7/whats_new.rst:79
+msgid "``logger_nonblock`` to ``log_nonblock``,"
+msgstr ""
+
+#: ../doc/1.7/whats_new.rst:80
+msgid "``snapshot_count`` to ``checkpoint_count``,"
+msgstr ""
+
+#: ../doc/1.7/whats_new.rst:81
+msgid "``snapshot_period`` to ``checkpoint_interval``,"
+msgstr ""
+
+#: ../doc/1.7/whats_new.rst:82
+msgid "``panic_on_wal_error`` and ``panic_on_snap_error`` united under ``force_recovery``."
+msgstr ""
+
+#: ../doc/1.7/whats_new.rst:85
+msgid "Until Tarantool 1.8, you can use :ref:`deprecated parameters <cfg_deprecated>` for both initial and runtime configuration, but Tarantool will display a warning. Also, you can specify both deprecated and up-to-date parameters, provided that their values are harmonized. If not, Tarantool will display an error."
+msgstr ""
+
+#: ../doc/1.7/whats_new.rst:94
+msgid "What's new in Tarantool 1.6.9 after February 15, 2017?"
+msgstr ""
+
+#: ../doc/1.7/whats_new.rst:96
+msgid "Due to Tarantool issue#2040 `Remove sophia engine from 1.6 <https://github.com/tarantool/tarantool/issues/2040>`_ there no longer is a storage engine named `sophia`. It will be superseded in version 1.7 by the `vinyl` storage engine."
+msgstr ""
+
+#: ../doc/1.7/whats_new.rst:105
+msgid "What's new in Tarantool 1.6?"
+msgstr ""
+
+#: ../doc/1.7/whats_new.rst:107
+msgid "Tarantool 1.6 is no longer getting major new features, although it will be maintained. The developers are concentrating on Tarantool version 1.7."
 msgstr ""
 

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Tarantool 1.7\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-14 13:15+0300\n"
-"PO-Revision-Date: 2017-07-14 14:14+0300\n"
+"PO-Revision-Date: 2017-07-14 14:12+0300\n"
 "Last-Translator: \n"
 "Language: ru\n"
 "Language-Team: \n"
@@ -18,7 +18,7 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.4.0\n"
-"X-Generator: Poedit 1.8.12\n"
+"X-Generator: Poedit 2.0.2\n"
 
 #: ../doc/1.7/book/admin/backups.rst:33
 msgid "Backups"
@@ -35,8 +35,9 @@ msgid ""
 msgstr ""
 
 #: ../doc/1.7/book/admin/backups.rst:46
+#, fuzzy
 msgid "Hot backup (memtx)"
-msgstr "\"Горячее\" резервирование (memtx)"
+msgstr "**\"Горячее\" резервирование**"
 
 #: ../doc/1.7/book/admin/backups.rst:48
 msgid "This is a special case when there are only in-memory tables."
@@ -120,8 +121,9 @@ msgid "Resume garbage collection with ``box.backup.end()``."
 msgstr ""
 
 #: ../doc/1.7/book/admin/backups.rst:91
+#, fuzzy
 msgid "Continuous remote backup (memtx)"
-msgstr "Постоянное удаленное резервирование"
+msgstr "**Постоянное удаленное резервирование**"
 
 #: ../doc/1.7/book/admin/backups.rst:93
 msgid ""

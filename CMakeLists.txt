@@ -128,6 +128,16 @@ add_custom_target(sphinx-update-pot
     COMMENT "Generate localization templates"
 )
 
+add_custom_target(sphinx-update-pot-1.7
+    COMMAND "${SPHINX_EXECUTABLE}"
+        -b gettext
+        -d "${SPHINX_BUILD_LOCALE_DIR}"
+        -c locale/
+        "${CMAKE_CURRENT_SOURCE_DIR}/doc/1.7"
+        "${CMAKE_CURRENT_SOURCE_DIR}/locale"
+    COMMENT "Generate localization templates"
+)
+
 add_custom_target(sphinx-update-po
     COMMAND "${SPHINX_INTL_EXECUTABLE}"
         update
@@ -135,6 +145,15 @@ add_custom_target(sphinx-update-po
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     COMMENT "Regenerate localization files from templates"
     DEPENDS sphinx-update-pot
+)
+
+add_custom_target(sphinx-update-po-1.7
+    COMMAND "${SPHINX_INTL_EXECUTABLE}"
+        update
+        -p ${CMAKE_CURRENT_SOURCE_DIR}/locale
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/doc/1.7
+    COMMENT "Regenerate localization files from templates"
+    DEPENDS sphinx-update-pot-1.7
 )
 
 add_custom_target(sphinx-linkcheck
