@@ -1,9 +1,3 @@
-.. _whats_new:
-
-********************************************************************************
-What's new?
-********************************************************************************
-
 Here is a summary of significant changes introduced in specific versions of
 Tarantool.
 
@@ -13,9 +7,9 @@ at GitHub.
 
 .. _whats_new_17:
 
-================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 What's new in Tarantool 1.7?
-================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The disk-based storage engine, which was called `sophia` or `phia`
 in earlier versions, is superseded by the `vinyl` storage engine.
@@ -61,20 +55,20 @@ Configuration parameters revised:
 
 .. _whats_new_169:
 
-================================================================================
-What's new in Tarantool 1.6.9 after February 15, 2017?
-================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+What's new in Tarantool 1.6.9?
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Due to Tarantool issue#2040
+Since 15 Feb 2017, due to Tarantool issue #2040
 `Remove sophia engine from 1.6 <https://github.com/tarantool/tarantool/issues/2040>`_
 there no longer is a storage engine named `sophia`.
 It will be superseded in version 1.7 by the `vinyl` storage engine.
 
 .. _whats_new_16:
 
-================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 What's new in Tarantool 1.6?
-================================================================================
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Tarantool 1.6 is no longer getting major new features,
 although it will be maintained.

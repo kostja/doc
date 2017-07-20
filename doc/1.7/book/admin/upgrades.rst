@@ -116,3 +116,11 @@ any cluster configuration: master-master or master-replica.
    ``box.schema.upgrade()``. This updates Tarantool system spaces to match the
    currently installed version of Tarantool. Changes are propagated to other
    nodes via the regular replication mechanism.
+
+.. _whats_new:
+
+--------------------------------------------------------------------------------
+What's new?
+--------------------------------------------------------------------------------
+
+.. include:: whats_new.rst

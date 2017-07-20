@@ -9,6 +9,7 @@ Reference
 
     reference_lua/index
     reference_rock/index
+    reference_capi/index
     configuration/index
     tarantoolctl
     lua_tips
