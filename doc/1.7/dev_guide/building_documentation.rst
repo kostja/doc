@@ -21,7 +21,7 @@ You need to install these packages:
 You need to install these Python modules:
 
 * `pip <https://pypi.python.org/pypi/pip>`_, any version
-* `Sphinx <https://pypi.python.org/pypi/Sphinx>`_ version 1.4.4 or later
+* `Sphinx <https://pypi.python.org/pypi/Sphinx>`_ version 1.6+
 * `sphinx-intl <https://pypi.python.org/pypi/sphinx-intl>`_ version 0.9.9
 * `lupa <https://pypi.python.org/pypi/lupa>`_ -- any version
 
@@ -71,15 +71,13 @@ section of this documentation.
 
    Run the following command to set up a web-server. The example below is for
    Ubuntu, but the procedure is similar for other supported operating systems.
-   Make sure to run it from the documentation output folder,
-   ``output/en`` or ``output/ru``, as in the example below:
+   Make sure to run it from the ``~/tarantool-doc`` folder:
 
    .. code-block:: bash
 
-     cd ~/tarantool-doc/output/en
-     python -m SimpleHTTPServer 8000
+     make sphinx-webserver
 
-5. Open your browser and enter ``127.0.0.1:8000/doc/1.7`` into the address box. If
+5. Open your browser and enter ``localhost:8000`` into the address box. If
    your local documentation build is valid, the manual will appear in the browser.
 
 6. To contribute to documentation, use the ``.rst`` format for drafting and
