@@ -535,3 +535,22 @@ for spaces, users, roles, and function tuples.
     .. code-block:: lua
 
         box.schema.func.exists('calculate')
+
+.. _box_schema-func_reload:
+
+.. function:: box.schema.func.reload(func-name)
+
+    Reload a C function without restarting the server.
+
+    .. NOTE::
+
+        When a function from a certain package is reloaded, all the other functions from this
+        package are also reloaded.
+
+    :param string func-name: the name of the function to reload
+
+    **Example:**
+
+    .. code-block:: lua
+
+        box.schema.func.reload('package.function')
