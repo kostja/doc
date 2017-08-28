@@ -42,8 +42,8 @@ On this diagram:
 * The state machine starts in the 'initial' state.
 
 * ``net_box.connect()`` method changes the state to 'connecting' and spawns a worker fiber.
-  
-* If authentication and schema upload are required, it's possible later on to re-enter 
+
+* If authentication and schema upload are required, it's possible later on to re-enter
   the 'fetch_schema' state from 'active' if a request fails due to a schema version
   mismatch error, so schema reload is triggered.
 
@@ -82,25 +82,25 @@ Below is a list of all ``net.box`` functions.
         | :ref:`conn:close()                                 | Close a connection        |
         | <conn-close>`                                      |                           |
         +----------------------------------------------------+---------------------------+
-        | :ref:`conn.space.<space-name>:select{field-value}  | Select one or more tuples |
+        | :ref:`conn.space.space-name:select{field-value}    | Select one or more tuples |
         | <conn-select>`                                     |                           |
         +----------------------------------------------------+---------------------------+
-        | :ref:`conn.space.<space-name>:get{field-value}     | Select a tuple            |
+        | :ref:`conn.space.space-name:get{field-value}       | Select a tuple            |
         | <conn-get>`                                        |                           |
         +----------------------------------------------------+---------------------------+
-        | :ref:`conn.space.<space-name>:insert{field-value}  | Insert a tuple            |
+        | :ref:`conn.space.space-name:insert{field-value}    | Insert a tuple            |
         | <conn-insert>`                                     |                           |
         +----------------------------------------------------+---------------------------+
-        | :ref:`conn.space.<space-name>:replace{field-value} | Insert or replace a tuple |
+        | :ref:`conn.space.space-name:replace{field-value}   | Insert or replace a tuple |
         | <conn-replace>`                                    |                           |
         +----------------------------------------------------+---------------------------+
-        | :ref:`conn.space.<space-name>:update{field-value}  | Update a tuple            |
+        | :ref:`conn.space.space-name:update{field-value}    | Update a tuple            |
         | <conn-update>`                                     |                           |
         +----------------------------------------------------+---------------------------+
-        | :ref:`conn.space.<space-name>:upsert{field-value}  | Update a tuple            |
+        | :ref:`conn.space.space-name:upsert{field-value}    | Update a tuple            |
         | <conn-upsert>`                                     |                           |
         +----------------------------------------------------+---------------------------+
-        | :ref:`conn.space.<space-name>:delete{field-value}  | Delete a tuple            |
+        | :ref:`conn.space.space-name:delete{field-value}    | Delete a tuple            |
         | <conn-delete>`                                     |                           |
         +----------------------------------------------------+---------------------------+
         | :ref:`conn:call()                                  | Call a stored procedure   |
@@ -124,11 +124,11 @@ Below is a list of all ``net.box`` functions.
 .. function:: new(URI [, {option[s]}])
 
     .. NOTE::
-    
+
        The names ``connect()`` and ``new()`` are synonymous with the only
        difference that ``connect()`` is the preferred name, while ``new()`` is
        retained for backward compatibility.
-    
+
     Create a new connection. The connection is established on demand, at the
     time of the first request. It can be re-established automatically after a
     disconnect (see ``reconnect_after`` option below).
@@ -146,18 +146,18 @@ Below is a list of all ``net.box`` functions.
     :ref:`the implicit rules <atomic-implicit-yields>`
     any request can yield, and database state may have changed by the time it
     regains control.
-    
+
     Possible options:
-    
+
     * `wait_connected`: by default, connection creation is blocked until the connection is established,
       but passing ``wait_connected=false`` makes it return immediately. Also, passing a timeout
       makes it wait before returning (e.g. ``wait_connected=1.5`` makes it wait at most 1.5 secs).
-      
+
       .. NOTE::
-      
+
          In the presence of ``reconnect_after``, ``wait_connected`` ignores transient failures.
          The wait completes once the connection is established or is closed explicitly.
-      
+
     * `reconnect_after`: a ``net.box`` instance automatically reconnects
       any time the connection is broken or if a connection attempt fails.
       This makes transient network failures become transparent to the application.
@@ -166,8 +166,8 @@ Below is a list of all ``net.box`` functions.
       The number of retries is unlimited, connection attempts are done over the
       specified timeout (e.g. ``reconnect_after=5`` for 5 secs).
       Once a connection is explicitly closed (or garbage-collected), reconnects stop.
-      
-    * `call_16`: [since 1.7.2] by default, ``net.box`` connections comply with a new 
+
+    * `call_16`: [since 1.7.2] by default, ``net.box`` connections comply with a new
       binary protocol command for CALL, which is not backward compatible with previous versions.
       The new CALL no longer restricts a function to returning an array of tuples
       and allows returning an arbitrary MsgPack/JSON result, including scalars, nil and void (nothing).
@@ -175,7 +175,7 @@ Below is a list of all ``net.box`` functions.
       It will be removed in the next major release.
       All programming language drivers will be gradually changed to use the new CALL.
       To connect to a Tarantool instance that uses the old CALL, specify ``call_16=true``.
-      
+
     * `console`: depending on the option's value, the connection supports different methods
       (as if instances of different classes were returned). With ``console = true``, you can use
       ``conn`` methods ``close()``, ``is_connected()``, ``wait_state()``, ``eval()`` (in this case, both
@@ -194,7 +194,7 @@ Below is a list of all ``net.box`` functions.
         conn = net_box.connect('localhost:3301')
         conn = net_box.connect('127.0.0.1:3302', {wait_connected = false})
         conn = net_box.connect('127.0.0.1:3303', {reconnect_after = 5, call_16 = true})
-        
+
 .. class:: conn
 
     .. _conn-ping:
@@ -260,10 +260,10 @@ Below is a list of all ``net.box`` functions.
 
             -- wait infinitely for 'active' state:
             conn:wait_state('active')
-            
+
             -- wait for 1.5 secs at most:
             conn:wait_state('active', 1.5)
-            
+
             -- wait infinitely for either `active` or `fetch_schema` state:
             conn:wait_state({active=true, fetch_schema=true})
 

@@ -115,7 +115,7 @@ A list of all ``fio`` functions follows, then comes a list of all
         | <file_handle-fsync>`                 |                                 |
         +--------------------------------------+---------------------------------+
         | :ref:`fio.c                          | Table of constants similar to   |
-        | <fio-c>`                             | POSIX flag values               |
+        | <fio-c_table>`                       | POSIX flag values               |
         +--------------------------------------+---------------------------------+
 
 .. module:: fio
@@ -227,14 +227,14 @@ A list of all ``fio`` functions follows, then comes a list of all
     :rtype:  table
 
     Additionally, the result of ``fio.stat('file-name')`` will include methods
-    equivalent to POSIX macros:        
+    equivalent to POSIX macros:
 
-    * ``is_blk()`` = POSIX macro S_ISBLK, 
-    * ``is_chr()`` = POSIX macro S_ISCHR, 
-    * ``is_dir()`` = POSIX macro S_ISDIR, 
-    * ``is_fifo()`` = POSIX macro S_ISFIFO, 
-    * ``is_link()`` = POSIX macro S_ISLINK, 
-    * ``is_reg()`` = POSIX macro S_ISREG, 
+    * ``is_blk()`` = POSIX macro S_ISBLK,
+    * ``is_chr()`` = POSIX macro S_ISCHR,
+    * ``is_dir()`` = POSIX macro S_ISDIR,
+    * ``is_fifo()`` = POSIX macro S_ISFIFO,
+    * ``is_link()`` = POSIX macro S_ISLINK,
+    * ``is_reg()`` = POSIX macro S_ISREG,
     * ``is_sock()`` = POSIX macro S_ISSOCK.
 
     For example, ``fio.stat('/'):is_dir()`` will return true.
@@ -676,13 +676,13 @@ A list of all ``fio`` functions follows, then comes a list of all
          FIO constants
 =================================================
 
-.. _fio-c:
+.. _fio-c_table:
 
 .. data:: c
 
     Table with constants which are the same as POSIX flag values on the
     target platform (see ``man 2 stat``).
-    
+
     **Example:**
 
     .. code-block:: tarantoolsession
