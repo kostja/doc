@@ -9,7 +9,31 @@ takes a series of non-MsgPack values and encodes them.
 Tarantool makes heavy internal use of MsgPack because tuples in Tarantool
 are :ref:`stored <index-box_lua-vs-msgpack>` as MsgPack arrays.
 
+Below is a list of all ``msgpack`` functions and members.
+
+    **The functions and members of the msgpack module**
+
+    .. container:: table
+
+        .. rst-class:: left-align-column-1
+        .. rst-class:: left-align-column-2
+
+        +--------------------------------------+---------------------------------+
+        | Name                                 | Use                             |
+        +======================================+=================================+
+        | :ref:`msgpack.encode()               | Convert a Lua object to an      |
+        | <json-encode>`                       | MsgPack string                  |
+        +--------------------------------------+---------------------------------+
+        | :ref:`msgpack.decode()               | Convert an MsgPack string to a  |
+        | <json-decode>`                       | Lua object                      |
+        +--------------------------------------+---------------------------------+
+        | :ref:`msgpack.NULL                   | Analog of Lua's "nil"           |
+        | <json-null>`                         |                                 |
+        +--------------------------------------+---------------------------------+
+
 .. module:: msgpack
+
+.. _msgpack-encode:
 
 .. function:: encode(lua_value)
 
@@ -18,6 +42,8 @@ are :ref:`stored <index-box_lua-vs-msgpack>` as MsgPack arrays.
     :param lua_value: either a scalar value or a Lua table value.
     :return: the original value reformatted as a MsgPack string.
     :rtype: string
+
+.. _msgpack-decode:
 
 .. function:: decode(string)
 

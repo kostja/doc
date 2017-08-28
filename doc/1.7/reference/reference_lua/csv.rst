@@ -4,7 +4,7 @@
 
 .. module:: csv
 
-The csv module handles records formatted according to Comma-Separated-Values
+The ``csv`` module handles records formatted according to Comma-Separated-Values
 (CSV) rules.
 
 The default formatting rules are:
@@ -31,6 +31,28 @@ The possible options which can be passed to csv functions are:
   at once (usually for file-IO efficiency)
 * :samp:`skip_head_lines = {number}` (default: 0) -- number of lines to skip at
   the start (usually for a header)
+
+Below is a list of all ``csv`` functions.
+
+    **The functions of the csv module**
+
+    .. container:: table
+
+        .. rst-class:: left-align-column-1
+        .. rst-class:: left-align-column-2
+
+        +--------------------------------------+---------------------------------+
+        | Name                                 | Use                             |
+        +======================================+=================================+
+        | :ref:`csv.load()                     | Load a CSV file                 |
+        | <csv-load>`                          |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`csv.dump()                     | Transform input into a          |
+        | <csv-dump>`                          | CSV-formatted string            |
+        +--------------------------------------+---------------------------------+
+        | :ref:`csv.iterate()                  | Iterate over CSV records        |
+        | <csv-iterate>`                       |                                 |
+        +--------------------------------------+---------------------------------+
 
 .. _csv-load:
 

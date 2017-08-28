@@ -10,6 +10,28 @@ is that when the error reaches the client, its error code is preserved.
 In contrast, a Lua error would always be presented to the client as
 :errcode:`ER_PROC_LUA`.
 
+Below is a list of all ``box.error`` functions.
+
+    **The functions of box.error**
+
+    .. container:: table
+
+        .. rst-class:: left-align-column-1
+        .. rst-class:: left-align-column-2
+
+        +--------------------------------------+---------------------------------+
+        | Name                                 | Use                             |
+        +======================================+=================================+
+        | :ref:`box.error()                    | Throw an error                  |
+        | <box_error-error>`                   |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`box.error.last()               | Get a description of the        |
+        | <box_error-last>`                    | last error                      |
+        +--------------------------------------+---------------------------------+
+        | :ref:`box.error.clear()              | Clear the record of errors      |
+        | <box_error-clear>`                   |                                 |
+        +--------------------------------------+---------------------------------+
+
 .. function:: box.error{reason=string [, code=number]}
 
     When called with a Lua-table argument, the code and reason have any
@@ -78,6 +100,8 @@ In contrast, a Lua error would always be presented to the client as
     "errno" (number) C standard error number.
 
     rtype: table
+
+.. _box_error-clear:
 
 .. function:: box.error.clear()
 

@@ -15,6 +15,25 @@ Typically the list includes ASCII, BIG5, KOI8R, LATIN8, MS-GREEK, SJIS,
 and about 100 others. For a complete list, type ``iconv --list`` on a
 terminal.
 
+Below is a list of all ``iconv`` functions.
+
+    **The functions of the iconv module**
+
+    .. container:: table
+
+        .. rst-class:: left-align-column-1
+        .. rst-class:: left-align-column-2
+
+        +--------------------------------------+---------------------------------+
+        | Name                                 | Use                             |
+        +======================================+=================================+
+        | :ref:`iconv.new()                    | Create an iconv instance        |
+        | <iconv-new>`                         |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`iconv.converter()              | Perform conversion on a string  |
+        | <iconv-converter>`                   |                                 |
+        +--------------------------------------+---------------------------------+
+
 .. _iconv-new:
 
 .. function:: new(to, from)
@@ -36,6 +55,8 @@ terminal.
         tarantool> converter = require('iconv').new('UTF8', 'ASCII')
         ---
         ...
+
+    .. _iconv-converter:
 
     .. function:: converter(input-string)
 

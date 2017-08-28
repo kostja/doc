@@ -9,6 +9,73 @@
 The ``box.schema`` submodule has data-definition functions
 for spaces, users, roles, and function tuples.
 
+Below is a list of all ``box.schema`` functions.
+
+    **The functions and members of box.schema**
+
+    .. container:: table
+
+        .. rst-class:: left-align-column-1
+        .. rst-class:: left-align-column-2
+
+        +--------------------------------------+---------------------------------+
+        | Name                                 | Use                             |
+        +======================================+=================================+
+        | :ref:`box.schema.space.create()      | Create a space                  |
+        | <box_schema-space_create>`           |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`box.schema.user.create()       | Create a user                   |
+        | <box_schema-user_create>`            |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`box.schema.user.drop()         | Drop a user                     |
+        | <box_schema-user_drop>`              |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`box.schema.user.exists()       | Check if a user exists          |
+        | <box_schema-user_exists>`            |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`box.schema.user.grant()        | Grant privileges to a user or   |
+        | <box_schema-user_grant>`             | a role                          |
+        +--------------------------------------+---------------------------------+
+        | :ref:`box.schema.user.revoke()       | Revoke privileges from a user   |
+        | <box_schema-user_revoke>`            | or a role                       |
+        +--------------------------------------+---------------------------------+
+        | :ref:`box.schema.user.password()     | Get a hash of a user's password |
+        | <box_schema-user_password>`          |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`box.schema.user.passwd()       | Associate a password with       |
+        | <box_schema-user_passwd>`            | a user                          |
+        +--------------------------------------+---------------------------------+
+        | :ref:`box.schema.user.info()         | Get a description of a user's   |
+        | <box_schema-user_info>`              | privileges                      |
+        +--------------------------------------+---------------------------------+
+        | :ref:`box.schema.role.create()       | Create a role                   |
+        | <box_schema-role_create>`            |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`box.schema.role.drop()         | Drop a role                     |
+        | <box_schema-role_drop>`              |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`box.schema.role.exists()       | Check if a role exists          |
+        | <box_schema-role_exists>`            |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`box.schema.role.grant()        | Grant privileges to a role      |
+        | <box_schema-role_grant>`             |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`box.schema.role.revoke()       | Revoke privileges from a role   |
+        | <box_schema-role_revoke>`            |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`box.schema.role.info()         | Get a description of a role's   |
+        | <box_schema-role_info>`              | privileges                      |
+        +--------------------------------------+---------------------------------+
+        | :ref:`box.schema.func.create()       | Create a function tuple         |
+        | <box_schema-func_create>`            |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`box.schema.func.drop()         | Drop a function tuple           |
+        | <box_schema-func_drop>`              |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`box.schema.func.exists()       | Check if a function tuple       |
+        | <box_schema-func_exists>`            | exists                          |
+        +--------------------------------------+---------------------------------+
+
 .. _box_schema-space_create:
 
 .. function:: box.schema.space.create(space-name [, {options}])

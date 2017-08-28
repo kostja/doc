@@ -8,7 +8,67 @@ standard TAP-analyzers so they can be passed to utilities such as `prove`_. Thus
 one can run tests and then use the results for statistics, decision-making, and
 so on.
 
+Below is a list of all ``tap`` functions.
+
+    **The functions of the tap module**
+
+    .. container:: table
+
+        .. rst-class:: left-align-column-1
+        .. rst-class:: left-align-column-2
+
+        +--------------------------------------+---------------------------------+
+        | Name                                 | Use                             |
+        +======================================+=================================+
+        | :ref:`tap.test()                     | Initialize                      |
+        | <tap-test>`                          |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`taptest:plan()                 | Indicate how many tests to      |
+        | <taptest-plan>`                      | perform                         |
+        +--------------------------------------+---------------------------------+
+        | :ref:`taptest:check()                | Check the number of tests       |
+        | <taptest-check>`                     | performed                       |
+        +--------------------------------------+---------------------------------+
+        | :ref:`taptest:diag()                 | Display a diagnostic message    |
+        | <taptest-diag>`                      |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`taptest:ok()                   | Evaluate the condition and      |
+        | <taptest-ok>`                        | display the message             |
+        +--------------------------------------+---------------------------------+
+        | :ref:`taptest:fail()                 | Evaluate the condition and      |
+        | <taptest-fail>`                      | display the message             |
+        +--------------------------------------+---------------------------------+
+        | :ref:`taptest:skip()                 | Evaluate the condition and      |
+        | <taptest-skip>`                      | display the message             |
+        +--------------------------------------+---------------------------------+
+        | :ref:`taptest:is()                   | Check if the two arguments are  |
+        | <taptest-is>`                        | equal                           |
+        +--------------------------------------+---------------------------------+
+        | :ref:`taptest:isnt()                 | Check if the two arguments are  |
+        | <taptest-isnt>`                      | equal                           |
+        +--------------------------------------+---------------------------------+
+        | :ref:`taptest:isnil()                |                                 |
+        | <taptest-istype>` |br|               |                                 |
+        | :ref:`taptest:isstring()             |                                 |
+        | <taptest-istype>` |br|               |                                 |
+        | :ref:`taptest:isnumber()             |                                 |
+        | <taptest-istype>` |br|               |                                 |
+        | :ref:`taptest:istable()              | Check if a value has a          |
+        | <taptest-istype>` |br|               | particular type                 |
+        | :ref:`taptest:isboolean()            |                                 |
+        | <taptest-istype>` |br|               |                                 |
+        | :ref:`taptest:isudata()              |                                 |
+        | <taptest-istype>` |br|               |                                 |
+        | :ref:`taptest:iscdata()              |                                 |
+        | <taptest-istype>`                    |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`taptest:is_deeply()            | Recursively check if the two    |
+        | <taptest-is_deeply>`                 | arguments are equal             |
+        +--------------------------------------+---------------------------------+
+
 .. module:: tap
+
+.. _tap-test:
 
 .. function:: test(test-name)
 
@@ -29,12 +89,16 @@ so on.
 
 .. class:: taptest
 
+    .. _taptest-plan:
+
     .. method:: plan(count)
 
         Indicate how many tests will be performed.
 
         :param number count:
         :return: nil
+
+    .. _taptest-check:
 
     .. method:: check()
 
@@ -47,12 +111,16 @@ so on.
 
         :return: nil
 
+    .. _taptest-diag:
+
     .. method:: diag(message)
 
         Display a diagnostic message.
 
         :param string message: the message to be displayed.
         :return: nil
+
+    .. _taptest-ok:
 
     .. method:: ok(condition, test-name)
 
@@ -88,6 +156,8 @@ so on.
             - true
             ...
 
+    .. _taptest-fail:
+
     .. method:: fail(test-name)
 
         ``taptest:fail('x')`` is equivalent to ``taptest:ok(false, 'x')``.
@@ -97,6 +167,8 @@ so on.
 
         :return: true or false.
         :rtype:  boolean
+
+    .. _taptest-skip:
 
     .. method:: skip(message)
 
@@ -118,6 +190,8 @@ so on.
             - true
             ...
 
+    .. _taptest-is:
+
     .. method:: is(got, expected, test-name)
 
         Check whether the first argument equals the second argument.
@@ -129,6 +203,8 @@ so on.
         :return: true or false.
         :rtype:  boolean
 
+    .. _taptest-isnt:
+
     .. method:: isnt(got, expected, test-name)
 
         This is the negation of ``taptest:is(...)``.
@@ -139,6 +215,8 @@ so on.
 
         :return: true or false.
         :rtype:  boolean
+
+    .. _taptest-istype:
 
     .. method:: isnil(value, test-name)
                 isstring(value, test-name)
@@ -156,6 +234,8 @@ so on.
 
         :return: true or false.
         :rtype:  boolean
+
+    .. _taptest-is_deeply:
 
     .. method:: is_deeply(got, expected, test-name)
 

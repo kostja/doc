@@ -14,6 +14,25 @@ Tarantool's URI module provides routines which
 convert URI strings into their components,
 or turn components into URI strings.
 
+Below is a list of all ``uri`` functions.
+
+    **The functions of the uri module**
+
+    .. container:: table
+
+        .. rst-class:: left-align-column-1
+        .. rst-class:: left-align-column-2
+
+        +--------------------------------------+---------------------------------+
+        | Name                                 | Use                             |
+        +======================================+=================================+
+        | :ref:`uri.parse()                    | Get a table of URI components   |
+        | <uri-parse>`                         |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`uri.format()                   | Construct a URI from components |
+        | <uri-format>`                        |                                 |
+        +--------------------------------------+---------------------------------+
+
 .. module:: uri
 
 .. _uri-parse:
@@ -21,7 +40,7 @@ or turn components into URI strings.
 .. function:: parse(URI-string)
 
     :param URI-string: a Uniform Resource Identifier
-    :returns: URI-components-table. Possible components are fragment, host, login, password, path, query, scheme, service.
+    :return: URI-components-table. Possible components are fragment, host, login, password, path, query, scheme, service.
     :rtype: Table
 
     **Example:**
@@ -44,7 +63,7 @@ or turn components into URI strings.
 .. function:: format(URI-components-table)
 
     :param URI-components-table: a series of name:value pairs, one for each component
-    :returns: URI-string. Thus uri.format() is the reverse of uri.parse().
+    :return: URI-string. Thus uri.format() is the reverse of uri.parse().
     :rtype: string
 
     **Example:**

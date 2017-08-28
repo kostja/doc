@@ -11,6 +11,51 @@ userdata type. It allows, for a single :ref:`tuple <index-box_tuple>`: selective
 contents, retrieval of information about size, iteration over all the fields,
 and conversion to a `Lua table <https://www.lua.org/pil/2.5.html>`_.
 
+Below is a list of all ``box.tuple`` functions.
+
+    **The functions of box.tuple**
+
+    .. container:: table
+
+        .. rst-class:: left-align-column-1
+        .. rst-class:: left-align-column-2
+
+        +--------------------------------------+---------------------------------+
+        | Name                                 | Use                             |
+        +======================================+=================================+
+        | :ref:`box.tuple.new()                | Create a tuple                  |
+        | <box_tuple-new>`                     |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`#tuple_object                  | Count tuple fields              |
+        | <box_tuple-count_fields>`            |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`tuple_object:bsize()           | Get count of bytes in a tuple   |
+        | <box_tuple-bsize>`                   |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`tuple_object[field-number]     | Get a tuple's specific field    |
+        | <box_tuple-field_number>`            |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`tuple_object:find()            | Get the number of the first     |
+        | <box_tuple-find>`                    | field matching the search value |
+        +--------------------------------------+---------------------------------+
+        | :ref:`tuple_object:findall()         | Get the number of all fields    |
+        | <box_tuple-find>`                    | matching the search value       |
+        +--------------------------------------+---------------------------------+
+        | :ref:`tuple_object:transform()       | Remove (and replace) a tuple's  |
+        | <box_tuple-transform>`               | fields                          |
+        +--------------------------------------+---------------------------------+
+        | :ref:`tuple_object:unpack()          | Get a tuple's fields            |
+        | <box_tuple-unpack>`                  |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`tuple_object:totable()         | Get a tuple's fields as a table |
+        | <box_tuple-totable>`                 |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`tuple_object:pairs()           | Prepare for iterating           |
+        | <box_tuple-pairs>`                   |                                 |
+        +--------------------------------------+---------------------------------+
+        | :ref:`tuple_object:update()          | Update a tuple                  |
+        | <box_tuple-update>`                  |                                 |
+        +--------------------------------------+---------------------------------+
 
 .. _box_tuple-new:
 
@@ -53,6 +98,8 @@ and conversion to a `Lua table <https://www.lua.org/pil/2.5.html>`_.
 
 .. class:: tuple_object
 
+    .. _box_tuple-count_fields:
+
     .. operator:: #tuple_object
 
         The ``#`` operator in Lua means "return count of components". So,
@@ -72,6 +119,8 @@ and conversion to a `Lua table <https://www.lua.org/pil/2.5.html>`_.
             ---
             - 4
             ...
+
+    .. _box_tuple-bsize:
 
     .. method:: bsize()
 
@@ -102,6 +151,8 @@ and conversion to a `Lua table <https://www.lua.org/pil/2.5.html>`_.
             - 13
             ...
 
+    .. _box_tuple-field_number:
+
     .. operator:: tuple_object[field-number]
 
         If ``t`` is a tuple instance, ``t[field-number]`` will return the field
@@ -122,6 +173,8 @@ and conversion to a `Lua table <https://www.lua.org/pil/2.5.html>`_.
             ---
             - Fld#2
             ...
+
+    .. _box_tuple-find:
 
     .. method:: find([field-number, ] search-value)
                 findall([field-number, ] search-value)
@@ -161,6 +214,8 @@ and conversion to a `Lua table <https://www.lua.org/pil/2.5.html>`_.
             - 4
             ...
 
+    .. _box_tuple-transform:
+
     .. method:: transform(start-field-number, fields-to-remove [, field-value, ...])
 
         If ``t`` is a tuple instance, :samp:`t:transform({start-field-number},{fields-to-remove})`
@@ -189,6 +244,8 @@ and conversion to a `Lua table <https://www.lua.org/pil/2.5.html>`_.
             - ['Fld#1', 'x', 'Fld#4', 'Fld#5']
             ...
 
+    .. _box_tuple-unpack:
+
     .. method:: unpack([start-field-number [, end-field-number]])
 
         If ``t`` is a tuple instance, ``t:unpack()`` will return all fields,
@@ -215,6 +272,8 @@ and conversion to a `Lua table <https://www.lua.org/pil/2.5.html>`_.
             - Fld#5
             ...
 
+    .. _box_tuple-totable:
+
     .. method:: totable([start-field-number [, end-field-number]])
 
         If ``t`` is a tuple instance, ``t:totable()`` will return all fields,
@@ -238,6 +297,7 @@ and conversion to a `Lua table <https://www.lua.org/pil/2.5.html>`_.
             - ['Fld#1', 'Fld#2', 'Fld#3', 'Fld#4', 'Fld#5']
             ...
 
+    .. _box_tuple-pairs:
 
     .. method:: pairs()
 
@@ -270,6 +330,8 @@ and conversion to a `Lua table <https://www.lua.org/pil/2.5.html>`_.
             ---
             - Fld#1Fld#2Fld#3Fld#4Fld#5
             ...
+
+    .. _box_tuple-update:
 
     .. method:: update({{operator, field_no, value}, ...})
 
