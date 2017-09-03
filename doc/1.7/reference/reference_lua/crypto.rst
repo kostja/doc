@@ -6,6 +6,10 @@
 
 .. module:: crypto.cipher
 
+===============================================================================
+                                   Overview
+===============================================================================
+
 "Crypto" is short for "Cryptography", which generally refers to the production
 of a digest value from a function (usually a `Cryptographic hash function`_),
 applied against a string. Tarantool's ``crypto`` module supports ten types of
@@ -13,9 +17,11 @@ cryptographic hash functions (AES_, DES_, DSS_, MD4_, MD5_, MDC2_, RIPEMD_,
 SHA-0_, SHA-1_, SHA-2_). Some of the crypto functionality is also present in the
 :ref:`digest` module.
 
-Below is a list of all ``crypto`` functions.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The functions of the crypto module**
+Below is a list of all ``crypto`` functions.
 
     .. container:: table
 

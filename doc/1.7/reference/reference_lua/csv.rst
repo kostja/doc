@@ -4,6 +4,10 @@
 
 .. module:: csv
 
+===============================================================================
+                                   Overview
+===============================================================================
+
 The ``csv`` module handles records formatted according to Comma-Separated-Values
 (CSV) rules.
 
@@ -32,9 +36,11 @@ The possible options which can be passed to csv functions are:
 * :samp:`skip_head_lines = {number}` (default: 0) -- number of lines to skip at
   the start (usually for a header)
 
-Below is a list of all ``csv`` functions.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The functions of the csv module**
+Below is a list of all ``csv`` functions.
 
     .. container:: table
 

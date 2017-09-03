@@ -4,13 +4,19 @@
                           Module `json`
 -------------------------------------------------------------------------------
 
+===============================================================================
+                                   Overview
+===============================================================================
+
 The ``json`` module provides JSON manipulation routines. It is based on the
 `Lua-CJSON module by Mark Pulford`_. For a complete manual on Lua-CJSON please
 read `the official documentation`_.
 
-Below is a list of all ``json`` functions and members.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The functions and members of the json module**
+Below is a list of all ``json`` functions and members.
 
     .. container:: table
 

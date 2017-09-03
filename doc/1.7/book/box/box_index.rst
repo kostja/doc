@@ -4,16 +4,21 @@
                             Submodule `box.index`
 -------------------------------------------------------------------------------
 
+===============================================================================
+                                   Overview
+===============================================================================
+
 The ``box.index`` submodule provides read-only access for index definitions and
 index keys. Indexes are contained in :samp:`box.space.{space-name}.index` array within
 each space object. They provide an API for ordered iteration over tuples. This
 API is a direct binding to corresponding methods of index objects of type
 ``box.index`` in the storage engine.
 
-A list of all ``box.index`` members follows, then comes a list of all
-``box.index`` functions.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The members and functions of box.index**
+Below is a list of all ``box.index`` functions and members.
 
     .. container:: table
 

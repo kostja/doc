@@ -4,12 +4,18 @@
                             Module `yaml`
 -------------------------------------------------------------------------------
 
+===============================================================================
+                                   Overview
+===============================================================================
+
 The ``yaml`` module takes strings in YAML_ format and decodes them, or takes a
 series of non-YAML values and encodes them.
 
-Below is a list of all ``yaml`` functions and members.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The functions and members of the yaml module**
+Below is a list of all ``yaml`` functions and members.
 
     .. container:: table
 

@@ -2,6 +2,10 @@
                             Module `uri`
 -------------------------------------------------------------------------------
 
+===============================================================================
+                                   Overview
+===============================================================================
+
 A "URI" is a "Uniform Resource Identifier".
 The `IETF standard <https://www.ietf.org/rfc/rfc2396.txt>`_
 says a URI string looks like this: |br|
@@ -9,14 +13,16 @@ says a URI string looks like this: |br|
 A common type, a hierarchical URI, looks like this: |br|
 [scheme:][//authority][path][?query][#fragment] |br|
 For example the string `'https://tarantool.org/x.html#y'`
-has three components: https is the scheme, tarantool.org/x.html is the path, and y is the fragment.
-Tarantool's URI module provides routines which
+has three components: https is the scheme, tarantool.org/x.html is the path,
+and y is the fragment. Tarantool's URI module provides routines which
 convert URI strings into their components,
 or turn components into URI strings.
 
-Below is a list of all ``uri`` functions.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The functions of the uri module**
+Below is a list of all ``uri`` functions.
 
     .. container:: table
 

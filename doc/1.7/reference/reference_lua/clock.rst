@@ -4,14 +4,20 @@
                             Module `clock`
 -------------------------------------------------------------------------------
 
+===============================================================================
+                                   Overview
+===============================================================================
+
 The ``clock`` module returns time values derived from the Posix / C
 CLOCK_GETTIME_ function or equivalent. Most functions in the module return a
 number of seconds; functions whose names end in "64" return a 64-bit number of
 nanoseconds.
 
-Below is a list of all ``clock`` functions.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The functions of the clock module**
+Below is a list of all ``clock`` functions.
 
     .. container:: table
 

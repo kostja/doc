@@ -4,6 +4,10 @@
 Module `net.box`
 --------------------------------------------------------------------------------
 
+===============================================================================
+                                   Overview
+===============================================================================
+
 The ``net.box`` module contains connectors to remote database systems. One
 variant, to be discussed later, is connecting to MySQL or MariaDB or PostgreSQL
 (see :ref:`SQL DBMS modules <dbms_modules>` reference). The other variant, which
@@ -50,9 +54,11 @@ On this diagram:
 * ``conn.close()`` method sets the state to 'closed' and kills the worker.
   If the transport is already in the 'error' state, ``close()`` does nothing.
 
-Below is a list of all ``net.box`` functions.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The functions of the net.box module**
+Below is a list of all ``net.box`` functions.
 
     .. container:: table
 

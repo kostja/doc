@@ -6,6 +6,10 @@
 
 .. module:: digest
 
+===============================================================================
+                                   Overview
+===============================================================================
+
 A "digest" is a value which is returned by a function (usually a
 `Cryptographic hash function`_), applied against a string. Tarantool's ``digest``
 module supports several types of cryptographic hash functions (AES_, MD4_,
@@ -14,9 +18,11 @@ functions for base64_, and two non-cryptographic hash functions (guava_, murmur_
 Some of the digest functionality is also present in the :ref:`crypto <crypto>`
 module.
 
-Below is a list of all ``digest`` functions.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The functions of the digest module**
+Below is a list of all ``digest`` functions.
 
     .. container:: table
 

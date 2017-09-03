@@ -2,9 +2,11 @@
                             Module `pickle`
 -------------------------------------------------------------------------------
 
-Below is a list of all ``pickle`` functions.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The functions of the pickle module**
+Below is a list of all ``pickle`` functions.
 
     .. container:: table
 

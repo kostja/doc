@@ -6,12 +6,18 @@
 
 .. module:: box.schema
 
+===============================================================================
+                                   Overview
+===============================================================================
+
 The ``box.schema`` submodule has data-definition functions
 for spaces, users, roles, and function tuples.
 
-Below is a list of all ``box.schema`` functions.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The functions and members of box.schema**
+Below is a list of all ``box.schema`` functions.
 
     .. container:: table
 

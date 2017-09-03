@@ -6,6 +6,10 @@
 
 .. module:: os
 
+===============================================================================
+                                   Overview
+===============================================================================
+
 The ``os`` module contains the functions :ref:`execute() <os-execute>`,
 :ref:`rename() <os-rename>`, :ref:`getenv() <os-getenv>`,
 :ref:`remove() <os-remove>`, :ref:`date() <os-date>`,
@@ -19,9 +23,11 @@ Most of these functions are described in the Lua manual
 Chapter 22 `The Operating System Library
 <https://www.lua.org/pil/contents.html#22>`_.
 
-Below is a list of all ``os`` functions.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The functions of the os module**
+Below is a list of all ``os`` functions.
 
     .. container:: table
 

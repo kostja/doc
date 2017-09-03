@@ -4,13 +4,19 @@
                                    Module `console`
 -------------------------------------------------------------------------------
 
+===============================================================================
+                                   Overview
+===============================================================================
+
 The console module allows one Tarantool instance to access another Tarantool
 instance, and allows one Tarantool instance to start listening on an
 :ref:`admin port <admin-security>`.
 
-Below is a list of all ``console`` functions.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The functions of the console module**
+Below is a list of all ``console`` functions.
 
     .. container:: table
 

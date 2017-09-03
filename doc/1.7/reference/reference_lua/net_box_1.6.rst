@@ -4,6 +4,10 @@
                                 Module `net.box`
 --------------------------------------------------------------------------------
 
+===============================================================================
+                                   Overview
+===============================================================================
+
 The ``net.box`` module contains connectors to remote database systems. One
 variant, to be discussed later, is for connecting to MySQL or MariaDB or PostgreSQL —
 that variant is the subject of the :ref:`SQL DBMS modules <dbms_modules>` reference.
@@ -25,9 +29,11 @@ the overhead of system calls and increases the overall server performance. There
 are, however, cases when a single connection is not enough — for example when it's
 necessary to prioritize requests or to use different authentication ids.
 
-Below is a list of all ``net.box`` functions.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The functions of the net.box module**
+Below is a list of all ``net.box`` functions.
 
     .. container:: table
 

@@ -2,15 +2,21 @@
                             Module `uuid`
 -------------------------------------------------------------------------------
 
+===============================================================================
+                                   Overview
+===============================================================================
+
 A "UUID" is a `Universally unique identifier`_. If an application requires that
 a value be unique only within a single computer or on a single database, then a
 simple counter is better than a UUID, because getting a UUID is time-consuming
 (it requires a syscall_). For clusters of computers, or widely distributed
 applications, UUIDs are better.
 
-Below is list of all ``uuid`` functions and members.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The functions and members of the uuid module**
+Below is list of all ``uuid`` functions and members.
 
     .. container:: table
 

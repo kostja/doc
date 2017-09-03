@@ -6,6 +6,10 @@
 
 .. module:: iconv
 
+===============================================================================
+                                   Overview
+===============================================================================
+
 The ``iconv`` module provides a way to convert a string with
 one encoding to a string with another encoding, for example from ASCII
 to UTF-8. It is based on the POSIX iconv routines.
@@ -15,9 +19,11 @@ Typically the list includes ASCII, BIG5, KOI8R, LATIN8, MS-GREEK, SJIS,
 and about 100 others. For a complete list, type ``iconv --list`` on a
 terminal.
 
-Below is a list of all ``iconv`` functions.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The functions of the iconv module**
+Below is a list of all ``iconv`` functions.
 
     .. container:: table
 

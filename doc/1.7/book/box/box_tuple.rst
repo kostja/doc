@@ -6,14 +6,20 @@
 
 .. module:: box.tuple
 
+===============================================================================
+                                   Overview
+===============================================================================
+
 The ``box.tuple`` submodule provides read-only access for the ``tuple``
 userdata type. It allows, for a single :ref:`tuple <index-box_tuple>`: selective retrieval of the field
 contents, retrieval of information about size, iteration over all the fields,
 and conversion to a `Lua table <https://www.lua.org/pil/2.5.html>`_.
 
-Below is a list of all ``box.tuple`` functions.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The functions of box.tuple**
+Below is a list of all ``box.tuple`` functions.
 
     .. container:: table
 

@@ -6,6 +6,10 @@
 
 .. _fio-section:
 
+===============================================================================
+                                   Overview
+===============================================================================
+
 Tarantool supports file input/output with an API that is similar to POSIX
 syscalls. All operations are performed asynchronously. Multiple fibers can
 access the same file simultaneously.
@@ -17,10 +21,11 @@ The ``fio`` module contains:
 * :ref:`constants <fio-c>` which are the same as POSIX flag values (for example
   ``fio.c.flag.O_RDONLY`` = POSIX O_RDONLY).
 
-A list of all ``fio`` functions follows, then comes a list of all
-``fio`` members.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The functions and members of the fio module**
+Below is a list of all ``fio`` functions and members.
 
     .. container:: table
 

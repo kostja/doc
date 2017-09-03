@@ -2,15 +2,21 @@
                                 Module `tap`
 -------------------------------------------------------------------------------
 
-The tap module streamlines the testing of other modules. It allows writing of
-tests in the `TAP protocol`_. The results from the tests can be parsed by
+===============================================================================
+                                   Overview
+===============================================================================
+
+The ``tap`` module streamlines the testing of other modules. It allows writing
+of tests in the `TAP protocol`_. The results from the tests can be parsed by
 standard TAP-analyzers so they can be passed to utilities such as `prove`_. Thus
 one can run tests and then use the results for statistics, decision-making, and
 so on.
 
-Below is a list of all ``tap`` functions.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The functions of the tap module**
+Below is a list of all ``tap`` functions.
 
     .. container:: table
 

@@ -4,15 +4,21 @@
 
 .. module:: box.error
 
+===============================================================================
+                                   Overview
+===============================================================================
+
 The ``box.error`` function is for raising an error. The difference between this
 function and Lua's built-in `error <https://www.lua.org/pil/8.3.html>`_ function
 is that when the error reaches the client, its error code is preserved.
 In contrast, a Lua error would always be presented to the client as
 :errcode:`ER_PROC_LUA`.
 
-Below is a list of all ``box.error`` functions.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The functions of box.error**
+Below is a list of all ``box.error`` functions.
 
     .. container:: table
 

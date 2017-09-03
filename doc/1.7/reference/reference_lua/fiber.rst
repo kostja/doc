@@ -4,6 +4,10 @@
                             Module `fiber`
 -------------------------------------------------------------------------------
 
+===============================================================================
+                                   Overview
+===============================================================================
+
 With the ``fiber`` module, you can:
 
 * create, run and manage :ref:`fibers <fiber-fibers>`,
@@ -13,57 +17,11 @@ With the ``fiber`` module, you can:
   similar to "condition variables" and similar to operating-system functions
   such as ``pthread_cond_wait()`` plus ``pthread_cond_signal()``.
 
-.. _fiber-fibers:
-
-================================================================================
-Fibers
-================================================================================
-
-A **fiber** is a set of instructions which are executed with cooperative
-multitasking. Fibers managed by the fiber module are associated with
-a user-supplied function called the *fiber function*.
-
-A fiber has three possible states: **running**, **suspended** or **dead**.
-When a fiber is created with :ref:`fiber.create() <fiber-create>`, it is running.
-When a fiber yields control with :ref:`fiber.sleep() <fiber-sleep>`, it is suspended.
-When a fiber ends (because the fiber function ends), it is dead.
-
-All fibers are part of the fiber registry. This registry can be searched
-with :ref:`fiber.find() <fiber-find>` - via fiber id (fid), which is a numeric
-identifier.
-
-A runaway fiber can be stopped with :ref:`fiber_object.cancel <fiber_object-cancel>`.
-However, :ref:`fiber_object.cancel <fiber_object-cancel>` is advisory — it works
-only if the runaway fiber calls :ref:`fiber.testcancel() <fiber-testcancel>`
-occasionally. Most ``box.*`` functions, such as
-:ref:`box.space...delete() <box_space-delete>` or
-:ref:`box.space...update() <box_space-update>`, do call
-:ref:`fiber.testcancel() <fiber-testcancel>` but
-:ref:`box.space...select{} <box_space-select>` does not. In practice, a runaway
-fiber can only become unresponsive if it does many computations and does not
-check whether it has been cancelled.
-
-The other potential problem comes from fibers which never get scheduled, because
-they are not subscribed to any events, or because no relevant events occur. Such
-morphing fibers can be killed with :ref:`fiber.kill() <fiber-kill>` at any time,
-since :ref:`fiber.kill() <fiber-kill>` sends an asynchronous wakeup event to the
-fiber, and :ref:`fiber.testcancel() <fiber-testcancel>` is checked whenever such
-a wakeup event occurs.
-
-Like all Lua objects, dead fibers are garbage collected. The garbage collector
-frees pool allocator memory owned by the fiber, resets all fiber data, and
-returns the fiber (now called a fiber carcass) to the fiber pool. The carcass
-can be reused when another fiber is created.
-
-A fiber has all the features of a Lua coroutine_ and all the programming
-concepts that apply for Lua coroutines will apply for fibers as well. However,
-Tarantool has made some enhancements for fibers and has used fibers internally.
-So, although use of coroutines is possible and supported, use of fibers is
-recommended.
+===============================================================================
+                                    Index
+===============================================================================
 
 Below is a list of all ``fiber`` functions and members.
-
-    **The functions and members of the fiber module**
 
     .. container:: table
 
@@ -166,6 +124,54 @@ Below is a list of all ``fiber`` functions and members.
         | :ref:`cond_object:broadcast()        | Wake up all fibers              |
         | <cond_object-broadcast>`             |                                 |
         +--------------------------------------+---------------------------------+
+
+.. _fiber-fibers:
+
+================================================================================
+Fibers
+================================================================================
+
+A **fiber** is a set of instructions which are executed with cooperative
+multitasking. Fibers managed by the fiber module are associated with
+a user-supplied function called the *fiber function*.
+
+A fiber has three possible states: **running**, **suspended** or **dead**.
+When a fiber is created with :ref:`fiber.create() <fiber-create>`, it is running.
+When a fiber yields control with :ref:`fiber.sleep() <fiber-sleep>`, it is suspended.
+When a fiber ends (because the fiber function ends), it is dead.
+
+All fibers are part of the fiber registry. This registry can be searched
+with :ref:`fiber.find() <fiber-find>` - via fiber id (fid), which is a numeric
+identifier.
+
+A runaway fiber can be stopped with :ref:`fiber_object.cancel <fiber_object-cancel>`.
+However, :ref:`fiber_object.cancel <fiber_object-cancel>` is advisory — it works
+only if the runaway fiber calls :ref:`fiber.testcancel() <fiber-testcancel>`
+occasionally. Most ``box.*`` functions, such as
+:ref:`box.space...delete() <box_space-delete>` or
+:ref:`box.space...update() <box_space-update>`, do call
+:ref:`fiber.testcancel() <fiber-testcancel>` but
+:ref:`box.space...select{} <box_space-select>` does not. In practice, a runaway
+fiber can only become unresponsive if it does many computations and does not
+check whether it has been cancelled.
+
+The other potential problem comes from fibers which never get scheduled, because
+they are not subscribed to any events, or because no relevant events occur. Such
+morphing fibers can be killed with :ref:`fiber.kill() <fiber-kill>` at any time,
+since :ref:`fiber.kill() <fiber-kill>` sends an asynchronous wakeup event to the
+fiber, and :ref:`fiber.testcancel() <fiber-testcancel>` is checked whenever such
+a wakeup event occurs.
+
+Like all Lua objects, dead fibers are garbage collected. The garbage collector
+frees pool allocator memory owned by the fiber, resets all fiber data, and
+returns the fiber (now called a fiber carcass) to the fiber pool. The carcass
+can be reused when another fiber is created.
+
+A fiber has all the features of a Lua coroutine_ and all the programming
+concepts that apply for Lua coroutines will apply for fibers as well. However,
+Tarantool has made some enhancements for fibers and has used fibers internally.
+So, although use of coroutines is possible and supported, use of fibers is
+recommended.
 
 .. module:: fiber
 

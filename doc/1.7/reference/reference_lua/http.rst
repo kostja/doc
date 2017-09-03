@@ -6,13 +6,19 @@
 
 .. module:: http.client
 
+===============================================================================
+                                   Overview
+===============================================================================
+
 The ``http`` module, specifically the ``http.client`` submodule,
 provides the functionality of an HTTP client with support for HTTPS and keepalive.
 It uses routines in the `libcurl <https://curl.haxx.se/libcurl/>`_ library.
 
-Below is a list of all ``http`` functions.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The functions of the http module**
+Below is a list of all ``http`` functions.
 
     .. container:: table
 

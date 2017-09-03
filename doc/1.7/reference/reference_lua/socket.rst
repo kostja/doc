@@ -4,6 +4,10 @@
                             Module `socket`
 -------------------------------------------------------------------------------
 
+===============================================================================
+                                   Overview
+===============================================================================
+
 The ``socket`` module allows exchanging data via BSD sockets with a local or
 remote host in connection-oriented (TCP) or datagram-oriented (UDP) mode.
 Semantics of the calls in the ``socket`` API closely follow semantics of the
@@ -19,9 +23,11 @@ flags are ``nonblock``, ``setsockopt``. The functions for stopping and
 disconnecting are ``shutdown``, ``close``. The functions for error checking
 are ``errno``, ``error``.
 
-Below is a list of all ``socket`` functions.
+===============================================================================
+                                    Index
+===============================================================================
 
-    **The functions of the socket module**
+Below is a list of all ``socket`` functions.
 
     .. container:: table
 
