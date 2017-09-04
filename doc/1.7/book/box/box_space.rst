@@ -314,9 +314,11 @@ A list of all ``box.space`` functions follows, then comes a list of all
       booleans, then numbers, then strings. Legal in memtx TREE or
       HASH indexes, and in vinyl TREE indexes.
 
-    .. container:: table stackcolumn
+    _box_space-index_field_types:
 
-        **Index field types to use in create_index**
+    **Index field types to use in create_index**
+
+    .. container:: table stackcolumn
 
         .. rst-class:: left-align-column-1
         .. rst-class:: left-align-column-2

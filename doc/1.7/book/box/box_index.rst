@@ -26,7 +26,8 @@ API is a direct binding to corresponding methods of index objects of type
 
     .. data:: parts
 
-        An array describing index key fields.
+        An array describing index key fields. To learn more about the index field
+        types, refer to :ref:`this table <box_space-index_field_types>`.
 
         :rtype: table
 
