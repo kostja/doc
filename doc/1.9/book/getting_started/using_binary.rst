@@ -70,9 +70,9 @@ and the first :ref:`index <index-box_index>` (named 'primary'):
 
    tarantool> s = box.schema.space.create('tester')
    tarantool> s:create_index('primary', {
-                 >  type = 'hash',
-                 >  parts = {1, 'unsigned'}
-                 > })
+            > type = 'hash',
+            > parts = {1, 'unsigned'}
+            > })
 
 Next, insert three :ref:`tuples <index-box_tuple>` (our name for "records")
 into the space:
@@ -122,8 +122,8 @@ To add another index on the second field, say:
 .. code-block:: tarantoolsession
 
     tarantool> s:create_index('secondary', {
-             >  type = 'hash',
-             >  parts = {2, 'string'}
+             > type = 'hash',
+             > parts = {2, 'string'}
              > })
 
 Now, to prepare for the example in the next section, try this:
