@@ -102,6 +102,7 @@ section of this documentation.
 
    .. code-block:: console
 
+       $ cd ~/tarantool-doc
        $ git clean -qfxd        # get rid of old cmake files
        $ cmake .                # start initiating
        $ make sphinx-html       # for example, make a multi-page English documentation version
