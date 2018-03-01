@@ -87,7 +87,7 @@ section of this documentation.
        Python 19516 user 3u IPv4 0xe7f8gc6be1b43c7 0t0 TCP *:irdmi (LISTEN)
        $ sudo kill -9 19516 # kill the process
 
-   4.2 Another way is to set up a web-browser via ``sphinx-webserver`` programmed
+   4.2 Another way is to set up a web-server via ``sphinx-webserver`` programmed
    module:
 
    .. code-block:: console
