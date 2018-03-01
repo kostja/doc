@@ -82,19 +82,19 @@ section of this documentation.
 
    .. code-block:: console
 
-       $ sudo lsof -i :8000 # get the process ID (PID)
+       $ sudo lsof -i :8000  # get the process ID (PID)
        COMMAND PID USER FD TYPE DEVICE SIZE/OFF NODE NAME
        Python 19516 user 3u IPv4 0xe7f8gc6be1b43c7 0t0 TCP *:irdmi (LISTEN)
-       $ sudo kill -9 19516 # kill the process
+       $ sudo kill -9 19516  # kill the process
 
-   4.2 Another way is to set up a web-server via ``sphinx-webserver`` programmed
+   4.2 Another way to set up a web-server is via ``sphinx-webserver`` programmed
    module:
 
    .. code-block:: console
 
        $ cd ~/tarantool-doc
-       $ make sphinx-html # for example, make a multi-page English documentation version
-       $ make sphinx-webserver # make and run a web-server
+       $ make sphinx-html       # for example, make a multi-page English documentation version
+       $ make sphinx-webserver  # make and run a web-server
 
    In case port ``8000`` is already in use, you can set up any custom port number
    that is bigger than ``1000`` in the ``tarantool-doc/CMakeLists.txt``
@@ -102,10 +102,10 @@ section of this documentation.
 
    .. code-block:: console
 
-       $ git clean -qfxd # get rid of old cmake files
-       $ cmake . # start initiating
-       $ make sphinx-html # for example, make a multi-page English documentation version
-       $ make sphinx-webserver # remake and run a web-server with the custom port
+       $ git clean -qfxd        # get rid of old cmake files
+       $ cmake .                # start initiating
+       $ make sphinx-html       # for example, make a multi-page English documentation version
+       $ make sphinx-webserver  # remake and run a web-server with the custom port
 
 5. Open your browser and enter ``127.0.0.1:8000/en`` or ``127.0.0.1:8000/ru``
    into the address box. If your local documentation build is valid, the manual
