@@ -75,7 +75,7 @@ section of this documentation.
    .. code-block:: console
 
        $ cd ~/tarantool-doc
-       $ make sphinx-html       # for example, make the multi-page English documentation version
+       $ make sphinx-html       # for example, build the multi-page English documentation version
        $ make sphinx-webserver  # build the module and run the web-server
 
    In case port ``8000`` is already in use, you can specify any other custom port
@@ -87,7 +87,7 @@ section of this documentation.
        $ cd ~/tarantool-doc
        $ git clean -qfxd        # get rid of old cmake files
        $ cmake .                # start initiating
-       $ make sphinx-html       # for example, make the multi-page English documentation version
+       $ make sphinx-html       # for example, build the multi-page English documentation version
        $ make sphinx-webserver  # rebuild the module and run the web-server with the custom port
 
    Or you can release the port:
