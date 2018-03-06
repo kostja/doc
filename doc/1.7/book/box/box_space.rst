@@ -114,8 +114,14 @@ Below is a list of all ``box.space`` functions and members.
     | :ref:`box.space._index               | (Metadata) List of indexes      |
     | <box_space-index>`                   |                                 |
     +--------------------------------------+---------------------------------+
+    | :ref:`box.space._vindex              | (Metadata) List of indexes      |
+    | <box_space-vindex>`                  | accessible for a current user   |
+    +--------------------------------------+---------------------------------+
     | :ref:`box.space._priv                | (Metadata) List of privileges   |
     | <box_space-priv>`                    |                                 |
+    +--------------------------------------+---------------------------------+
+    | :ref:`box.space._vpriv               | (Metadata) List of privileges   |
+    | <box_space-vpriv>`                   | accessible for a current user   |
     +--------------------------------------+---------------------------------+
     | :ref:`box.space._schema              | (Metadata) List of schemas      |
     | <box_space-schema>`                  |                                 |
@@ -129,8 +135,14 @@ Below is a list of all ``box.space`` functions and members.
     | :ref:`box.space._space               | (Metadata) List of spaces       |
     | <box_space-space>`                   |                                 |
     +--------------------------------------+---------------------------------+
+    | :ref:`box.space._vspace              | (Metadata) List of spaces       |
+    | <box_space-vspace>`                  | accessible for a current user   |
+    +--------------------------------------+---------------------------------+
     | :ref:`box.space._user                | (Metadata) List of users        |
     | <box_space-user>`                    |                                 |
+    +--------------------------------------+---------------------------------+
+    | :ref:`box.space._vuser               | (Metadata) List of users        |
+    | <box_space-vuser>`                   | accessible for a current user   |
     +--------------------------------------+---------------------------------+
 
 .. module:: box.space
@@ -1332,28 +1344,28 @@ Below is a list of all ``box.space`` functions and members.
 
 .. _box_space-space_index:
 
-    .. data:: index
+.. data:: index
 
-        A container for all defined indexes. There is a Lua object of type
-        :ref:`box.index <box_index>` with methods to search tuples and iterate
-        over them in predefined order.
+    A container for all defined indexes. There is a Lua object of type
+    :ref:`box.index <box_index>` with methods to search tuples and iterate
+    over them in predefined order.
 
-        :rtype: table
+    :rtype: table
 
-        **Example:**
+    **Example:**
 
-        .. code-block:: tarantoolsession
+    .. code-block:: tarantoolsession
 
-            # checking the number of indexes for space 'tester'
-            tarantool> #box.space.tester.index
-            ---
-            - 1
-            ...
-            # checking the type of index 'primary'
-            tarantool> box.space.tester.index.primary.type
-            ---
-            - TREE
-            ...
+        # checking the number of indexes for space 'tester'
+        tarantool> #box.space.tester.index
+        ---
+        - 1
+        ...
+        # checking the type of index 'primary'
+        tarantool> box.space.tester.index.primary.type
+        ---
+        - TREE
+        ...
 
 .. _box_space-cluster:
 
@@ -1453,6 +1465,26 @@ Below is a list of all ``box.space`` functions and members.
        ---
        ...
 
+.. _box_space-vindex:
+
+.. data:: _vindex
+
+    ``_vindex`` is a virtual system space view containing tuples identical to
+    :ref:`_index <box_space-index>`. The difference is in rights: only fields
+    accessible to the current user will be displayed. See :ref:`Access control <authentication>`
+    for user privileges details.
+
+    If the user has the full set of privileges ('admin'), the result will match
+    the result of the ``_vindex`` space call. If the user has the limited access,
+    the result will contain only data accessible to this user.
+
+.. NOTE::
+
+   * Unlike the ``_index`` call that denies access to users without privileges,
+     any logged user can read from ``_vindex``.
+
+   * As ``_vindex`` is a `sysview` function, the requests could be read only.
+
 .. _box_space-priv:
 
 .. data:: _priv
@@ -1491,6 +1523,26 @@ Below is a list of all ``box.space`` functions and members.
 
        * Only the 'admin' user or the creator of a user can change a different
          user’s password.
+
+.. _box_space-vpriv:
+
+.. data:: _vpriv
+
+    ``_vpriv`` is a virtual system space view containing tuples identical to
+    :ref:`_priv <box_space-priv>`. The difference is in rights: only privileges
+    accessible to the current user will be displayed. See :ref:`Access control <authentication>`
+    for user privileges details.
+
+    If the user has the full set of privileges (`admin`), the result will match
+    the result of the ``_vpriv`` space call. If the user has the limited access,
+    the result will contain only data accessible to this user.
+
+    .. NOTE::
+
+       * Unlike the ``_priv`` call that denies access to users without privileges,
+         any logged user can read from ``_vpriv``.
+
+       * As ``_priv`` is a `sysview` function, the requests could be read only.
 
 .. _box_space-schema:
 
@@ -1643,6 +1695,26 @@ Below is a list of all ``box.space`` functions and members.
         ---
         - - [12345, 1, 'TM', 'memtx', 0, {}, [{'name': 'field_1'}, {'type': 'unsigned'}]]
         ...
+
+.. _box_space-vspace:
+
+.. data:: _vspace
+
+    ``_vspace`` is a virtual system space view containing tuples identical to
+    :ref:`_space <box_space-space>`. The difference is in rights: only spaces
+    accessible to the current user will be displayed. See :ref:`Access control
+    <authentication>` for user privileges details.
+
+    If the user has the full set of privileges ('admin'), the result will match
+    the result of the ``_vspace`` space call. If the user has the limited access,
+    the result will contain only data accessible to this user.
+
+    .. NOTE::
+
+       * Unlike the ``_space`` call that denies access to users without privileges,
+         any logged user can read from ``_vspace``.
+
+       * As ``_vspace`` is a `sysview` function, the requests could be read only.
 
 .. _box_space-user:
 
@@ -1896,3 +1968,82 @@ organizing:
     format, *
     ---
     ...
+
+.. _box_space-vuser:
+
+.. data:: _vuser
+
+    ``_vuser`` is a virtual system space view containing tuples identical to
+    :ref:`_user <box_space-user>`. The difference is in rights: only user-names
+    and password hashes accessible to the current user will be displayed. See
+    :ref:`Access control <authentication>` for user privileges details.
+
+    If the user has the full set of privileges (for example, 'admin'), the result
+    will match the result of the ``_user`` space call. If the user has the limited
+    access, the result will contain only data accessible to this user.
+
+    To illustrate how the rights work, we will :ref:`connect to a database remotely <connecting-remotely>`
+    via ``tarantoolctl`` and select all tuples from the ``_user`` space both when
+    the guest is and is not allowed to read from a database.
+
+    First, start Tarantool and grant the 'guest' user with read, write and execute
+    rights.
+
+.. code-block:: tarantoolsession
+
+    tarantool> box.cfg{listen = 3301}
+    ---
+    ...
+    tarantool> box.schema.user.grant('guest', 'read,write,execute', 'universe')
+    ---
+    ...
+
+Switch to another terminal, connect to the Tarantool instance and select all
+tuples from the ``_user`` space:
+
+.. code-block:: tarantoolsession
+
+    $ tarantoolctl connect 3301
+    localhost:3301> box.space._user:select{}
+    ---
+    - - [0, 1, 'guest', 'user', {}]
+      - [1, 1, 'admin', 'user', {}]
+      - [2, 1, 'public', 'role', {}]
+      - [3, 1, 'replication', 'role', {}]
+      - [31, 1, 'super', 'role', {}]
+    ...
+
+This result contains the same users as if you'd made a request from your Tarantool
+instance as 'admin'.
+
+Switch to the Tarantool instance and revoke the read rights from the guest user:
+
+.. code-block:: tarantoolsession
+
+    tarantool> box.schema.user.revoke('guest', 'read', 'universe')
+    ---
+    ...
+
+Switch to another terminal, stop the session (to stop ``tarantoolctl``, type Ctrl+C
+or Ctrl+D) and repeat the request. The access will be denied. However, if you try
+``_vuser`` instead, you will get the users data available for the 'admin'
+user:
+
+.. code-block:: tarantoolsession
+
+    $ tarantoolctl connect 3301
+    localhost:3301> box.space._user:select{}
+    ---
+    - error: Read access to space '_user' is denied for user 'guest'
+    ...
+    localhost:3301> box.space._vuser:select{}
+    ---
+    - - [0, 1, 'guest', 'user', {}]
+    ...
+
+.. NOTE::
+
+       * Unlike the ``_user`` call that denies access to users without privileges,
+         any logged user can read from ``_vuser``.
+
+       * As ``_vuser`` is a `sysview` function, the requests could be read only.
