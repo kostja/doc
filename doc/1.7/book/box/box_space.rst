@@ -1469,21 +1469,22 @@ Below is a list of all ``box.space`` functions and members.
 
 .. data:: _vindex
 
-    ``_vindex`` is a virtual system space view containing tuples identical to
-    :ref:`_index <box_space-index>`. The difference is in rights: only fields
-    accessible to the current user will be displayed. See :ref:`Access control <authentication>`
-    for user privileges details.
+    ``_vindex`` is a system space that represents a virtual view. The structure
+    of its tuples is identical to that of :ref:`_index <box_space-index>`, but
+    permissions for certain tuples are limited in accordance with user privileges.
+    ``_vindex`` contains only those tuples that are accessible to the current user.
+    See :ref:`Access control <authentication>` for details about user privileges.
 
-    If the user has the full set of privileges ('admin'), the result will match
-    the result of the ``_vindex`` space call. If the user has the limited access,
-    the result will contain only data accessible to this user.
+    If the user has the full set of privileges (for example, 'admin'), the contents
+    of ``_vindex`` match the contents of ``_index``. If the user has limited
+    access, ``_vindex`` contains only tuples accessible to this user.
 
-.. NOTE::
+    .. NOTE::
 
-   * Unlike the ``_index`` call that denies access to users without privileges,
-     any logged user can read from ``_vindex``.
+       * ``_vindex`` is a system view, so it allows only read requests.
 
-   * As ``_vindex`` is a `sysview` function, the requests could be read only.
+       * While the ``_index`` space requires proper access privileges, any user
+         can always read from ``_vindex``.
 
 .. _box_space-priv:
 
@@ -1528,21 +1529,22 @@ Below is a list of all ``box.space`` functions and members.
 
 .. data:: _vpriv
 
-    ``_vpriv`` is a virtual system space view containing tuples identical to
-    :ref:`_priv <box_space-priv>`. The difference is in rights: only privileges
-    accessible to the current user will be displayed. See :ref:`Access control <authentication>`
-    for user privileges details.
+    ``_vpriv`` is a system space that represents a virtual view. The structure
+    of its tuples is identical to that of :ref:`_priv <box_space-priv>`, but
+    permissions for certain tuples are limited in accordance with user privileges.
+    ``_vpriv`` contains only those tuples that are accessible to the current user.
+    See :ref:`Access control <authentication>` for details about user privileges.
 
-    If the user has the full set of privileges (`admin`), the result will match
-    the result of the ``_vpriv`` space call. If the user has the limited access,
-    the result will contain only data accessible to this user.
+    If the user has the full set of privileges (for example, 'admin'), the contents
+    of ``_vpriv`` match the contents of ``_priv``. If the user has limited
+    access, ``_vpriv`` contains only tuples accessible to this user.
 
     .. NOTE::
 
-       * Unlike the ``_priv`` call that denies access to users without privileges,
-         any logged user can read from ``_vpriv``.
+       * ``_vpriv`` is a system view, so it allows only read requests.
 
-       * As ``_priv`` is a `sysview` function, the requests could be read only.
+       * While the ``_priv`` space requires proper access privileges, any user
+         can always read from ``_vpriv``.
 
 .. _box_space-schema:
 
@@ -1700,21 +1702,22 @@ Below is a list of all ``box.space`` functions and members.
 
 .. data:: _vspace
 
-    ``_vspace`` is a virtual system space view containing tuples identical to
-    :ref:`_space <box_space-space>`. The difference is in rights: only spaces
-    accessible to the current user will be displayed. See :ref:`Access control
-    <authentication>` for user privileges details.
+    ``_vspace`` is a system space that represents a virtual view. The structure
+    of its tuples is identical to that of :ref:`_space <box_space-space>`, but
+    permissions for certain tuples are limited in accordance with user privileges.
+    ``_vspace`` contains only those tuples that are accessible to the current user.
+    See :ref:`Access control <authentication>` for details about user privileges.
 
-    If the user has the full set of privileges ('admin'), the result will match
-    the result of the ``_vspace`` space call. If the user has the limited access,
-    the result will contain only data accessible to this user.
+    If the user has the full set of privileges (for example, 'admin'), the contents
+    of ``_vspace`` match the contents of ``_space``. If the user has limited
+    access, ``_vspace`` contains only tuples accessible to this user.
 
     .. NOTE::
 
-       * Unlike the ``_space`` call that denies access to users without privileges,
-         any logged user can read from ``_vspace``.
+       * ``_vspace`` is a system view, so it allows only read requests.
 
-       * As ``_vspace`` is a `sysview` function, the requests could be read only.
+       * While the ``_space`` space requires proper access privileges, any user
+         can always read from ``_vspace``.
 
 .. _box_space-user:
 
@@ -1973,21 +1976,24 @@ organizing:
 
 .. data:: _vuser
 
-    ``_vuser`` is a virtual system space view containing tuples identical to
-    :ref:`_user <box_space-user>`. The difference is in rights: only user-names
-    and password hashes accessible to the current user will be displayed. See
-    :ref:`Access control <authentication>` for user privileges details.
+    ``_vuser`` is a system space that represents a virtual view. The structure
+    of its tuples is identical to that of :ref:`_user <box_space-user>`, but
+    permissions for certain tuples are limited in accordance with user privileges.
+    ``_vuser`` contains only those tuples that are accessible to the current user.
+    See :ref:`Access control <authentication>` for details about user privileges.
 
-    If the user has the full set of privileges (for example, 'admin'), the result
-    will match the result of the ``_user`` space call. If the user has the limited
-    access, the result will contain only data accessible to this user.
+    If the user has the full set of privileges (for example, 'admin'), the contents
+    of ``_vuser`` match the contents of ``_user``. If the user has limited
+    access, ``_vuser`` contains only tuples accessible to this user.
 
-    To illustrate how the rights work, we will :ref:`connect to a database remotely <connecting-remotely>`
-    via ``tarantoolctl`` and select all tuples from the ``_user`` space both when
-    the guest is and is not allowed to read from a database.
+    To see how ``_vuser`` works,
+    :ref:`connect to a Tarantool database remotely <connecting-remotely>`
+    via ``tarantoolctl`` and select all tuples from the ``_user``
+    space, both when the 'guest' user *is* and *is not* allowed to read from the
+    database.
 
     First, start Tarantool and grant the 'guest' user with read, write and execute
-    rights.
+    privileges:
 
 .. code-block:: tarantoolsession
 
@@ -1998,7 +2004,7 @@ organizing:
     ---
     ...
 
-Switch to another terminal, connect to the Tarantool instance and select all
+Switch to the other terminal, connect to the Tarantool instance and select all
 tuples from the ``_user`` space:
 
 .. code-block:: tarantoolsession
@@ -2013,10 +2019,10 @@ tuples from the ``_user`` space:
       - [31, 1, 'super', 'role', {}]
     ...
 
-This result contains the same users as if you'd made a request from your Tarantool
-instance as 'admin'.
+This result contains the same set of users as if you made the request from your
+Tarantool instance as 'admin'.
 
-Switch to the Tarantool instance and revoke the read rights from the guest user:
+Switch to the first terminal and revoke the read privileges from the 'guest' user:
 
 .. code-block:: tarantoolsession
 
@@ -2024,10 +2030,9 @@ Switch to the Tarantool instance and revoke the read rights from the guest user:
     ---
     ...
 
-Switch to another terminal, stop the session (to stop ``tarantoolctl``, type Ctrl+C
-or Ctrl+D) and repeat the request. The access will be denied. However, if you try
-``_vuser`` instead, you will get the users data available for the 'admin'
-user:
+Switch to the other terminal, stop the session (to stop ``tarantoolctl``, type Ctrl+C
+or Ctrl+D) and repeat the ``box.space._user:select{}`` request. The access is
+denied:
 
 .. code-block:: tarantoolsession
 
@@ -2036,6 +2041,12 @@ user:
     ---
     - error: Read access to space '_user' is denied for user 'guest'
     ...
+
+However, if you select from ``_vuser`` instead, the users' data available for the
+'guest' user is displayed:
+
+.. code-block:: tarantoolsession
+
     localhost:3301> box.space._vuser:select{}
     ---
     - - [0, 1, 'guest', 'user', {}]
@@ -2043,7 +2054,7 @@ user:
 
 .. NOTE::
 
-       * Unlike the ``_user`` call that denies access to users without privileges,
-         any logged user can read from ``_vuser``.
+       * ``_vuser`` is a system view, so it allows only read requests.
 
-       * As ``_vuser`` is a `sysview` function, the requests could be read only.
+       * While the ``_user`` space requires proper access privileges, any user
+         can always read from ``_vuser``.
