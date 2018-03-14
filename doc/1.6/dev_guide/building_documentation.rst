@@ -67,56 +67,58 @@ section of this documentation.
    The entry point for each version is the ``index.html`` file in the appropriate
    directory.
 
-4. Set up a web-server.
+4. Set up a web server.
 
-   4.1 Build a ``sphinx-webserver`` module that will set up and run the web-server
-   on port ``8000``:
+   * One way is to run the ``sphinx-webserver`` rule from our makefile.
+     This will set up and run the web server on port ``8000``:
 
-   .. code-block:: console
+     .. code-block:: console
 
-       $ cd ~/tarantool-doc
-       $ make sphinx-html       # for example, build the multi-page English documentation version
-       $ make sphinx-webserver  # build the module and run the web-server
+         $ cd ~/tarantool-doc
+         $ make sphinx-html       # as an example, build the multi-page English documentation
+         $ make sphinx-webserver  # set up and run the web server
 
-   In case port ``8000`` is already in use, you can specify any other custom port
-   number that is bigger than ``1000`` in the ``tarantool-doc/CMakeLists.txt``
-   file (search it for the ``sphinx-webserver`` target) and rebuild the module:
+     In case port ``8000`` is already in use, you can specify any other port
+     number that is bigger than ``1000`` in the ``tarantool-doc/CMakeLists.txt``
+     file (search it for the ``sphinx-webserver`` target) and rebuild cmake
+     files:
 
-   .. code-block:: console
+     .. code-block:: console
 
-       $ cd ~/tarantool-doc
-       $ git clean -qfxd        # get rid of old cmake files
-       $ cmake .                # start initiating
-       $ make sphinx-html       # for example, build the multi-page English documentation version
-       $ make sphinx-webserver  # rebuild the module and run the web-server with the custom port
+         $ cd ~/tarantool-doc
+         $ git clean -qfxd        # clean up old cmake files
+         $ cmake .                # rebuild cmake files
+         $ make sphinx-html       # as an example, build the multi-page English documentation
+         $ make sphinx-webserver  # set up and run the web server on the custom port
 
-   Or you can release the port:
+     Or you can release the port:
 
-   .. code-block:: console
+     .. code-block:: console
 
-       $ sudo lsof -i :8000  # get the process ID (PID)
-       COMMAND PID USER FD TYPE DEVICE SIZE/OFF NODE NAME
-       Python 19516 user 3u IPv4 0xe7f8gc6be1b43c7 0t0 TCP *:irdmi (LISTEN)
-       $ sudo kill -9 19516  # kill the process
+         $ sudo lsof -i :8000  # get the process ID (PID)
+         COMMAND PID USER FD TYPE DEVICE SIZE/OFF NODE NAME
+         Python 19516 user 3u IPv4 0xe7f8gc6be1b43c7 0t0 TCP *:irdmi (LISTEN)
+         $ sudo kill -9 19516  # kill the process
 
-   4.2 Another way is to set up the web-server via console. Make sure to run it
-   from the documentation ``output`` folder:
+   * The other way is to run the built-in web server in Python.
+     Make sure to run it from the documentation ``output`` folder:
 
-   .. code-block:: console
+     .. code-block:: console
 
-       $ cd ~/tarantool-doc/output
-       $ python -m SimpleHTTPServer 8000
+         $ cd ~/tarantool-doc/output
+         $ python -m SimpleHTTPServer 8000
 
-   In case port ``8000`` is already in use, you can specify any other custom port
-   number that is bigger than ``1000``.
+     In case port ``8000`` is already in use, you can specify any other port
+     number that is bigger than ``1000``.
 
-5. Open your browser and enter ``127.0.0.1:8000/en`` or ``127.0.0.1:8000/ru``
-   (depending on the version of documentation that you built) into the address
-   box. If your local documentation build is valid, the manual will appear in
+5. Open your browser and enter ``127.0.0.1:8000/en/doc/1.9`` into the address
+   box (or ``127.0.0.1:8000/ru/doc/1.9`` if you built the Russian documentation).
+   If your local documentation build is valid, the manual will appear in
    the browser.
 
-6. To contribute to documentation, use the ``.rst`` format for drafting and
-   submit your updates as a
+6. To contribute to documentation, use the
+   `REST <http://docutils.sourceforge.net/docs/user/rst/quickstart.html>`_
+   format for drafting and submit your updates as a
    `pull request <https://help.github.com/articles/creating-a-pull-request/>`_
    via GitHub.
 
@@ -126,11 +128,11 @@ section of this documentation.
 
 .. NOTE::
 
-   * If you suggest creating a new documentation section (a whole new
-     page), it has to be saved to the relevant section at GitHub.
+    * If you suggest creating a new documentation section (a whole new
+      page), it has to be saved to the relevant section at GitHub.
 
-   * If you want to contribute to localizing this documentation (for example into
-     Russian), add your translation strings to ``.po`` files stored in the
-     corresponding locale directory (for example ``/locale/ru/LC_MESSAGES/``
-     for Russian). See more about localizing with Sphinx at
-     http://www.sphinx-doc.org/en/stable/intl.html
+    * If you want to contribute to localizing this documentation (for example into
+      Russian), add your translation strings to ``.po`` files stored in the
+      corresponding locale directory (for example ``/locale/ru/LC_MESSAGES/``
+      for Russian). See more about localizing with Sphinx at
+      http://www.sphinx-doc.org/en/stable/intl.html
