@@ -403,8 +403,8 @@ Basic configuration parameters:
 
 .. NOTE::
 
-    **Important!** ``tarantool_host`` should point to the interface address and cannot be 0.0.0.0,
-    127.0.0.1 or ``::1``.
+    **Important!** ``tarantool_host`` should point to the interface address and cannot be ``0.0.0.0``,
+    `` 127.0.0.1`` or ``::1``.
 
 .. NOTE::
 
@@ -853,7 +853,7 @@ console of the storage nodes:
 Regular way of switching to another master
 -------------------------------------------------------------------------------
 
-To perform a scheduled exclusion of the master from any replica set, update the
+To perform a scheduled downtime of the master from any replica set, update the
 configuration of the replica set by using the appropriate orchestrator API call.
 The  general algorithm is the following:
 
@@ -930,7 +930,7 @@ was written to the old master on all nodes in the replica set.
 Regular way of deactivating the replica set
 -------------------------------------------------------------------------------
 
-To perform a scheduled exclusion of the replica set from a cluster:
+To perform a scheduled downtime of the replica set from a cluster:
 
 1. Migrate all the buckets to other storages in the cluster.
     For migration, the replica set should be assigned a zero weight via the
