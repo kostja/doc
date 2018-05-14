@@ -15,4 +15,3 @@ User's Guide
     replication/index
     connectors/index
     faq
-    tarantool_enterprise
