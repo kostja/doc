@@ -1,10 +1,10 @@
 .. _enterprise:
 
-================================================================================
+===============================================================================
 Tarantool Enterprise
-================================================================================
+===============================================================================
 
-This product is an Enterprise edition of Tarantool software — a DBMS for
+This product is an Enterprise edition of Tarantool software -- a DBMS for
 deploying fault-tolerant distributed data storages.
 
 This document primarily concentrates on distinctive features of the
@@ -12,7 +12,17 @@ Tarantool Enterprise edition. The most relevant and exhaustive
 documentation on the Tarantool DBMS is available in the Tarantool
 `manual <https://tarantool.io/en/doc/1.9/index.html>`_.
 
-**Product contents**
+.. _enterprise-install:
+
+-------------------------------------------------------------------------------
+Installation and setup
+-------------------------------------------------------------------------------
+
+.. _enterprise-package-contents:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Software package contents
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The package includes the following components and features:
 
@@ -33,13 +43,6 @@ The product consists of three standalone applications:
 The purpose of each application and component is described in a corresponding section
 further in this document.
 
--------------------------------------------------------------------------------
-Installation and setup
--------------------------------------------------------------------------------
-*******************************************************************************
-Software package contents
-*******************************************************************************
-
 Tarantool Enterprise DBMS for distributed fault-tolerant data storages is delivered
 as a ``tar + gzip`` archive.
 
@@ -53,21 +56,22 @@ Archive contents:
 * ``./tarantool-deploy.sh`` is the script for launching the installer,
 * ``./inventory/`` is the Ansible ``inventory`` of the installer,
 * ``./config/`` are the configuration file templates:
-	* ``router.lua`` is the router configuration template,
-	* ``storage.lua`` is the storage configuration template,
-	* ``orchestrator.yml`` is the orchestrator's main configuration template,
-	* ``orchestrator.logging.ini`` is the orchestrator's logging configuration template,
-	* ``configure_zk.sh`` is the script template for the initial configuration of a cluster in the ZooKeeper and orchestrator,
-	* ``storage-init.sh`` is the init-script template for launching the storage,
-	* ``router-init.sh`` is the init-script template for launching the router,
-	* ``orchestrator-init.sh`` is the init-script template for launching the orchestrator.
 
--------------------------------------------------------------------------------
-System requirements
--------------------------------------------------------------------------------
-*******************************************************************************
+  * ``router.lua`` is the router configuration template,
+  * ``storage.lua`` is the storage configuration template,
+  * ``orchestrator.yml`` is the orchestrator's main configuration template,
+  * ``orchestrator.logging.ini`` is the orchestrator's logging configuration template,
+  * ``configure_zk.sh`` is the script template for the initial configuration
+    of a cluster in the ZooKeeper and orchestrator,
+  * ``storage-init.sh`` is the init-script template for launching the storage,
+  * ``router-init.sh`` is the init-script template for launching the router,
+  * ``orchestrator-init.sh`` is the init-script template for launching the orchestrator.
+
+.. _enterprise-prereqs-hardware:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Hardware requirements
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To fully ensure the fault tolerance of a distributed data storage system, at
 least **three** physical computers or virtual servers are required. For
@@ -78,129 +82,148 @@ Hereinafter, **"storage servers"** or **"Tarantool servers"** are the computers
 used to store and process data, and **"administration server"** is the computer
 used by the system operator to install and configure the product.
 
-*******************************************************************************
+.. _enterprise-prereqs-software:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Software requirements
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **All** servers must be running Red Hat Enterprise Linux 7 (any build). The following
 packages should be installed and configured in addition to the basic OS functionality:
 
 * Tarantool servers:
-	* ``openssh-server`` (any version) for providing remote access to the virtual server,
-	* ``tar``, ``gzip``, ``bzip2`` (any version) for unpacking archives,
-	* ``less`` (any version) for viewing log files,
-	* ``zookeeper-server`` and ``zookeeper`` (version 3.4) are the ZooKeeper server and client for centralized configuration management,
-		.. NOTE::
 
-			This package is not available in the main RHEL 7 repository, so it should be installed from additional repositories (for example, Cloudera CDH 5), or using any other method.
-	* ``openssl-libs`` (version 1.0.2k) is a mandatory component for launching Tarantool DBMS. It usually comes as a default system component.
+  * ``openssh-server`` (any version) for providing remote access to the
+    virtual server,
+  * ``tar``, ``gzip``, ``bzip2`` (any version) for unpacking archives,
+  * ``less`` (any version) for viewing log files,
+  * ``zookeeper-server`` and ``zookeeper`` (version 3.4) are the ZooKeeper
+    server and client for centralized configuration management,
+
+  .. NOTE::
+
+      This package is not available in the main RHEL 7 repository, so it
+      should be installed from additional repositories (for example,
+      Cloudera CDH 5), or using any other method.
+
+  * ``openssl-libs`` (version 1.0.2k) is a mandatory component for launching
+    Tarantool DBMS. It usually comes as a default system component.
 
 * administration server:
-	* ``openssh-server`` (any version) for remote access to the virtual server,
-	* ``tar``, ``gzip``, ``bzip2`` (any version) for unpacking archives,
-	* ``ansible`` (version 2.2 or 2.4) for automated cluster deployment,
-	* ``make`` (any version) for task automation,
-	* ``vim`` (any version) for editing configuration files,
-	* ``less`` (any version) for viewing log files,
-	* ``curl`` (any version) for testing the REST API orchestrator,
-	* ``tmux`` (any version) or ``screen`` (any version) for multiplexing the terminals and improving the usability.
 
-*******************************************************************************
+  * ``openssh-server`` (any version) for remote access to the virtual server,
+  * ``tar``, ``gzip``, ``bzip2`` (any version) for unpacking archives,
+  * ``ansible`` (version 2.2 or 2.4) for automated cluster deployment,
+  * ``make`` (any version) for task automation,
+  * ``vim`` (any version) for editing configuration files,
+  * ``less`` (any version) for viewing log files,
+  * ``curl`` (any version) for testing the REST API orchestrator,
+  * ``tmux`` (any version) or ``screen`` (any version) for multiplexing the
+    terminals and improving the usability.
+
+.. _enterprise-prereqs-network:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Network topology requirements
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* administration server should be able to access TCP port 22 on Tarantool servers
-  using the SSH protocol,
-* administration server should be able to access TCP port 8080 on Tarantool servers
-  to use the API for centralized cluster management,
-* administration server should be able to access TCP port 8000 on Tarantool servers
-  to integrate with a monitoring system,
+* Administration server should be able to access TCP port 22 on Tarantool servers
+  using the SSH protocol.
+* Administration server should be able to access TCP port 8080 on Tarantool servers
+  to use the API for centralized cluster management.
+* Administration server should be able to access TCP port 8000 on Tarantool servers
+  to integrate with a monitoring system.
 * Tarantool servers should be able to communicate and send traffic from any TCP
   port to TCP ports 3000:4000 to ensure that the Tarantool cluster is functioning
-  properly,
+  properly.
 * Tarantool servers should be able to communicate and send traffic from any TCP
   port to TCP port 2181 to ensure that ZooKeeper is functioning properly.
 
+.. _enterprise-preset:
+
 -------------------------------------------------------------------------------
-Presetting
+Preset
 -------------------------------------------------------------------------------
-*******************************************************************************
+
+.. _enterprise-setup-system-users:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Setting up system users
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. On all Tarantool servers, create and enable an *administrator* user, on behalf
-of whom the product should be installed:
+   of whom the product should be installed:
 
-.. code-block:: console
+   .. code-block:: console
 
-    $ useradd USER_NAME -m
-    $ password USER_NAME
+       $ useradd USER_NAME -m
+       $ password USER_NAME
 
-After executing the second command, enter and remember the password.
+   After executing the second command, enter and remember the password.
 
-2. On all Tarantool servers, create and enable a *tarantool* user:
+2. On all Tarantool servers, create and enable a ``tarantool`` user:
 
-.. code-block:: console
+   .. code-block:: console
 
-    $ useradd tarantool -m -d /data/tarantool
-    $ password tarantool
+       $ useradd tarantool -m -d /data/tarantool
+       $ password tarantool
 
-After executing the second command, enter and remember the password.
+   After executing the second command, enter and remember the password.
 
 3. On all Tarantool servers, create a ``/data/logs/tarantool`` directory and give
-   the *tarantool* user the privilege to write to this directory:
+   the ``tarantool`` user the privilege to write to this directory:
 
-.. code-block:: console
+   .. code-block:: console
 
-    $ mkdir -p /data/logs/tarantool
-    $ chown tarantool:tarantool /data/logs/tarantool
+       $ mkdir -p /data/logs/tarantool
+       $ chown tarantool:tarantool /data/logs/tarantool
 
 4. On behalf of the server administrator, enable ``sudo -u tarantool`` for the
-   *tarantool* user on all Tarantool servers:
+   ``tarantool`` user on all Tarantool servers:
 
-.. code-block:: console
+   .. code-block:: console
 
-    $ echo "USER_NAME ALL=(tarantool) ALL" > /etc/sudoers.d/tarantool
+       $ echo "USER_NAME ALL=(tarantool) ALL" > /etc/sudoers.d/tarantool
 
 5. (optional) On the administration server, generate an SSH key with no passphrase:
 
-.. code-block:: console
+   .. code-block:: console
 
-    $ ssh-keygen -t rsa
-    Generating public/private rsa key pair.
-    Enter file in which to save the key (/home/<user_name>/.ssh/id_rsa): <ENTER - default file>
-    Enter passphrase (empty for no passphrase): <ENTER - empty passphrase>
-    Enter same passphrase again:  <ENTER - empty passphrase>
-    Your identification has been saved in id_rsa.
-    Your public key has been saved in id_rsa.pub.
-    The key fingerprint is:
+       $ ssh-keygen -t rsa
+       Generating public/private rsa key pair.
+       Enter file in which to save the key (/home/<user_name>/.ssh/id_rsa): <ENTER - default file>
+       Enter passphrase (empty for no passphrase): <ENTER - empty passphrase>
+       Enter same passphrase again:  <ENTER - empty passphrase>
+       Your identification has been saved in id_rsa.
+       Your public key has been saved in id_rsa.pub.
+       The key fingerprint is:
 
 6. (optional) Add the public part of the generated key to the list of authorized
-   keys for the *administrator* user created on the Tarantool servers:
+   keys for the ``administrator`` user created on the Tarantool servers:
 
-.. code-block:: console
+   .. code-block:: console
 
-    $ ssh-copy-id USER_NAME@Tarantool_server
+       $ ssh-copy-id USER_NAME@Tarantool_server
 
-After executing this command, enter the password for the *administrator* user created
-in Step 1.
+After executing this command, enter the password for the ``administrator`` user
+created in step 1.
 
-If Steps 5-6 are performed correctly, then the administration server allows using
+If steps 5-6 are performed correctly, then the administration server allows using
 the SSH protocol to connect to all Tarantool servers on behalf of the
-*USER_NAME* **without entering a password**:
+``USER_NAME``, **without entering a password**:
 
 .. code-block:: console
 
     admin_server$ ssh <Tarantool_server>
     Tarantool_server$ # access granted without password
 
-If Steps 5-6 are skipped, the administration server allows using the SSH protocol
+If steps 5-6 are skipped, the administration server allows using the SSH protocol
 to connect to all Tarantool servers on behalf of the ``USER_NAME``
-**after entering the password**. Both options are valid and supported by the automatic
-installer.
+**after entering the password**. Both options are valid and supported by the
+automatic installer.
 
-If Step 3 was performed correctly, all Tarantool servers allow switching the current
-user from ``USER_NAME`` to ``tarantool``:
+If step 3 was performed correctly, all Tarantool servers allow switching the
+current user from ``USER_NAME`` to ``tarantool``:
 
 .. code-block:: console
 
@@ -211,44 +234,51 @@ user from ``USER_NAME`` to ``tarantool``:
     /data/tarantool
 
 After executing this command, enter the password for the administrator user created
-in Step 1.
+in step 1.
 
-*******************************************************************************
+.. _enterprise-setup-systemd-logind:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Setting up systemd-logind
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 1. Open the ``/etc/systemd/logind.conf`` file on each Tarantool server and change
-the value of the ``RemoveIPC`` parameter to ``no``,
+   the value of the ``RemoveIPC`` parameter to ``no``.
 
-2. Restart the ``systemd-logind`` service by executing ``systemctl restart systemd-logind``.
+2. Restart the ``systemd-logind`` service by executing
+   ``systemctl restart systemd-logind``.
 
 Thus you guarantee that the running services cannot be stopped by the ``systemd``
 services after logging out (for example, when the SSH client is disconnected).
 For more information, please refer to the
 `RHEL 7 user documentation <https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/>`_.
 
-*******************************************************************************
+.. _enterprise-setup-name-resolution:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Setting up name resolution
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 It is recommended to assign a unique hostname to each Tarantool server and specify
 it in the DNS or in the ``/etc/hosts`` file on all Tarantool servers and on the
 administration server. You can skip this step if IPv4 addresses are used instead
 of host names.
 
-*******************************************************************************
+.. _enterprise-setup-sysctl:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Setting up sysctl
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 It is recommended to apply the following settings for ``sysctl`` on all Tarantool
 servers:
 
 .. code-block:: console
 
-	$ # TCP KeepAlive setting
-	$ sysctl -w net.ipv4.tcp_keepalive_time = 60
-	$ sysctl -w net.ipv4.tcp_keepalive_intvl = 5
-	$ sysctl -w net.ipv4.tcp_keepalive_probes = 5
+    $ # TCP KeepAlive setting
+    $ sysctl -w net.ipv4.tcp_keepalive_time = 60
+    $ sysctl -w net.ipv4.tcp_keepalive_intvl = 5
+    $ sysctl -w net.ipv4.tcp_keepalive_probes = 5
 
 This optional setup of the Linux network stack helps speed up the troubleshooting
 of network connectivity when the server physically fails. To achieve the maximum
@@ -256,9 +286,11 @@ performance, you may also need to configure other network stack parameters that
 are not specific to the Tarantool DBMS. For more information, please refer to the
 `Network Performance Tuning Guide <https://www.google.ru/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&ved=0ahUKEwiXm-eu5Z3ZAhVCfiwKHUbhC4MQFggnMAA&url=https%3A%2F%2Faccess.redhat.com%2Fsites%2Fdefault%2Ffiles%2Fattachments%2F20150325_network_performance_tuning.pdf&usg=AOvVaw2IzrYTJYISEtuL2D77mf2h>`_ section of the RHEL7 user documentation.
 
-*******************************************************************************
+.. _enterprise-setup-zookeeper:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Setting up ZooKeeper
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 `Apache ZooKeeper service <https://zookeeper.apache.org/>`_ is required for
 centralized configuration of a distributed data storage. It is recommended to install
@@ -269,7 +301,8 @@ applications, skip this step.
 .. NOTE::
 
     ``zookeeper-server`` package is not present in the main RHEL 7 repository, so it
-    should be installed from additional repositories (for example, `Cloudera CDH 5 <https://www.cloudera.com/documentation/enterprise/5-5-x/topics/cdh_ig_zookeeper_package_install.html>`_),
+    should be installed from additional repositories (for example,
+    `Cloudera CDH 5 <https://www.cloudera.com/documentation/enterprise/5-5-x/topics/cdh_ig_zookeeper_package_install.html>`_),
     or using any other method.
 
 .. code-block:: console
@@ -306,13 +339,13 @@ while ``MYID=2`` should be set on server ``<Tarantool 2 IP address>`` and so on.
 
 ZooKeeper can be started in a regular way:
 
-.. code-block:: kconfig
+.. code-block:: console
 
     $ /etc/init.d/zookeeper-server start
 
 To check the operability of ZooKeeper, try:
 
-.. code-block:: kconfig
+.. code-block:: console
 
     $ # echo "stat"| nc 127.0.0.1 2181
     $ Zookeeper version: 3.4.8-1--1, built on Fri, 26 Feb 2016 14:51:43 +0100
@@ -330,32 +363,32 @@ To check the operability of ZooKeeper, try:
 One of the servers should be in the ``leader`` mode, the others should be in the
 ``follower`` mode.
 
-.. _auto_installer:
+.. _auto-install:
 
 -------------------------------------------------------------------------------
 Automatic installation
 -------------------------------------------------------------------------------
-
-.. Add toc here
 
 The product is automatically installed using the Ansible-based installation package.
 
 The installation process powered by the automatic installer includes the following
 steps:
 
-1. Unpacking the archive.
-2. Setting up the inventory.
-3. Launching the automatic installer.
-4. Deploying the Tarantool cluster.
-5. Launching the Tarantool cluster.
-6. Initializing the cluster.
+1. :ref:`Unpacking the archive <auto-install-unpack>`.
+2. :ref:`Setting up the inventory <auto-install-inventory-setup>`.
+3. :ref:`Launching the automatic installer <auto-install-launch>`.
+4. :ref:`Deploying the Tarantool cluster <auto-install-cluster-deploy>`.
+5. :ref:`Launching the Tarantool cluster <auto-install-cluster-init>`.
+6. :ref:`Initializing the cluster <auto-install-cluster-init>`.
 
 All operations are performed on the administration server. The details of each step
 are provided further in this document.
 
-*******************************************************************************
+.. _auto-install-unpack:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Unpacking the archive
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The delivered archive should be uploaded to the administration server and unpacked:
 
@@ -364,9 +397,11 @@ The delivered archive should be uploaded to the administration server and unpack
     admin_server$ tar xvf bin-tarantool-app.tar.gz
     admin_server$ cd bin-tarantool-app.tar.gz
 
-*******************************************************************************
+.. _auto-install-inventory-setup:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Setting up the inventory
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To automatically install and configure the package, you should specify the desired
 cluster topology in the ``inventory`` file. The ``inventory`` template is located
@@ -380,60 +415,77 @@ Basic configuration parameters:
     present on all Tarantool servers, then ``zoo_host`` points to the local ZooKeeper node.
     If ZooKeeper is installed on a dedicated computer, then the address and port of
     the ZooKeeper service should be specified.
-* ``ansible_host`` is the hostname of a physical server or a virtual machine to install the Tarantool instance,
-* ``tarantool_user`` and ``tarantool_password`` are the username and password to provide access through the Tarantool client library using the binary protocol,
-* ``tarantool_sharding_user`` and ``tarantool_sharding_password`` are the internal username and password to be used by the sharding and replication system,
-* ``tarantool_memtx_memory`` is the number of bytes allocated to the in-memory storage,
-* ``tarantool_uuid`` is the Tarantool node's UUID that should be unique for each node of the cluster,
-* ``tarantool_replicaset`` is the UUID of a replica set in the Tarantool cluster; nodes that have the same UUID are aggregated into one replica set,
-* ``tarantool_metrics_host`` and ``tarantool_metrics_port`` are the HTTP server's listen hostname and port for integration with the SNMP-INT system,
-* ``tarantool_admin_host`` and ``tarantool_admin_port`` are the listen hostname and port for accessing the Tarantool administrative console,
-* ``tarantool_host`` and ``tarantool_port`` are the listen hostname and port for the Tarantool binary protocol,
+* ``ansible_host`` is the hostname of a physical server or a virtual machine to
+  install the Tarantool instance,
+* ``tarantool_user`` and ``tarantool_password`` are the username and password to
+  provide access through the Tarantool client library using the binary protocol,
+* ``tarantool_sharding_user`` and ``tarantool_sharding_password`` are the internal
+  username and password to be used by the sharding and replication system,
+* ``tarantool_memtx_memory`` is the number of bytes allocated to the in-memory
+  storage,
+* ``tarantool_uuid`` is the Tarantool node's UUID that should be unique for each
+  node of the cluster,
+* ``tarantool_replicaset`` is the UUID of a replica set in the Tarantool cluster;
+  nodes that have the same UUID are aggregated into one replica set,
+* ``tarantool_metrics_host`` and ``tarantool_metrics_port`` are the HTTP server's
+  listen hostname and port for integration with the SNMP-INT system,
+* ``tarantool_admin_host`` and ``tarantool_admin_port`` are the listen hostname
+  and port for accessing the Tarantool administrative console,
+* ``tarantool_host`` and ``tarantool_port`` are the listen hostname and port for
+  the Tarantool binary protocol,
 * ``tarantool_zones`` is the list of availability zones (DCs),
 * ``tarantool_zone`` is the availability zone (DC) for a specific server,
-* ``app.memtx_dir`` is the path to the directory containing snapshots of the in-memory engine (memtx),
-* ``app.vinyl_dir`` is the path to the directory containing data managed by the disk engine (vinyl),
+* ``app.memtx_dir`` is the path to the directory containing snapshots of the
+  in-memory engine (memtx),
+* ``app.vinyl_dir`` is the path to the directory containing data managed by the
+  disk engine (vinyl),
 * ``app.wal_dir`` is the path to the write-ahead log (WAL) files.
 
 .. NOTE::
 
-    **Important!** To achieve optimal performance, the ``app.wal_dir`` directory should be
-    located on a separate physical hard disk drive. **It is definitely not recommended**
+    To achieve optimal performance, the ``app.wal_dir`` directory should be
+    located on a separate physical hard disk drive.
+
+    **It is definitely not recommended**
     to place ``app.memtx_dir/app.vinyl_dir`` and ``app.wal_dir`` on the same physical
-    hard disk drive and/or store app.wal_dir using a storage system or a network file
+    hard disk drive and/or store ``app.wal_dir`` using a storage system or a network file
     system. Otherwise, you may encounter an increase in response time during request
     processing.
 
 .. NOTE::
 
-    **Important!** ``tarantool_host`` should point to the interface address and cannot be ``0.0.0.0``,
+    ``tarantool_host`` should point to the interface address and cannot be ``0.0.0.0``,
     ``127.0.0.1`` or ``::1``.
 
 .. NOTE::
 
     UUID values in the ``tarantool_uuid`` and ``tarantool_replicaset`` fields can
-    contain an arbitrary UUID generated by the **uuidgen** system utility.
+    contain an arbitrary UUID generated by the ``uuidgen`` system utility.
 
 When specifying the cluster topology, the following parameters should be taken
 into account in the first place:
 
-* ``ansible_host`` specifies the name of the host on which the Tarantool instance should be installed,
+* ``ansible_host`` specifies the name of the host on which the Tarantool instance
+  should be installed,
 * ``tarantool_replicaset`` specifies the replica set for the Tarantool node,
-* ``tarantool_zone`` specifies if the node belongs to a specific availability zone (DC).
+* ``tarantool_zone`` specifies if the node belongs to a specific
+  availability zone (DC).
 
 For example, to create a cluster of two replica sets with 3 servers in each replica
 set, you should specify 6 servers in the ``tarantool_storage`` section, 3 of
 which have ``tarantool_replicaset = X``, and the remaining 3 servers have
 ``tarantool_replicaset = Y``, where X and Y are arbitrary UUID identifiers generated
-by the **uuidgen** system utility. The :ref:`auto installer <auto_installer>`
+by the ``uuidgen`` system utility. The :ref:`auto installer <auto-install>`
 then generates all necessary settings **automatically** (see the next section).
 
 When setting up the ``inventory``, you should also make sure that the port numbers
 used on the same server are unique.
 
-*******************************************************************************
+.. _auto-install-launch:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Launching the auto installer
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Use the following script to launch the ``auto installer``:
 
@@ -453,9 +505,11 @@ Available commands:
 * ``stop`` stops the applications,
 * ``restart`` restarts the applications.
 
-*******************************************************************************
+.. _auto-install-cluster-deploy:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Deploying the cluster
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If the ``auto installer`` completes successfully, the specified computers become
 nodes of the Tarantool DBMS cluster in accordance with the topology specified in
@@ -471,9 +525,11 @@ for example, duplicate port numbers or errors in the specified host names.
 In such a case, you should carefully re-verify the configuration and re-install
 the cluster.
 
-*******************************************************************************
+.. _auto-install-cluster-init:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Initializing the cluster
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To run the cluster, you should perform an initial setup of the ZooKeeper as well
 as an initial distribution of the buckets. For this purpose,
@@ -481,16 +537,17 @@ the ``auto installer`` **automatically** generates the ``configure_zk.sh`` scrip
 the root directory on the administration server. After that, the script is
 **automatically** executed after the start of the Tarantool cluster. The script:
 
-1. Creates a configuration of accessibility zones (Moscow, Siberia, etc.),
-2. Registers all routers and storages,
-3. Creates replica sets according to the configuration specified in the ``inventory``,
-4. Applies (distributes) the configuration,
+1. Creates a configuration of accessibility zones (Moscow, Siberia, etc.).
+2. Registers all routers and storages.
+3. Creates replica sets according to the configuration specified in the ``inventory``.
+4. Applies (distributes) the configuration.
 5. Distributes the buckets in the cluster.
 
 The script is generated each time the ``auto installer`` is launched. The installer
 runs this script **automatically** using a special Ansible role (``tarantool_configure``).
 The script can be modified directly if you need to specify additional parameters
-for the orchestor's API (see :ref:`Appendix 1 <enterprise-appendix_1>`). Execution of the script is an idempotent
+for the orchestor's API (see :ref:`Appendix 1 <enterprise-appendix_1>`).
+Execution of the script is an idempotent
 operation that can be performed an arbitrary number of times. When manually executing
 this script, you should make sure that all commands were executed successfully:
 
@@ -499,7 +556,7 @@ this script, you should make sure that all commands were executed successfully:
     {"error":{"message":"ok","code":0},"data":{},"status":true}
 
 On successful completion of the script, all the Tarantool nodes that were started
-enter the *running* state in 5-10 seconds. After that, they start creating ``*.main.log``
+enter the ``running`` state in 5-10 seconds. After that, they start creating ``*.main.log``
 and ``*.audit.log`` files in the ``/data/logs/tarantool/`` directory. If the nodes
 do not enter the running state, you should review the contents of the ``*.init.log``
 files.
@@ -526,9 +583,11 @@ by executing the ``vshard.router.info()`` command:
     ...
 
 For more information on the output of the ``vshard.router.info()`` command, see
-the Sharding monitoring section.
+the section :ref:`Monitoring the shards <monitor-shard>`.
 
 The cluster is ready to start when the number of unallocated slots reaches zero.
+
+.. _manual-install:
 
 -------------------------------------------------------------------------------
 Manual installation
@@ -549,12 +608,17 @@ archive from the ``artifacts/`` directory of the ``auto installer`` and launch t
 For more information on the Tarantool DBMS see the basic
 `documentation <https://tarantool.io/en/doc/1.9/index.html>`_.
 
+.. _manage-sharding:
+
 -------------------------------------------------------------------------------
 Managing the sharding system
 -------------------------------------------------------------------------------
-*******************************************************************************
+
+.. _manage-sharding-cli:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Managing nodes via CLI
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Each Tarantool node (``router``/``storage``) provides a Command Line Interface
 (CLI) for debugging, monitoring and troubleshooting. The CLI acts as a Lua interpreter
@@ -569,16 +633,19 @@ used as a client:
     $ echo "vshard.router.info()" | nc 127.0.0.1 3200
 
 To specify the host name and the port, take ``tarantool_admin_host`` and
-``tarantool_admin_port`` of one of the routers from the ``auto installer``'s ``inventory``.
+``tarantool_admin_port`` of one of the routers from the ``auto installer``'s
+``inventory``.
 
 .. NOTE::
 
     The ``tarantoolctl`` utility is installed together with any of the Tarantool DBMS
     cluster applications (``router``/``storage``).
 
-*******************************************************************************
+.. _manage-sharding-api:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Controlling the cluster via API
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 To control the cluster, use the ``orchestrator`` included in the delivery package.
 The ``orchestrator`` uses ZooKeeper to store and distribute the configuration.
@@ -592,19 +659,19 @@ of the ``orchestrator``.
 
 The following example shows how to register a new availability zone (DC):
 
-.. code-block:: kconfig
+.. code-block:: console
 
-    curl -X POST http://HOST:PORT/api/v1/zone \
-      -d '{
-    "name": "Caucasian Boulevard"
-    }'
+    $ curl -X POST http://HOST:PORT/api/v1/zone \
+        -d '{
+      "name": "Caucasian Boulevard"
+      }'
 
 To check whether the DC registration was successful, try the following instruction.
 It retrieves the list of all registered nodes in the JSON format:
 
-.. code-block:: kconfig
+.. code-block:: console
 
-    curl http://HOST:PORT/api/v1/zone| python -m json.tool
+    $ curl http://HOST:PORT/api/v1/zone| python -m json.tool
 
 ``HOST:PORT`` in the URL should be equal to the ``orchestrator`` hostname and port,
 according to the inventory configuration of the ``auto installer``.
@@ -613,9 +680,9 @@ To apply the new configuration directly on the Tarantool nodes, increase the
 configuration version number after calling the API function. To do this, use the
 POST request to ``/api/v1/version``:
 
-.. code-block:: kconfig
+.. code-block:: console
 
-    curl -X POST http://HOST:PORT/api/v1/version
+    $ curl -X POST http://HOST:PORT/api/v1/version
 
 Altogether, to update the cluster configuration:
 
@@ -626,6 +693,8 @@ Altogether, to update the cluster configuration:
     As a result, the configuration is applied to the Tarantool nodes.
 
 See :ref:`Appendix 1 <enterprise-appendix_1>` for the detailed orchestrator API.
+
+.. _change-cluster-topology:
 
 -------------------------------------------------------------------------------
 Changing the cluster topology
@@ -646,11 +715,13 @@ updating the configuration, buckets start to migrate to the new node.
 The most convenient way to add both new ``router`` nodes and replica sets is to use
 the ``auto installer``.
 
+.. _auto-install-new-nodes:
+
 -------------------------------------------------------------------------------
 Using the auto installer to install new nodes
 -------------------------------------------------------------------------------
 
-Installing a new node is similar to the :ref:`general cluster installation <auto_installer>`
+Installing a new node is similar to the :ref:`general cluster installation <auto-install>`
 procedure executed by the ``auto installer``.
 
 To add a new node to the ``auto installer``'s ``inventory``, copy the node configuration
@@ -669,19 +740,17 @@ parameters:
 generated using the **uuidgen** system utility that is available in the installation
 packages of RHEL 7 and other versions.
 
-.. Add link to automatic installation
-
 After updating the ``inventory``, you should run the auto installer to install
 and launch the new node. If the installation is successful, the nodes are launched
 and they wait for a configuration from the ZooKeeper (the
-*waiting for zookeeper configuration status* in the list of processes). After that,
+``waiting for zookeeper configuration status`` in the list of processes). After that,
 the auto installer executes the ``configure_zk.sh`` script to add the node to the
 ZooKeeper and switch the node(s) to normal operation (the running status). For more
-information, please see the section on :ref:`automatic installation <auto_installer>`.
+information, please see the section on :ref:`automatic installation <auto-install>`.
 
 .. NOTE::
 
-    **Important!** If you do not want the active nodes of the Tarantool cluster to be
+    If you do not want the active nodes of the Tarantool cluster to be
     reinstalled after the ``auto installer`` starts, it is recommended that you use
     the ``--limit <new_node_name>`` option for Ansible. Otherwise, the entire cluster
     can be restarted as a result of running the ``auto installer``.
@@ -689,7 +758,7 @@ information, please see the section on :ref:`automatic installation <auto_instal
 The following example shows how to run the ``auto installer`` command to add the
 ``shard3_*`` group of nodes:
 
-.. code-block:: kconfig
+.. code-block:: console
 
     $ ./[g][h]-tarantool-deploy.sh -u centos -c install -e '--limit shard3_*,localhost'
 
@@ -699,25 +768,31 @@ The following example shows how to run the ``auto installer`` command to add the
     you should always add ``localhost`` to the end of the host list in the ``--limit``
     parameter.
 
+.. _manually-register-nodes:
+
 -------------------------------------------------------------------------------
 Manually registering nodes in ZooKeeper
 -------------------------------------------------------------------------------
 
 If the ``auto installer`` failed to automatically add a node to the ZooKeeper
-configuration, then this node can be registered manually using the orchestrator's API.
+configuration, then this node can be registered manually using the orchestrator's
+API.
 
 The general procedure is as follows:
 
 1. Install and run a node or multiple nodes using the ``auto installer``.
 2. Register new nodes in the ``orchestrator`` one by one.
-3. Register the ``router`` in the list of available routers (for ``routers``); or register the node in the replica set (for ``storages``).
+3. Register the ``router`` in the list of available routers (for ``routers``);
+   or register the node in the replica set (for ``storages``).
 4. Apply the updated configuration using the ``POST`` request to ``/api/v1/version``.
 
-*******************************************************************************
-Example: Registering the node
-*******************************************************************************
+.. _example-register-node:
 
-.. code-block:: kconfig
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Example: Registering a node
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: console
 
     $ curl -X POST \
         http://HOST:PORT/api/v1/registry/node \
@@ -749,11 +824,13 @@ Use the following command to verify that the nodes are registered successfully:
 
 It retrieves a complete list of the Tarantool nodes.
 
-*******************************************************************************
-Example: Registering the router
-*******************************************************************************
+.. _example-register-router:
 
-.. code-block:: kconfig
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Example: Registering a router
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: console
 
     $ curl -s -X POST \
       http://HOST:PORT/api/v1/routers \
@@ -764,11 +841,13 @@ Example: Registering the router
        }'
     echo
 
-*******************************************************************************
-Example: Registering the replica set
-*******************************************************************************
+.. _example-register-replica-set:
 
-.. code-block:: kconfig
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Example: Registering a replica set
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: console
 
     $ curl -s -X POST \
         http://HOST:PORT/api/v1/replicaset \
@@ -788,30 +867,31 @@ Example: Registering the replica set
             ]
         }'
 
-
 As with individual nodes, you can verify that the replica set is registered
 successfully using the following ``GET`` request:
 
-.. code-block:: kconfig
+.. code-block:: console
 
     $  curl -s -X GET http://HOST:PORT/api/v1/replicaset|python -m json.tool
 
 After registration, execute the following command to update the configuration
 version:
 
-.. code-block:: kconfig
+.. code-block:: console
 
     $ curl s -X POST http://HOST:PORT/api/v1/version
 
 .. NOTE::
 
-    Important! It is quite complex to register nodes manually. If you still need
+    Registering nodes manually is not trivial. If you still need
     to perform this operation, it is recommended to run the ``auto installer`` to get
     the current version of the ``configure_zk.sh`` file, after which you can use this
     file as the basis for API calls.
 
 For more information about which parameters to use in API calls, please see
 the :ref:`orchestrator API <orchestrator_api>` section.
+
+.. _rebalance-data:
 
 -------------------------------------------------------------------------------
 Rebalancing the data
@@ -826,8 +906,8 @@ set has 0 active buckets. After a few minutes, the background rebalancing proces
 begins to transfer slots from the other replica sets to the new one. Rebalancing
 continues until the data is distributed evenly among all replica sets.
 
-To get the current number of buckets, say ``vshard.storage.info()`` in the administrator
-console of the storage nodes:
+To get the current number of buckets, say ``vshard.storage.info()`` in the
+administrator console of the storage nodes:
 
 .. code-block:: console
 
@@ -841,8 +921,10 @@ console of the storage nodes:
       sending: 0
     ...
 
-.. For more information on the monitoring parameters, please see the Monitoring
-.. Storage Nodes chapter.
+For more information on the monitoring parameters, please see the section
+:ref:`Monitoring the storages <monitor-storage>`.
+
+.. _regular-switch-master:
 
 -------------------------------------------------------------------------------
 Regular way of switching to another master
@@ -850,25 +932,37 @@ Regular way of switching to another master
 
 To perform a scheduled downtime of the master from any replica set, update the
 configuration of the replica set by using the appropriate orchestrator API call.
-The  general algorithm is the following:
+
+The general algorithm is the following:
 
 1. Get the UUID of the replica set and the UUID of the new master node:
-    * from the ``inventory`` file of the ``auto installer``
-    * by calling the API function of the ``orchestrator``
-2. Change the UUID of the replica set master by calling the API function of the ``orchestrator``.
 
-*******************************************************************************
-Get the UUID of the replica set and the nodes from the inventory
-*******************************************************************************
+   * from the ``inventory`` file of the ``auto installer``, or
+   * by calling the API function of the ``orchestrator``.
 
-* uuid of the replica set is stored in the ``tarantool_replicaset`` parameter
-* uuid of the node is stored in the ``tarantool_uuid`` parameter
+2. Change the UUID of the replica set master by calling the API function of the
+   ``orchestrator``.
+
+.. _get-uuids-inventory:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Getting UUIDs from the inventory
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Check the following parameters:
+
+* UUID of the replica set is stored in the ``tarantool_replicaset`` parameter
+* UUID of the node is stored in the ``tarantool_uuid`` parameter
 
 .. For more information, please see the Setting inventory section.
 
-*******************************************************************************
-Get the UUID of the replica set and the node using the orchestrator
-*******************************************************************************
+.. _get-uuids-orchestrator:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Getting UUIDs using the orchestrator
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+To get of the replica set and the node using the orchestrator, say this:
 
 .. code-block:: kconfig
 
@@ -890,11 +984,14 @@ Get the UUID of the replica set and the node using the orchestrator
         ...
     }
 
-For more information, please see the :ref:`replica set reference <orchestrator_api-replica_set_cfg>`.
+For more information, please see the
+:ref:`replica set reference <orchestrator_api-replica_set_cfg>`.
 
-*******************************************************************************
+.. _switch-master:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Switching to another master
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: console
 
@@ -909,18 +1006,21 @@ master.
 
 To apply the configuration on the Tarantool nodes, update the version:
 
-.. code-block:: kconfig
+.. code-block:: console
 
     $ curl -s -X POST http://HOST:PORT/api/v1/version
 
 Please see the :ref:`replica set reference <orchestrator_api-replica_set_cfg>`:
 
-* For more information on how to use the ``orchestrator``'s API in order to switch to another master.
+* For more information on how to use the ``orchestrator``'s API in order to
+  switch to another master.
 * For more information on how to change the parameters of the replica set.
 
 When you use the regular way to switch to another master using ``orchestrator``,
 the Tarantool cluster automatically waits for the synchronization of all data that
 was written to the old master on all nodes in the replica set.
+
+.. _regular-deactivate-replica-set:
 
 -------------------------------------------------------------------------------
 Regular way of deactivating the replica set
@@ -937,6 +1037,8 @@ To perform a scheduled downtime of the replica set from a cluster:
 3. Disable the replica set: remove the replica set and deactivate the Tarantool
    nodes using the ``orchestrator``'s API.
 
+.. _node-failure:
+
 -------------------------------------------------------------------------------
 Failure of a single node or multiple nodes
 -------------------------------------------------------------------------------
@@ -951,18 +1053,22 @@ If the master of any replica set fails, it is recommended that you do the follow
 In this case, you can use any external utility to monitor the state of the master
 and switch the modes of the instances.
 
+.. _replica-set-failover:
+
 -------------------------------------------------------------------------------
 Failover of a replica set
 -------------------------------------------------------------------------------
 
 When an entire replica set goes down, the data becomes partially unavailable:
 
-* read-only requests are redirected to replicas
-* write requests are not processed
+* read-only requests are redirected to replicas,
+* write requests are not processed.
 
 The ``router`` makes periodic attempts to reconnect to the master of the failed
 replica set. Thus, the functionality of the cluster is automatically restored when
 the failed replica set is restored.
+
+.. _geo-redundancy-setup:
 
 -------------------------------------------------------------------------------
 Setting up geo redundancy
@@ -989,6 +1095,8 @@ the automatic scale-out system of the Tarantool DBMS finds a replica which is th
 closest to the specified router in terms of weights, and starts using this replica
 for reading. If this replica is not available, then the next nearest replica is
 selected, taking into account the distances specified in the configuration.
+
+.. _resolve-conflicts:
 
 -------------------------------------------------------------------------------
 Resolving conflicts
@@ -1036,24 +1144,33 @@ newer tuples. Below is the code in Lua:
     end)
     box.cfg{ replication = {...} } -- subscribe
 
+.. _troubleshooting:
+
 -------------------------------------------------------------------------------
 Troubleshooting
 -------------------------------------------------------------------------------
 
 Please see Tarantool :ref: troubleshooting guide <admin-troubleshoot>`.
 
+.. _monitor-shard:
+
 -------------------------------------------------------------------------------
 Monitoring the shards
 -------------------------------------------------------------------------------
-*******************************************************************************
+
+.. _monitor-storage:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Monitoring the storages
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Use ``vshard.storage.info()`` to obtain information on storage nodes.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _monitor-storage-example:
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Output example
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. code-block:: tarantoolsession
 
@@ -1081,9 +1198,11 @@ Output example
       alerts:
       - ['MASTER_IS_UNREACHABLE', 'Master is unreachable: disconnected']
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _monitor-storage-statuses:
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 List of statuses
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. container:: table
 
@@ -1105,107 +1224,126 @@ List of statuses
     | 3        | Red                | A replica set is disabled.              |
     +----------+--------------------+-----------------------------------------+
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _monitor-storage-issues:
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Potential issues
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 * ``MISSING_MASTER`` — No master node in the replica set configuration.
-    **Critical level:** Orange.
 
-    **Cluster condition:** Service is degraded for data-change requests to the
-    replica set.
+  **Critical level:** Orange.
 
-    **Solution:** Set the master node for the replica set in the configuration using API.
+  **Cluster condition:** Service is degraded for data-change requests to the
+  replica set.
+
+  **Solution:** Set the master node for the replica set in the configuration using API.
 
 * ``UNREACHABLE_MASTER`` — No connection between the master and the replica.
-    **Critical level:**
-        * If idle value doesn’t exceed T1 threshold (1 s.) — Yellow,
-        * If idle value doesn’t exceed T2 threshold (5 s.) — Orange,
-        * If idle value exceeds T3 threshold (10 s.) — Red.
 
-    **Cluster condition:** For read requests to replica, the data may be obsolete
-    compared with the data on master.
+  **Critical level:**
 
-    **Solution:** Reconnect to the master: fix the network issues, reset the current
-    master, switch to another master.
+  * If idle value doesn’t exceed T1 threshold (1 s.) — Yellow,
+  * If idle value doesn’t exceed T2 threshold (5 s.) — Orange,
+  * If idle value exceeds T3 threshold (10 s.) — Red.
 
+  **Cluster condition:** For read requests to replica, the data may be obsolete
+  compared with the data on master.
+
+  **Solution:** Reconnect to the master: fix the network issues, reset the current
+  master, switch to another master.
 
 * ``LOW_REDUNDANCY`` — Master has access to a single replica only.
-    **Critical level:** Yellow.
 
-    **Cluster condition:** The data storage redundancy factor is equal to 2. It
-    is lower than the minimal recommended value for production usage.
+  **Critical level:** Yellow.
 
-    **Solution:** Check cluster configuration:
-        * If only one master and one replica are specified in the configuration,
-          it is recommended to add at least one more replica to reach the redundancy factor
-          of 3;
-        * If three or more replicas are specified in the configuration, consider
-        * checking the replicas' states and network connection among the replicas.
+  **Cluster condition:** The data storage redundancy factor is equal to 2. It
+  is lower than the minimal recommended value for production usage.
 
-* ``INVALID_REBALANCING`` — Rebalancing invariant was violated. During migration, a storage node can either send or receive buckets. So it shouldn’t be the case that a replica set sends buckets to one replica set and receives buckets from another replica set at the same time.
-    **Critical level:** Yellow.
+  **Solution:** Check cluster configuration:
 
-    **Cluster condition:** Rebalancing is on hold.
+  * If only one master and one replica are specified in the configuration,
+    it is recommended to add at least one more replica to reach the redundancy
+    factor of 3.
+  * If three or more replicas are specified in the configuration, consider
+    checking the replicas' states and network connection among the replicas.
 
-    **Solution:** There are two possible reasons for invariant violation:
-        1. The ``rebalancer`` has crashed.
-        2. Bucket states were changed manually.
+* ``INVALID_REBALANCING`` — Rebalancing invariant was violated. During migration,
+  a storage node can either send or receive buckets. So it shouldn’t be the case
+  that a replica set sends buckets to one replica set and receives buckets from
+  another replica set at the same time.
+
+  **Critical level:** Yellow.
+
+  **Cluster condition:** Rebalancing is on hold.
+
+  **Solution:** There are two possible reasons for invariant violation:
+
+  * The ``rebalancer`` has crashed.
+  * Bucket states were changed manually.
 
   Either way, please contact Tarantool support.
 
 * ``HIGH_REPLICATION_LAG`` — Replica’s lag exceeds T1 threshold (1 sec.).
-    **Critical level:**
-        * If the lag doesn’t exceed T1 threshold (1 sec.) — Yellow;
-        * If the lag exceeds T2 threshold (5 sec.) — Orange.
 
-    **Cluster condition:** For read-only requests to the replica, the data may
-    be obsolete compared with the data on the master.
+  **Critical level:**
 
-    **Solution:** Check the replication status of the replica. Further instructions
-    are given in the :ref: troubleshooting guide <admin-troubleshoot>`.
+  * If the lag doesn’t exceed T1 threshold (1 sec.) — Yellow;
+  * If the lag exceeds T2 threshold (5 sec.) — Orange.
+
+  **Cluster condition:** For read-only requests to the replica, the data may
+  be obsolete compared with the data on the master.
+
+  **Solution:** Check the replication status of the replica. Further instructions
+  are given in the :ref: troubleshooting guide <admin-troubleshoot>`.
 
 * ``OUT_OF_SYNC`` — Mal-synchronization occured. The lag exceeds T3 threshold (10 sec.).
-    **Critical level:** Red.
 
-    **Cluster condition:** For read-only requests to the replica, the data may be
-    obsolete compared with the data on the master.
+  **Critical level:** Red.
 
-    **Solution:** Check the replication status of the replica. Further instructions
-    are given in the :ref: troubleshooting guide <admin-troubleshoot>`.
+  **Cluster condition:** For read-only requests to the replica, the data may be
+  obsolete compared with the data on the master.
+
+  **Solution:** Check the replication status of the replica. Further instructions
+  are given in the :ref: troubleshooting guide <admin-troubleshoot>`.
 
 .. _unreachable_replica:
 
 * ``UNREACHABLE_REPLICA`` — One or multiple replicas are unreachable.
-    **Critical level:** Yellow.
 
-    **Cluster condition:** Data storage redundancy factor for the given replica
-    set is less than the configured factor. If the replica is next in the queue for
-    rebalancing (in accordance with the weight configuration), the requests are
-    forwarded to the replica that is still next in the queue.
+  **Critical level:** Yellow.
 
-    **Solution:** Check the error message and find out which replica is unreachable.
-    If a replica is disabled, enable it. If this doesn’t help, consider checking
-    the network.
+  **Cluster condition:** Data storage redundancy factor for the given replica
+  set is less than the configured factor. If the replica is next in the queue for
+  rebalancing (in accordance with the weight configuration), the requests are
+  forwarded to the replica that is still next in the queue.
+
+  **Solution:** Check the error message and find out which replica is unreachable.
+  If a replica is disabled, enable it. If this doesn’t help, consider checking
+  the network.
 
 * ``UNREACHABLE_REPLICASET`` — All replicas except for the current one are unreachable.
-    **Critical level:** Red.
+  **Critical level:** Red.
 
-    **Cluster condition:** The replica stores obsolete data.
+  **Cluster condition:** The replica stores obsolete data.
 
-    **Solution:** Check if the other replicas are enabled. If all replicas are
-    enabled, consider checking network issues on the master. If the replicas are
-    disabled, check them first: the master might be working properly.
+  **Solution:** Check if the other replicas are enabled. If all replicas are
+  enabled, consider checking network issues on the master. If the replicas are
+  disabled, check them first: the master might be working properly.
 
-*******************************************************************************
+.. _monitor-router:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Monitoring the router
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Use ``vshard.router.info()`` to obtain information on the router.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _monitor-router-example:
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Output example
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. code-block:: tarantoolsession
 
@@ -1230,9 +1368,11 @@ Output example
         unknown: <!-- number of other buckets
       alerts: [<alert code>, <alert description>], ...
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _monitor-router-statuses:
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 List of statuses
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. container:: table
 
@@ -1252,45 +1392,58 @@ List of statuses
     | 3        | Red                | Service is degraded for reading data.   |
     +----------+--------------------+-----------------------------------------+
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _monitor-router-issues:
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Potential issues
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. NOTE::
 
     Depending on the nature of the issue, use either the UUID of a replica,
     or the UUID of a replica set.
 
-* ``MISSING_MASTER`` — The master in one or multiple replica sets is not specified in the configuration.
-    **Critical level:** Orange.
+* ``MISSING_MASTER`` — The master in one or multiple replica sets is not
+  specified in the configuration.
 
-    **Cluster condition:** Partial degrade for data-change requests.
+  **Critical level:** Orange.
 
-    **Solution:** Specify the master in the configuration.
+  **Cluster condition:** Partial degrade for data-change requests.
 
-* ``UNREACHABLE_MASTER`` — The ``router`` lost connection with the master of one or multiple replica sets.
-    **Critical level:** Orange.
+  **Solution:** Specify the master in the configuration.
 
-    **Cluster condition:** Partial degrade for data-change requests.
+* ``UNREACHABLE_MASTER`` — The ``router`` lost connection with the master of
+  one or multiple replica sets.
 
-    **Solution:** Restore connection with the master. First, check if the master
-    is enabled. If it is, consider checking the network.
+  **Critical level:** Orange.
 
-* ``SUBOPTIMAL_REPLICA`` — There is a replica for read-only requests, but this replica is not optimal according to the configured weights. This means that the optimal replica is unreachable.
-    **Critical level:** Yellow.
+  **Cluster condition:** Partial degrade for data-change requests.
 
-    **Cluster condition:** Read-only requests are forwarded to a backup replica.
+  **Solution:** Restore connection with the master. First, check if the master
+  is enabled. If it is, consider checking the network.
 
-    **Solution:** Check the status of the optimal replica and its network connection.
+* ``SUBOPTIMAL_REPLICA`` — There is a replica for read-only requests, but this
+  replica is not optimal according to the configured weights. This means that
+  the optimal replica is unreachable.
 
-* ``UNREACHABLE_REPLICASET`` — A replica set is unreachable for both read-only and data-change requests.
-    **Critical Level:** Red.
+  **Critical level:** Yellow.
 
-    **Cluster condition:** Partial degrade for read-only and data-change requests.
+  **Cluster condition:** Read-only requests are forwarded to a backup replica.
 
-    **Solution:** The replica set has an unreachable master and replica. Check the
-    error message to detect this replica set. Then fix the issue in the same way
-    as for :ref:`UNREACHABLE_REPLICA <unreachable_replica>`.
+  **Solution:** Check the status of the optimal replica and its network connection.
+
+* ``UNREACHABLE_REPLICASET`` — A replica set is unreachable for both read-only
+  and data-change requests.
+
+  **Critical Level:** Red.
+
+  **Cluster condition:** Partial degrade for read-only and data-change requests.
+
+  **Solution:** The replica set has an unreachable master and replica. Check the
+  error message to detect this replica set. Then fix the issue in the same way
+  as for :ref:`UNREACHABLE_REPLICA <unreachable_replica>`.
+
+.. _enterprise-recovery:
 
 -------------------------------------------------------------------------------
 Tarantool recovery
@@ -1298,11 +1451,15 @@ Tarantool recovery
 
 Please see :ref:`Tarantool recovery <admin-disaster_recovery>` section.
 
+.. _enterprise-backups:
+
 -------------------------------------------------------------------------------
 Backups
 -------------------------------------------------------------------------------
 
 Please see :ref:`Tarantool backups <admin-backups>` section.
+
+.. _enterprise-appendixes:
 
 -------------------------------------------------------------------------------
 Appendixes
@@ -1310,21 +1467,25 @@ Appendixes
 
 .. _enterprise-appendix_1:
 
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Orchestrator API reference
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. include:: orchestrator_api.rst
 
-*******************************************************************************
+.. _enterprise-appendix_2:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Structure of ZooKeeper directories
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. include:: zookeper_structure.rst
 
-*******************************************************************************
+.. _enterprise-appendix_3:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Useful Tarantool parameters
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * :ref:`box.info <box_introspection-box_info>`
 * :ref:`box.info.replication <box_info_replication>`
@@ -1334,9 +1495,11 @@ Useful Tarantool parameters
 * :ref:`box.slab.info <box_slab_info>`
 * :ref:`box.slab.stats <box_slab_stats>`
 
-*******************************************************************************
+.. _enterprise-appendix_4:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Monitoring system metrics
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. container:: table
 
@@ -1424,9 +1587,11 @@ Monitoring system metrics
     |                      | operations                           |              |                 |                 |
     +----------------------+--------------------------------------+--------------+-----------------+-----------------+
 
-*******************************************************************************
+.. _enterprise-appendix_5:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Security log
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Tarantool provides a log of the following user actions and facts of using administrator
 privileges in the Tarantool DBMS:
@@ -1441,9 +1606,11 @@ privileges in the Tarantool DBMS:
 * enabling a user,
 * granting (changing) privileges (roles, profiles, etc.) for the user.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _security-log-overview:
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Log overview
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. container:: table
 
@@ -1480,9 +1647,11 @@ Log overview
     | ``param``       | string | parameters of event  | see below                                 |
     +-----------------+--------+----------------------+-------------------------------------------+
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _security-log-events:
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Events description
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. container:: table
 
@@ -1550,25 +1719,3 @@ Events description
     |                                     |                     |     “old_priv”: “”,                |
     |                                     |                     |     “new_priv”: “read,write”}      |
     +-------------------------------------+---------------------+------------------------------------+
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

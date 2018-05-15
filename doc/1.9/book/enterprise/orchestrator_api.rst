@@ -130,6 +130,8 @@ Configuring the zones
     * ``zone_not_found`` - the specified zone is not found
     * ``zone_in_use`` - the specified zone stores at least one node
 
+.. _orchestrator-configure-zone-weights:
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Configuring the zone weights
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -216,6 +218,8 @@ Configuring the zone weights
     **Potential errors**
 
     * ``zone_not_found`` - the specified zone is not found
+
+.. _orchestrator-configure-registry:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Configuring registry
@@ -402,6 +406,8 @@ Configuring registry
 
     * ``node_not_registered`` - the specified node is not registered
     * ``node_in_use`` - the specified node is in use by a replica set
+
+.. _orchestrator-router-api:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Routers API
@@ -800,6 +806,8 @@ Configuring replica sets
     * ``zone_not_found`` - the specified zone is not found
     * ``zone_in_use`` - the specified zone stores at least one node
 
+.. _orchestrator-setup-config-versions:
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Setting up configuration versions
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -853,6 +861,8 @@ Setting up configuration versions
             }
         }
 
+.. _orchestrator-config-shards:
+
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Configuring sharding
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -897,6 +907,8 @@ Configuring sharding
             "status": true,
             "data": {}
         }
+
+.. _orchestrator-reset-cluster-config:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Resetting cluster configuration
@@ -943,5 +955,3 @@ Resetting cluster configuration
             "status": true,
             "data": {}
         }
-
-

@@ -1,6 +1,6 @@
 .. NOTE::
 
-    The cluster default name is *'default'*.
+    The cluster default name is ``default``.
 
 * :ref:`/tarantool/cluster/{cluster_name}/new_nodes/{host_name:instance_name} <zookeper_structure-instance_info>`
 * :ref:`/tarantool/cluster/{cluster_name}/node/{uuid} <zookeper_structure-instance_status>`
@@ -96,4 +96,3 @@
                 }
             }
         }
-
