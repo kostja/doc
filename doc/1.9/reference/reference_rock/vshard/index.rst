@@ -1,17 +1,39 @@
 .. _vshard:
 
-================================================================================
+===============================================================================
 Module `vshard`
-================================================================================
+===============================================================================
+
+.. _vshard-summary:
+
 -------------------------------------------------------------------------------
-Overview
+Summary
 -------------------------------------------------------------------------------
 
-In Tarantool, a horizontal scaling is performed via sharding. Sharding is introduced
-by a ``vshard`` module. With sharding, the tuples of a dataset are distributed across
+The ``vshard`` module introduces the sharding feature, which enables
+horizontal scaling in Tarantool.
+
+While a project is growing, scaling the databases may become the most challenging
+issue. Once a single server cannot withstand the load, scaling methods should be
+applied.
+
+There are two different approaches for scaling data,
+`vertical and horizontal scaling <https://en.wikipedia.org/wiki/Scalability#Horizontal_and_vertical_scaling>`_:
+
+* *Vertical scaling* implies that the hardware capacities of a single server would
+  be increased.
+
+* *Horizontal scaling* implies that a dataset is partitioned and distributed over
+  multiple servers. In case new servers are added, the dataset is re-distributed
+  evenly across all servers, both the original and new ones.
+
+Sharding is a database architecture that allows for horizontal scaling.
+
+With ``vshard``, the tuples of a dataset are distributed across
 multiple nodes, with a Tarantool database server instance on each node. Each instance
 handles only a subset of the total data, so larger loads can be handled by simply
-adding more servers.
+adding more servers. The initial dataset is partitioned into multiple parts, so each
+part is stored on a separate server. The dataset is partitioned using shard keys.
 
 The ``vshard`` module is based on the concept of virtual buckets, where a tuple
 set is partitioned into a large number of abstract virtual nodes (virtual buckets,
@@ -26,22 +48,26 @@ a server instance is active and available for all types of requests, or a failov
 occurred and the instance accepts only read requests.
 
 The ``vshard`` module provides analogs for the data-manipulation functions of the
-Tarantool box library (select, insert, replace, update, delete).
+Tarantool ``box`` library (select, insert, replace, update, delete).
+
+.. _vshard-install:
 
 -------------------------------------------------------------------------------
 Installation
 -------------------------------------------------------------------------------
 
-The ``vshard`` package is distributed separately from the main Tarantool package.
+The ``vshard`` module is distributed separately from the main Tarantool package.
 To acquire it, do a separate installation:
 
 .. code-block:: console
 
-    tarantoolctl rocks install https://raw.githubusercontent.com/tarantool/vshard/master/vshard-scm-1.rockspec
+    $ tarantoolctl rocks install https://raw.githubusercontent.com/tarantool/vshard/master/vshard-scm-1.rockspec
 
 .. NOTE::
 
-    The ``vshard`` package requires Tarantool version 1.9+.
+    The ``vshard`` module requires Tarantool version 1.9+.
+
+.. _vshard-quick-start:
 
 -------------------------------------------------------------------------------
 Quick start
@@ -64,8 +90,8 @@ Change the directory to ``example/`` and use make to run the development cluster
 
 .. code-block:: console
 
-    # cd example/
-    # make
+    $ cd example/
+    $ make
     tarantoolctl stop storage_1_a  # stop the first storage instance
     Stopping instance storage_1_a...
     tarantoolctl stop storage_1_b
@@ -105,10 +131,8 @@ Some ``tarantoolctl`` commands:
 * ``tarantoolctl start router_1`` – start the router instance
 * ``tarantoolctl enter router_1``  – enter the admin console
 
-.. Add link
-
-The full list of tarantoolctl commands for managing Tarantool instances is available
-in the Commands for managing Tarantool instances section of the Tarantool manual.
+The full list of ``tarantoolctl`` commands for managing Tarantool instances is
+available in :ref:`reference on tarantoolctl <tarantoolctl>`.
 
 Essential make commands you need to know:
 
@@ -124,8 +148,8 @@ For example, to start all instances, use ``make start``:
 
 .. code-block:: console
 
-    # make start
-    # ps x|grep tarantool
+    $ make start
+    $ ps x|grep tarantool
     46564   ??  Ss     0:00.34 tarantool storage_1_a.lua <running>
     46566   ??  Ss     0:00.19 tarantool storage_1_b.lua <running>
     46568   ??  Ss     0:00.35 tarantool storage_2_a.lua <running>
@@ -134,7 +158,7 @@ For example, to start all instances, use ``make start``:
 
 To perform commands in the admin console, use the ``router`` API:
 
-.. code-block:: console
+.. code-block:: tarantoolsession
 
     unix/:./data/router_1.control> vshard.router.info()
     ---
@@ -164,33 +188,11 @@ To perform commands in the admin console, use the ``router`` API:
       alerts: []
     ...
 
--------------------------------------------------------------------------------
-About sharding
--------------------------------------------------------------------------------
-*******************************************************************************
-Why sharding
-*******************************************************************************
+.. _vshard-architecture:
 
-Sharding is a database architecture that allows distributing a dataset across
-multiple servers. An initial dataset is partitioned into multiple parts, so each
-part is stored on a separate server. The dataset is partitioned using shard keys.
-While a project is growing, scaling of the databases may become the most challenging
-issue. Once a single server cannot withstand the load, scaling methods should be
-applied. There are two different approaches for scaling data: vertical and horizontal
-scaling.
-
-*Vertical scaling* implies that the hardware capacities of a single server would
-be increased.
-
-*Horizontal scaling* implies that a dataset is partitioned and distributed over
-multiple servers. In case new servers are added, the dataset is re-distributed
-evenly across all servers, both the original and new ones.
-
-Tarantool supports horizontal scaling through sharding.
-
-*******************************************************************************
-Sharded cluster components
-*******************************************************************************
+------------------------------------------------------------------------------
+Archiitecture
+------------------------------------------------------------------------------
 
 A sharded cluster in Tarantool consists of storages, routers, and a rebalancer.
 
@@ -208,9 +210,11 @@ considering the capacities of existing replica sets.
 .. image:: schema.jpg
     :align: center
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _vshard-storage:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Storage
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 **Storage** is a node storing a subset of a dataset. Multiple replicated storages
 comprise a replica set. Each storage in a replica set has a role, **master** or
@@ -220,9 +224,11 @@ requests, but cannot process write requests.
 .. image:: master_replica.jpg
     :align: center
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _vshard-vbuckets:
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Virtual buckets
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 The sharded dataset is partitioned into a large number of abstract nodes called
 **virtual buckets** (further referred as **buckets**).
@@ -248,9 +254,11 @@ bucket id ``index``. Spaces without the bucket id indexes don’t participate in
 but can be used as regular spaces. By default, the name of the index coincides with
 the bucket id.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _vshard-migrate-buckets:
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Migration of buckets
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 A **rebalancer** is a background rebalancing process that ensures an even
 distribution of buckets across the shards. During rebalancing, buckets are being
@@ -290,11 +298,13 @@ Altogether, migration is performed as follows:
 4. The bucket on the destination replica set goes into the ACTIVE state and starts
    accepting all requests.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-The `_bucket` system space
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _vshard-bucket-space:
 
-The “**_bucket**” system space of each replica set stores the ids of buckets present
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+The `_bucket` system space
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+The ``_bucket`` system space of each replica set stores the ids of buckets present
 in the replica set. The space contains the following tuples:
 
 * ``bucket`` – bucket id
@@ -314,9 +324,11 @@ Once the bucket is migrated, the destination replica set uuid is filled in the
 table. While the bucket is still located on the source replica set, the value of
 the destination replica set uuid is equal to ``NULL``.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _vshard-router:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Router
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 All requests from the application come to the sharded cluster through a ``router``.
 The ``router`` keeps the topology of a sharded cluster transparent for the application,
@@ -330,9 +342,11 @@ The router does not have a persistent state, nor does it store the cluster topol
 or balance the data. The router is a standalone software component that can run
 in the storage layer or application layer depending on the application features.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Routing table
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _vshard-routing-table:
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+The routing table
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 А routing table on the ``router`` stores the map of all bucket ids to replica sets.
 It ensures the consistency of sharding in case of failover.
@@ -348,9 +362,11 @@ As the bucket id is explicitly indicated both in the data and in the mapping tab
 on the router, the data is consistent regardless of the application logic. It also
 makes rebalancing transparent for the application.
 
--------------------------------------------------------------------------------
+.. _vshard-process-requests:
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Processing requests
--------------------------------------------------------------------------------
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Requests to the database can be performed by the application or using stored
 procedures. Either way, the bucket id should be explicitly specified in the request.
@@ -359,7 +375,9 @@ All requests are forwarded to the ``router`` first. The only operation supported
 by the router is ``call``. The operation is performed via ``vshard.router.call()``
 function:
 
-``result = vshard.router.call(<bucket_id>, <mode(read:write)>, <function_name>, {<argument_list>}, {<opts>})``
+.. code-block:: none
+
+    result = vshard.router.call(<bucket_id>, <mode(read:write)>, <function_name>, {<argument_list>}, {<opts>})
 
 Requests are processed as follows:
 
@@ -376,12 +394,17 @@ Requests are processed as follows:
 3. If all the checks succeed, the request is executed. Otherwise, it is terminated
    with the error: ``“wrong bucket”``.
 
+.. _vshard-admin:
+
 -------------------------------------------------------------------------------
 Administration
 -------------------------------------------------------------------------------
-*******************************************************************************
+
+.. _vshard-config-cluster:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Configuring a sharded cluster
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A minimal viable sharded cluster should consist of:
 
@@ -405,7 +428,7 @@ Self-identification is currently performed using ``tarantoolctl``:
 
 .. code-block:: console
 
-    tarantoolctl instance_name
+    $ tarantoolctl instance_name
 
 All ``router`` instances can also be deployed using identical instance (configuration)
 files.
@@ -418,9 +441,11 @@ Sharding is not integrated into any system for centralized configuration managem
 It is implied that the application itself is responsible for interacting with such
 a system and passing the sharding parameters.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _vshard-config-cluster-example:
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Sample configuration
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 The configuration of a simple sharded cluster can look like this:
 
@@ -471,7 +496,7 @@ See the Configuration reference section for details.
 
 On routers call ``vshard.router.cfg(cfg)``:
 
-.. code-block:: console
+.. code-block:: lua
 
     cfg.listen = 3300
 
@@ -481,7 +506,7 @@ On routers call ``vshard.router.cfg(cfg)``:
 
 On storages call ``vshard.storage.cfg(cfg, instance_uuid)``:
 
-.. code-block:: console
+.. code-block:: lua
 
     -- Get instance name
     local MY_UUID = "de0ea826-e71d-4a82-bbf3-b04a6413e417"
@@ -500,9 +525,11 @@ port and replication parameters.
 See ``router.lua`` and ``storage.lua`` in the ``vshard/example`` directory for
 a sample configuration.
 
-*******************************************************************************
+.. _vshard-replica-weights:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Replica weights
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 The ``router`` sends all requests to the master instance only. Setting replica
 weights allows sending read requests not only to the master instance, but to any
@@ -565,9 +592,11 @@ Then, specify relative weights for each zone pair in the weights parameter of
 
     local cfg = vshard.router.cfg({weights = weights, sharding = ...})
 
-*******************************************************************************
+.. _vshard-replica-set-weights:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Replica set weights
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A replica set weight is not the same as the replica weight. The weight of a replica
 set defines the capacity of the replica set: the larger the weight, the more
@@ -582,9 +611,11 @@ all weights of all replica sets are equal.
 You can use weights, for example, to store the prevailing amount of data on a
 replica set with more memory space.
 
-*******************************************************************************
+.. _vshard-rebalancing:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Rebalancing process
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 There is an **etalon number** of buckets per a replica set. If there is no deviation
 from this number on all the replica set, then the buckets are distributed evenly.
@@ -628,9 +659,11 @@ When a new shard is added, the configuration can be updated dynamically:
 At this time, the new shard is already present in the ``router``'s pool of
 connections, so redirection is transparent for the application.
 
-*******************************************************************************
+.. _vshard-lock-pin:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Replica set lock and bucket pin
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 A replica set lock makes a replica set invisible for the ``rebalancer``: a locked
 replica set can neither receive new buckets, nor migrate its own ones.
@@ -687,9 +720,11 @@ disbalance. At the same time it respected equal weights of ``rs1`` and ``rs3``.
 The algorithms of considering locks and pins are completely different, although
 they look similar in terms of functionality.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _vshard-lock-and-rebalancing:
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Replica set lock and rebalancing
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Locked replica sets simply don’t participate in rebalancing. This means that
 even if the actual total number of buckets is not equal to the etalon number,
@@ -698,9 +733,11 @@ one of the replica sets is locked, it recalculates the etalon number of buckets
 of the non-locked replica sets as if the locked replica set and its buckets didn’t
 exist at all.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _vshard-pin-and-rebalancing:
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Bucket pin and rebalancing
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 Rebalancing replica sets with pinned buckets requires a more complex algorithm.
 Here pinned_count[o] is the number of pinned buckets, and ``etalon_count`` is
@@ -726,7 +763,7 @@ the etalon number of buckets per a replica set:
 
 The pseudocode for the algorithm is the following:
 
-.. code-block:: console
+.. code-block:: lua
 
     function cluster_calculate_perfect_balance(replicasets, bucket_count)
             -- rebalance the buckets using weights of the still viable replica sets --
@@ -755,9 +792,11 @@ On each step, the algorithm either finishes the calculation, or ignores at least
 one new replica set overloaded with the pinned buckets, and updates the etalon
 number of buckets on other replica sets.
 
-*******************************************************************************
+.. _vshard-define-spaces:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Defining spaces
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Spaces should be defined within a storage application using ``box.once()``.
 For example:
@@ -792,9 +831,11 @@ For example:
         box.schema.func.create('customer_add')
     end)
 
-*******************************************************************************
+.. _vshard-bootstrap:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Bootstrapping and restarting a storage
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If a replica set master fails, it is recommended to:
 
@@ -825,9 +866,11 @@ Meanwhile, the ``router`` tries to reconnect to the master of the failed replica
 set. This way, once the replica set is up and running again, the cluster is
 automatically restored.
 
-*******************************************************************************
+.. _vshard-fibers:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Fibers
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 Search for buckets, buckets recovery, and buckets rebalancing are performed
 automatically and do not require human intervention.
@@ -846,18 +889,22 @@ operations:
 
   See the Rebalancing process section for details.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _vshard-gc:
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Garbage collector
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 A **garbage collection** fiber is running in the background on the master storages
 of each replica set. It starts deleting the contents of the bucket in the GARBAGE
 state part by part. Once the bucket is empty, its record is deleted from the
 ``_bucket`` system space.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _vshard-bucket-recovery:
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Bucket recovery
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 A **bucket recovery** fiber is running on the master storages. It helps to recover
 buckets in the SENDING and RECEIVING states in case of reboot.
@@ -872,37 +919,391 @@ Buckets in the SENDING state are recovered as follows:
 
 Buckets in the RECEIVING state are deleted without extra checks.
 
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. _vshard-failover:
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Failover
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 A failover fiber is running on every router. If a master of a replica set
 becomes unavailable, the failover redirects read requests to the replicas.
 Write requests are rejected with an error until the master becomes available.
 
+.. _vshard-config-reference:
+
 -------------------------------------------------------------------------------
 Configuration reference
 -------------------------------------------------------------------------------
-*******************************************************************************
+
+.. _vshard-config-basic-params:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Basic parameters
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. include:: cfg_basic.rst
+* :ref:`sharding <cfg_basic-sharding>`
+* :ref:`weights <cfg_basic-weights>`
+* :ref:`shard_index <cfg_basic-shard_index>`
+* :ref:`bucket_count <cfg_basic-bucket_count>`
+* :ref:`collect_bucket_garbage_interval <cfg_basic-collect_bucket_garbage_interval>`
+* :ref:`collect_lua_garbage <cfg_basic-collect_lua_garbage>`
+* :ref:`sync_timeout <cfg_basic-sync_timeout>`
+* :ref:`rebalancer_disbalance_threshold <cfg_basic-rebalancer_disbalance_threshold>`
+* :ref:`rebalancer_max_receiving <cfg_basic-rebalancer_max_receiving>`
 
-*******************************************************************************
+.. _cfg_basic-sharding:
+
+.. confval:: sharding
+
+    A field defining the logical topology of the sharded Tarantool cluster.
+    See Configured Sharded Cluster Example section.
+
+    | Type: table
+    | Default: false
+    | Dynamic: yes
+
+.. _cfg_basic-weights:
+
+.. confval:: weights
+
+    A field defining the configuration of relative weights for each zone pair in a
+    replica set. See Replica Weight section.
+
+    | Type: table
+    | Default: false
+    | Dynamic: yes
+
+.. _cfg_basic-shard_index:
+
+.. confval:: shard_index
+
+    An index over the bucket id.
+
+    | Type: non-empty string or non-negative integer
+    | Default: coincides with the bucket id number
+    | Dynamic: no
+
+.. _cfg_basic-bucket_count:
+
+.. confval:: bucket_count
+
+    A total number of buckets in a cluster.
+
+    This number should be several orders of magnitude larger than the potential number
+    of cluster nodes, considering the potential scaling out in the foreseeable future.
+
+    Example:
+    If the estimated number of nodes is M, then the data set should be divided into
+    100M or even 1000M buckets, depending on the planned scale out. This number is
+    certainly greater than the potential number of cluster nodes in the system being
+    designed.
+
+    Mind that too many buckets can cause the need to allocate more memory to store
+    routing information. In its turn, an insufficient number of buckets can lead to
+    decreased granularity when rebalancing.
+
+    | Type: number
+    | Default: 3000
+    | Dynamic: no
+
+.. _cfg_basic-collect_bucket_garbage_interval:
+
+.. confval:: collect_bucket_garbage_interval
+
+    The interval between the garbage collector actions, in seconds.
+
+    | Type: number
+    | Default: 0.5
+    | Dynamic: yes
+
+.. _cfg_basic-collect_lua_garbage:
+
+.. confval:: collect_lua_garbage
+
+    If set to true, the Lua’s collectgarbage() function is called periodically.
+
+    | Type: boolen
+    | Default: no
+    | Dynamic: yes
+
+.. _cfg_basic-sync_timeout:
+
+.. confval:: sync_timeout
+
+    Timeout to wait for synchronization with replicas. Used when switching a
+    master or when manually calling ``sync()`` function.
+
+    | Type: number
+    | Default: 1
+    | Dynamic: yes
+
+.. _cfg_basic-rebalancer_disbalance_threshold:
+
+.. confval:: rebalancer_disbalance_threshold
+
+    A maximal bucket disbalance threshold, in percent.
+    The threshold is calculated for each replica set using the following formula:
+
+    .. code-block:: console
+
+        |etalon_bucket_count - real_bucket_count| / etalon_bucket_count * 100
+
+    | Type: number
+    | Default: 1
+    | Dynamic: yes
+
+.. _cfg_basic-rebalancer_max_receiving:
+
+.. confval:: rebalancer_max_receiving
+
+    The maximal number of buckets that can be received in parallel by a single
+    replica set. This number must be limited, as when a new replica set is added to
+    a cluster, the rebalancer sends a very large amount of buckets from the existing
+    replica sets to the new replica set. This produces a heavy load on a new replica set.
+
+    Example:
+
+    Suppose ``rebalancer_max_receiving`` is equal to 100, ``bucket_count`` is equal to 1000.
+    There are 3 replica sets with 333, 333 and 334 buckets on each correspondingly.
+    When a new replica set is added, each replica set’s ``etalon_bucket_count`` becomes
+    equal to 250. Rather than receiving all 250 buckets at once, the new replica set
+    receives 100, 100 and 50 buckets sequentially.
+
+    | Type: number
+    | Default: 100
+    | Dynamic: yes
+
+.. _vshard-config-replica-set-funcs:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Replica set functions
-*******************************************************************************
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-.. include:: cfg_replica_set.rst
+* :ref:`uuid <cfg_replica_set-uuid>`
+* :ref:`weight <cfg_replica_set-weight>`
+
+.. _cfg_replica_set-uuid:
+
+.. confval:: uuid
+
+    A unique identifier of a replica set.
+
+    | Type:
+    | Default:
+    | Dynamic:
+
+.. _cfg_replica_set-weight:
+
+.. confval:: weight
+
+    A weight of a replica set. See Replica Set Weight section for the details.
+
+    | Type:
+    | Default: 1
+    | Dynamic:
+
+.. _vshard-api-reference:
 
 -------------------------------------------------------------------------------
 API reference
 -------------------------------------------------------------------------------
-*******************************************************************************
-Router API
-*******************************************************************************
 
-.. include:: router_api.rst
+.. _vshard-api-reference-router-api:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Router API
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* :ref:`vshard.router.bootstrap() <router_api-bootstrap>`
+* :ref:`vshard.router.cfg(cfg, instance_uuid) <router_api-cfg>`
+* :ref:`result = vshard.router.call(bucket_id, mode(read:write), function_name, {argument_list}, {options}) <router_api-call>`
+* :ref:`netbox, err = vshard.router.route(bucket_id) <router_api-route>`
+* :ref:`vshard.router.routeall() <router_api-routeall>`
+* :ref:`vshard.router.bucket_id(key) <router_api-bucket_id>`
+* :ref:`vshard.router.bucket_count() <router_api-bucket_count>`
+* :ref:`vshard.router.sync(timeout) <router_api-sync>`
+* :ref:`vshard.router.bucket_discovery(bucket_id) <router_api-bucket_discovery>`
+* :ref:`vshard.router.discovery_wakeup() <router_api-discovery_wakeup>`
+* :ref:`vshard.router.info() <router_api-info>`
+
+.. _router_api-bootstrap:
+
+.. function:: vshard.router.bootstrap()
+
+    Perform the initial cluster bootstrap and distribute all buckets across the
+    replica sets.
+
+.. _router_api-cfg:
+
+.. function:: vshard.router.cfg(cfg, instance_uuid)
+
+    Configure the database and start sharding for the specified ``router`` instance.
+
+    :param cfg: a ``router`` configuration
+    :param instance_uuid: an uuid of the instance
+
+.. _router_api-call:
+
+.. function:: result = vshard.router.call(bucket_id, mode(read:write), function_name, {argument_list}, {options})
+
+    Call the user function on the shard storing the bucket with the specified
+    bucket id. See Processing Requests section for details on function operation.
+
+    :param bucket_id: a bucket identifier
+    :param mode: a type of the function: read or write
+    :param function_name: a function to execute
+    :param argument_list: an array of the function's arguments
+    :param options:
+
+        * ``timeout`` – a request timeout, in seconds. In case the router cannot identify a
+          shard with the bucket id, the operation will be repeated until the
+          timeout is reached.
+
+    :Return:
+
+    The original return value of the executed function, or ``nil`` and
+    error object. The error object has a type attribute equal to ``ShardingError``
+    or one of the regular Tarantool errors (``ClientError``, ``OutOfMemory``,
+    ``SocketError``, etc.).
+
+    ``ShardingError`` is returned on errors specific for sharding: the replica
+    set is not available, the master is missing, wrong bucket id, etc. It has an
+    attribute code containing one of the values from ``vshard.error.code()``, an
+    optional attribute containing a message with the human-readable error description,
+    and other attributes specific for this error code.
+
+    **Example**
+
+    To call ``customer_add`` function from ``vshard/example``, say:
+
+.. code-block:: tarantoolsession
+
+    result = vshard.router.call(100, 'write', 'customer_add', {{customer_id = 2, bucket_id = 100, name = 'name2', accounts = {}}}, {timeout = 100})
+
+.. _router_api-route:
+
+.. function:: netbox, err = vshard.router.route(bucket_id)
+
+    Return the replica set object for the bucket with the specified bucket id.
+
+    :param bucket_id: a bucket identifier
+
+    :Return: a netbox connection
+    :Rtype: netbox
+
+.. _router_api-routeall:
+
+.. function:: vshard.router.routeall()
+
+    Return all available replica set objects.
+
+    :Return: a map of the following type: ``{UUID = replicaset}``
+    :Rtype: a replica set object
+
+.. _router_api-bucket_id:
+
+.. function:: vshard.router.bucket_id(key)
+
+    Calculate the bucket id using a simple built-in hash function.
+
+    :Return: a bucket identified
+    :Rtype: number
+
+.. _router_api-bucket_count:
+
+.. function:: vshard.router.bucket_count()
+
+    Return the total number of buckets specified in vshard.router.cfg().
+
+    :Return: the total number of buckets
+    :Rtype: number
+
+.. _router_api-sync:
+
+.. function:: vshard.router.sync(timeout)
+
+    Wait until the dataset is synchronized on replicas.
+
+    :param timeout: a timeout, in seconds
+
+.. _router_api-bucket_discovery:
+
+.. function:: vshard.router.bucket_discovery(bucket_id)
+
+    Search for the bucket in the whole cluster. If the bucket wasn’t
+    found, it’s likely that it doesn’t exist. The bucket might also be
+    moved during rebalancing and currently is in the RECEIVING state.
+
+    :param bucket_id: a bucket identifier
+
+.. _router_api-discovery_wakeup:
+
+.. function:: vshard.router.discovery_wakeup()
+
+    Force wakeup of the bucket discovery fiber.
+
+.. _router_api-info:
+
+.. function:: vshard.router.info()
+
+    Return the information on each instance.
+
+    :Return:
+
+    Replica set parameters:
+
+    * replica set uuid
+    * master instance parameters
+    * replica instance parameters
+
+    Instance parameters:
+
+    * ``uri``
+    * ``uuid``
+    * ``status`` – available, unreachable, missing
+    * ``network_timeout`` – a timeout for the request. The value is updated automatically
+      on each 10th successful request and each 2nd failed request.
+
+    Bucket parameters:
+
+    * ``available_ro`` – the number of buckets known to the router and available for read requests
+    * ``available_rw`` – the number of buckets known to the router and available for read and write requests
+    * ``unavailable`` – the number of buckets known to router but unavailable for any requests
+    * ``unreachable`` – the number of buckets which replica sets are not known to the router
+
+    **Example**
+
+.. code-block:: console
+
+    unix/:./data/router_1.control> vshard.router.info()
+    ---
+    - replicasets:
+        ac522f65-aa94-4134-9f64-51ee384f1a54:
+          replica: &0
+            network_timeout: 0.5
+            status: available
+            uri: storage@127.0.0.1:3303
+            uuid: 1e02ae8a-afc0-4e91-ba34-843a356b8ed7
+          uuid: ac522f65-aa94-4134-9f64-51ee384f1a54
+          master: *0
+        cbf06940-0790-498b-948d-042b62cf3d29:
+          replica: &1
+            network_timeout: 0.5
+            status: available
+            uri: storage@127.0.0.1:3301
+            uuid: 8a274925-a26d-47fc-9e1b-af88ce939412
+          uuid: cbf06940-0790-498b-948d-042b62cf3d29
+          master: *1
+      bucket:
+        unreachable: 0
+        available_ro: 0
+        unknown: 0
+        available_rw: 3000
+      status: 0
+      alerts: []
+    ...
+
+.. _vshard-glossary:
 
 -------------------------------------------------------------------------------
 Glossary
@@ -986,5 +1387,3 @@ Glossary
     **Router**
         A proxy server responsible for routing requests from an application to
         nodes in a cluster.
-
-
