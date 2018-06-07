@@ -131,6 +131,14 @@ Tarantool - Rocks
                     Connect remotely to a Tarantool instance via an admin port
 
                 .. module_block::
+                    :title: authman
+                    :specialtext: External
+                    :sourcelink: https://github.com/mailru/tarantool-authman
+
+                    Authorization module for Tarantool providing API for
+                    registration and login of the users
+
+                .. module_block::
                     :title: dump
                     :specialtext: External
                     :sourcelink: https://github.com/tarantool/dump
@@ -150,6 +158,14 @@ Tarantool - Rocks
                     :sourcelink: https://github.com/tarantool/prometheus
 
                     Prometheus library to collect metrics from Tarantool
+
+                .. module_block::
+                    :title: metrics
+                    :specialtext: External
+                    :sourcelink: https://github.com/tarantool/metrics
+
+                    Centralized system for collecting and manipulating metrics
+                    from multiple clients
 
                 .. module_block::
                     :title: zookeeper
@@ -188,6 +204,13 @@ Tarantool - Rocks
 
                     Routines to get time values derived from the Posix/C 'CLOCK_GETTIME' function
                     or equivalent. Useful for accurate clock and benchmarking.
+
+                .. module_block::
+                    :title: icu-date
+                    :specialtext: External
+                    :sourcelink: https://github.com/tarantool/icu-date
+
+                    LuaJIT FFI bindings to ICU date and time library
 
             .. _Development support:
             .. container:: b-rock
@@ -245,6 +268,71 @@ Tarantool - Rocks
 
                     Tools to write nice unit tests conforming to Test Anything Protocol
 
+                .. module_block::
+                    :title: checks
+                    :specialtext: External
+                    :sourcelink: https://github.com/tarantool/checks
+
+                    Easy, terse, readable and fast check of the Lua functions
+                    argument types
+
+                .. module_block::
+                    :title: cron-parser
+                    :specialtext: External
+                    :sourcelink: https://github.com/tarantool/cron-parser
+
+                    Lua wrapper for the ccronexpr C library
+
+                .. module_block::
+                    :title: tradeparser
+                    :specialtext: External
+                    :sourcelink: https://github.com/tarantool/tradeparser
+
+                    Fast specialized XML trade parser
+
+                .. module_block::
+                    :title: ldecnumber
+                    :specialtext: External
+                    :sourcelink: https://github.com/tarantool/ldecnumber
+
+                    Lua wrapper for the decNumber library
+
+                .. module_block::
+                    :title: lrexlib
+                    :specialtext: External
+                    :sourcelink: http://github.com/rrthomas/lrexlib
+
+                    Regular expression library binding (PCRE flavour)
+
+                .. module_block::
+                    :title: lua-term
+                    :specialtext: External
+                    :sourcelink: https://github.com/hoelzro/lua-term
+
+                    Terminal manipulation module
+
+                .. module_block::
+                    :title: LuLPeg
+                    :specialtext: External
+                    :sourcelink: https://github.com/pygy/LuLPeg
+
+                    Port of the LPeg, Roberto Ierusalimschy's Parsing Expression
+                    Grammars library
+
+                .. module_block::
+                    :title: argparse
+                    :specialtext: External
+                    :sourcelink: https://github.com/mpeterv/argparse
+
+                    Feature-rich command-line argument parser for Lua
+
+                .. module_block::
+                    :title: watchdog
+                    :specialtext: External
+                    :sourcelink: https://github.com/tarantool/watchdog
+
+                    Simple watchdog module for Tarantool
+
             .. _Geo:
             .. container:: b-rock
 
@@ -278,7 +366,8 @@ Tarantool - Rocks
                     :specialtext: External
                     :sourcelink: https://github.com/Mons/tnt-moonwalker
 
-                    Smart algorithm to iterate over a space and make updates without freezing the database
+                    Smart algorithm to iterate over a space and make updates
+                    without freezing the database
 
             .. _Networking:
             .. container:: b-rock
@@ -296,7 +385,8 @@ Tarantool - Rocks
                     :title: http
                     :specialtext: Built-in
 
-                    HTTP client with support for HTTPS and keepalive; uses routines in the 'libcurl' library
+                    HTTP client with support for HTTPS and keepalive; uses
+                    routines in the 'libcurl' library
 
                 .. module_block::
                     :title: mqtt
@@ -316,7 +406,8 @@ Tarantool - Rocks
                     :title: net.box
                     :specialtext: Built-in
 
-                    Module to connect remotely to a Tarantool instance via a binary port
+                    Module to connect remotely to a Tarantool instance via a
+                    binary port
 
                 .. module_block::
                     :title: smtp
@@ -372,7 +463,7 @@ Tarantool - Rocks
                     :specialtext: External
                     :sourcelink: https://github.com/tarantool/memcached
 
-                    Memcached protocol wrapper for Tarantool.
+                    Memcached protocol wrapper for Tarantool
 
                 .. module_block::
                     :title: shard
@@ -383,12 +474,19 @@ Tarantool - Rocks
                     client-side reliable replication for Tarantool
 
                 .. module_block::
+                    :title: vshard
+                    :specialtext: External
+                    :sourcelink: https://github.com/tarantool/vshard
+
+                    Sharding based on virtual buckets concept
+
+                .. module_block::
                     :title: queue
                     :specialtext: External
                     :sourcelink: https://github.com/tarantool/queue
 
-                    Set of persistent in-memory queues to create task queues, add and take jobs,
-                    monitor failed tasks
+                    Set of persistent in-memory queues to create task queues,
+                    add and take jobs, monitor failed tasks
 
             .. _Security:
             .. container:: b-rock
@@ -405,4 +503,5 @@ Tarantool - Rocks
                     :title: digest
                     :specialtext: Built-in
 
-                    Routines to work with “digest”, a value returned by a hash function
+                    Routines to work with “digest”, a value returned by a hash
+                    function
