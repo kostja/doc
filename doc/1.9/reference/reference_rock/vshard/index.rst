@@ -207,7 +207,7 @@ A **rebalancer** is an internal component that distributes the dataset among all
 shards evenly in case some servers are added or removed. It also balances the load
 considering the capacities of existing replica sets.
 
-.. image:: schema.jpg
+.. image:: schema.svg
     :align: center
 
 .. _vshard-storage:
@@ -221,7 +221,7 @@ comprise a replica set. Each storage in a replica set has a role, **master** or
 **replica**. Master processes read and write requests. Replicas process read
 requests, but cannot process write requests.
 
-.. image:: master_replica.jpg
+.. image:: master_replica.svg
     :align: center
 
 .. _vshard-vbuckets:
@@ -237,13 +237,13 @@ The dataset is partitioned using the shard key (or **bucket id**, in terms of
 Tarantool). Bucket id is a number from 1 to N, where N is the total number of
 buckets.
 
-.. image:: buckets.jpg
+.. image:: buckets.svg
     :align: center
 
 Each replica set stores a unique subset of buckets. One bucket cannot belong to
 multiple replica sets at a time.
 
-.. image:: vbuckets.jpg
+.. image:: vbuckets.svg
     :align: center
 
 The total number of buckets is determined by the administrator who sets up the
@@ -285,7 +285,7 @@ While being migrated, the bucket can have different states:
 
 Buckets in the GARBAGE state are deleted by the garbage collector.
 
-.. image:: states.jpg
+.. image:: states.svg
     :align: center
 
 Altogether, migration is performed as follows:
