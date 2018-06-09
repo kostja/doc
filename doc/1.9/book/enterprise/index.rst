@@ -1590,26 +1590,23 @@ Monitoring system metrics
 .. _enterprise-appendix_5:
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Security log
+Audit log
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Tarantool provides a log of the following user actions and facts of using administrator
-privileges in the Tarantool DBMS:
+Audit log provides records on the Tarantool DBMS events in the JSON-format. The
+following event logs are available:
 
-* successful user authorization,
-* failed user authorization,
-* logging out or quitting the session,
-* failed access attempts to secure data (personal records, details, geolocation of the user, etc.),
-* creating a user,
-* deleting a user,
-* blocking a user,
-* enabling a user,
-* granting (changing) privileges (roles, profiles, etc.) for the user.
+* successful/failed user authentication and authorization,
+* closed connection,
+* password change,
+* creation/deletion of a user/role,
+* enabling/disabling a user,
+* changing privileges of a user/role.
 
-.. _security-log-overview:
+.. _audit-log-overview:
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-Log overview
+Log structure
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. container:: table
@@ -1647,7 +1644,7 @@ Log overview
     | ``param``       | string | parameters of event  | see below                                 |
     +-----------------+--------+----------------------+-------------------------------------------+
 
-.. _security-log-events:
+.. _audit-log-events:
 
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 Events description
@@ -1669,13 +1666,13 @@ Events description
     |                                     |                     |                                    |
     |                                     |                     |     {“name”: “user”}               |
     +-------------------------------------+---------------------+------------------------------------+
-    | user user logged out or quit        | ``disconnect``      |                                    |
+    | user logged out or quit             | ``disconnect``      |                                    |
     | the session                         |                     |                                    |
     |                                     |                     |                                    |
     +-------------------------------------+---------------------+------------------------------------+
     | failed access attempts to secure    | ``access_denied``   | .. code-block:: kconfig            |
     | data (personal records, details,    |                     |                                    |
-    | geolocation, etc.                   |                     |     {“name”: “obj_name”,           |
+    | geolocation, etc.)                  |                     |     {“name”: “obj_name”,           |
     |                                     |                     |     “obj_type“: “space”,           |
     |                                     |                     |     “access_type”: “read”}         |
     +-------------------------------------+---------------------+------------------------------------+
@@ -1707,12 +1704,12 @@ Events description
     | user making changes should be       |                     |                                    |
     | specified)                          |                     |     {“name”: “user”}               |
     +-------------------------------------+---------------------+------------------------------------+
-    | creating (changing) a profile       | ``role_create``     | .. code-block:: kconfig            |
-    | group/role/access|                  |                     |                                    |
+    | creating a role                     | ``role_create``     | .. code-block:: kconfig            |
+    |                                     |                     |                                    |
     |                                     |                     |     {“name”: “role”}               |
     +-------------------------------------+---------------------+------------------------------------+
     | granting (changing) privileges      | ``role_priv``       | .. code-block:: kconfig            |
-    | (roles, profiles, etc.) for the role|                     |                                    |
+    | for the role                        |                     |                                    |
     |                                     |                     |     {“name”: “role”}               |
     |                                     |                     |     “obj_name”: “obj_name”,        |
     |                                     |                     |     “obj_type”: “space”,           |
