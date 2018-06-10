@@ -80,7 +80,8 @@ Tarantool - Rocks
                     :title: csv
                     :specialtext: Built-in
 
-                    Manipulation routines for CSV (Comma-Separated-Values) records
+                    Manipulation routines for CSV (Comma-Separated-Values)
+                    records
 
                 .. module_block::
                     :title: document
@@ -111,7 +112,8 @@ Tarantool - Rocks
                     :title: xlog
                     :specialtext: Built-in
 
-                    Reader for Tarantool’s snapshot files and write-ahead-log (WAL) files
+                    Reader for Tarantool’s snapshot files and write-ahead-log
+                    (WAL) files
 
                 .. module_block::
                     :title: yaml
@@ -135,8 +137,8 @@ Tarantool - Rocks
                     :specialtext: External
                     :sourcelink: https://github.com/mailru/tarantool-authman
 
-                    Authorization module for Tarantool providing API for
-                    registration and login of the users
+                    Authorization module for Tarantool providing API for user
+                    registration and login
 
                 .. module_block::
                     :title: dump
@@ -202,7 +204,8 @@ Tarantool - Rocks
                     :title: clock
                     :specialtext: Built-in
 
-                    Routines to get time values derived from the Posix/C 'CLOCK_GETTIME' function
+                    Routines to get time values derived from the Posix/C
+                    'CLOCK_GETTIME' function
                     or equivalent. Useful for accurate clock and benchmarking.
 
                 .. module_block::
@@ -228,7 +231,8 @@ Tarantool - Rocks
                     :title: debug
                     :specialtext: Built-in
 
-                    Tools to print call traces, insert watchpoints, inspect Lua objects
+                    Tools to print call traces, insert watchpoints,
+                    inspect Lua objects
 
                 .. module_block::
                     :title: fun
@@ -266,7 +270,8 @@ Tarantool - Rocks
                     :title: tap
                     :specialtext: Built-in
 
-                    Tools to write nice unit tests conforming to Test Anything Protocol
+                    Tools to write nice unit tests conforming to Test Anything
+                    Protocol
 
                 .. module_block::
                     :title: checks
@@ -281,7 +286,7 @@ Tarantool - Rocks
                     :specialtext: External
                     :sourcelink: https://github.com/tarantool/cron-parser
 
-                    Lua wrapper for the ccronexpr C library
+                    Lua wrapper for the 'ccronexpr' C library
 
                 .. module_block::
                     :title: tradeparser
@@ -295,7 +300,7 @@ Tarantool - Rocks
                     :specialtext: External
                     :sourcelink: https://github.com/tarantool/ldecnumber
 
-                    Lua wrapper for the decNumber library
+                    Lua wrapper for the 'decNumber' library
 
                 .. module_block::
                     :title: lrexlib
@@ -393,7 +398,8 @@ Tarantool - Rocks
                     :specialtext: External
                     :sourcelink: https://github.com/tarantool/mqtt
 
-                    Connect from Tarantool to applications which speak MQTT protocol
+                    Connect from Tarantool to applications which speak the MQTT
+                    protocol
 
                 .. module_block::
                     :title: mrasender
@@ -455,8 +461,8 @@ Tarantool - Rocks
                     :specialtext: External
                     :sourcelink: https://github.com/tarantool/expirationd
 
-                    Expiration daemon module to turn Tarantool into a persistent memcache
-                    replacement with your own expiration strategy
+                    Expiration daemon module to turn Tarantool into a persistent
+                    memcache replacement with your own expiration strategy
 
                 .. module_block::
                     :title: memcached
@@ -470,15 +476,16 @@ Tarantool - Rocks
                     :specialtext: External
                     :sourcelink: https://github.com/tarantool/shard
 
-                    Application-level library that provides sharding, re-sharding and
-                    client-side reliable replication for Tarantool
+                    Application-level library that provides sharding,
+                    re-sharding and client-side reliable replication
+                    for Tarantool
 
                 .. module_block::
                     :title: vshard
                     :specialtext: External
                     :sourcelink: https://github.com/tarantool/vshard
 
-                    Sharding based on virtual buckets concept
+                    Sharding based on virtual buckets
 
                 .. module_block::
                     :title: queue
@@ -503,5 +510,5 @@ Tarantool - Rocks
                     :title: digest
                     :specialtext: Built-in
 
-                    Routines to work with “digest”, a value returned by a hash
+                    Routines to work with "digest", a value returned by a hash
                     function
