@@ -63,15 +63,29 @@ on port 3301, say this:
 
    tarantool> box.cfg{listen = 3301}
 
-First, create the first :ref:`space <index-box_space>` (named 'tester')
-and the first :ref:`index <index-box_index>` (named 'primary'):
+First, create the first :ref:`space <index-box_space>` (named 'tester'):
 
 .. code-block:: tarantoolsession
 
    tarantool> s = box.schema.space.create('tester')
+
+Format the created space by specifying field names and types:
+
+.. code-block:: tarantoolsession
+
+   tarantool> s:format({
+            > {name = 'id', type = 'unsigned'},
+            > {name = 'band_name', type = 'string'},
+            > {name = 'year', type = 'unsigned'}
+            > })
+
+Create the first :ref:`index <index-box_index>` (named 'primary'):
+
+.. code-block:: tarantoolsession
+
    tarantool> s:create_index('primary', {
-            >  type = 'hash',
-            >  parts = {1, 'unsigned'}
+            > type = 'hash',
+            > parts = {'id'}
             > })
 
 Next, insert three :ref:`tuples <index-box_tuple>` (our name for "records")
@@ -79,10 +93,9 @@ into the space:
 
 .. code-block:: tarantoolsession
 
-   tarantool> t = s:insert({1, 'Roxette'})
-   tarantool> t = s:insert({2, 'Scorpions', 2015})
-   tarantool> t = s:insert({3, 'Ace of Base', 1993})
-
+   tarantool> s:insert{1, 'Roxette', 1986}
+   tarantool> s:insert{2, 'Scorpions', 2015}
+   tarantool> s:insert{3, 'Ace of Base', 1993}
 
 To select a tuple from the first space of the database, using the first defined
 key, say:
@@ -96,20 +109,41 @@ The terminal screen now looks like this:
 .. code-block:: tarantoolsession
 
    tarantool> s = box.schema.space.create('tester')
-   2017-01-17 12:04:18.158 ... creating './00000000000000000000.xlog.inprogress'
    ---
    ...
-   tarantool> s:create_index('primary', {type = 'hash', parts = {1, 'unsigned'}})
+   tarantool> s:format({
+            > {name = 'id', type = 'unsigned'},
+            > {name = 'band_name', type = 'string'},
+            > {name = 'year', type = 'unsigned'}
+            > })
    ---
+   ...         
+   tarantool> s:create_index('primary', {
+            > type = 'hash',
+            > parts = {'id'}
+            > })
+   ---
+   - unique: true
+     parts:
+     - type: unsigned
+       is_nullable: false
+       fieldno: 1
+     id: 0
+     space_id: 512
+     name: primary
+     type: HASH
    ...
-   tarantool> t = s:insert{1, 'Roxette'}
+   tarantool> s:insert{1, 'Roxette', 1986}
    ---
+   - [1, 'Roxette', 1986]
    ...
-   tarantool> t = s:insert{2, 'Scorpions', 2015}
+   tarantool> s:insert{2, 'Scorpions', 2015}
    ---
+   - [2, 'Scorpions', 2015]
    ...
-   tarantool> t = s:insert{3, 'Ace of Base', 1993}
+   tarantool> s:insert{3, 'Ace of Base', 1993}
    ---
+   - [3, 'Ace of Base', 1993]
    ...
    tarantool> s:select{3}
    ---
@@ -121,8 +155,8 @@ To add another index on the second field, say:
 .. code-block:: tarantoolsession
 
     tarantool> s:create_index('secondary', {
-             >  type = 'hash',
-             >  parts = {2, 'string'}
+             > type = 'hash',
+             > parts = {'band_name'}
              > })
 
 Now, to prepare for the example in the next section, try this:
