@@ -88,7 +88,7 @@ Create the first :ref:`index <index-box_index>` (named 'primary'):
             > parts = {'id'}
             > })
 
-Next, insert three :ref:`tuples <index-box_tuple>` (our name for "records")
+Insert three :ref:`tuples <index-box_tuple>` (our name for "records")
 into the space:
 
 .. code-block:: tarantoolsession
