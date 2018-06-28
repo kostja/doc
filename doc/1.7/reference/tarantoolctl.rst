@@ -71,7 +71,7 @@ Commands for managing Tarantool instances
         Enter an instance's interactive Lua console.
 
 ``tarantoolctl eval NAME FILE``
-        Evaluate a local Lua file on a Tarantool instance.
+        Evaluate a local Lua file on a Tarantool instance (if started, fail otherwise).
 
 ``tarantoolctl connect URI``
         Connect to a Tarantool instance on an admin-console port.
