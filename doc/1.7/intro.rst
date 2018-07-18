@@ -102,7 +102,7 @@ can be partially merged if there were a lot of changes in its key range
 recently. In that case some pages represent new keys and values in the
 range. The disk-based storage engine is append only: new data never overwrites
 old data. The disk-based storage engine is named *vinyl*. It uses `Zstandard`_
-compression algorythm.
+compression algorithm.
 
 Tarantool supports **multi-part index keys**. The possible index types are HASH,
 TREE, BITSET, and RTREE.

@@ -102,7 +102,7 @@ Vinyl features
 * Zero-Configuration (Tuned by default)
 * Implemented as a small library **written in C** with zero dependencies
 * BSD Licensed
-* Zstandard comression for all data files
+* Zstandard compression for all data files
 
 It is appropriate for databases that cannot fit in memory, where access via
 secondary keys is not required.
