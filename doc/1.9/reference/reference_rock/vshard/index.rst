@@ -375,7 +375,7 @@ All requests are forwarded to the ``router`` first. The only operation supported
 by the ``router`` is ``call``. The operation is performed via ``vshard.router.call()``
 function:
 
-.. code-block:: none
+.. code-block:: lua
 
     result = vshard.router.call(<bucket_id>, <mode(read:write)>, <function_name>, {<argument_list>}, {<opts>})
 
@@ -389,8 +389,8 @@ Requests are processed as follows:
    to all ``storages`` to find out where the bucket is located.
 2. Once the bucket is located, the shard checks:
 
-   * whether the bucket is stored in the ``_bucket`` system space of the replica set
-   * whether the bucket is ACTIVE or PINNED (for a read request, it can also be SENDING)
+   * whether the bucket is stored in the ``_bucket`` system space of the replica set;
+   * whether the bucket is ACTIVE or PINNED (for a read request, it can also be SENDING).
 3. If all the checks succeed, the request is executed. Otherwise, it is terminated
    with the error: ``“wrong bucket”``.
 
@@ -992,7 +992,8 @@ Basic parameters
     This number should be several orders of magnitude larger than the potential number
     of cluster nodes, considering the potential scaling out in the foreseeable future.
 
-    Example:
+    **Example:**
+
     If the estimated number of nodes is M, then the data set should be divided into
     100M or even 1000M buckets, depending on the planned scale out. This number is
     certainly greater than the potential number of cluster nodes in the system being
@@ -1045,7 +1046,7 @@ Basic parameters
     A maximal bucket disbalance threshold, in percent.
     The threshold is calculated for each replica set using the following formula:
 
-    .. code-block:: console
+    .. code-block:: none
 
         |etalon_bucket_count - real_bucket_count| / etalon_bucket_count * 100
 
@@ -1062,7 +1063,7 @@ Basic parameters
     a cluster, the rebalancer sends a very large amount of buckets from the existing
     replica sets to the new replica set. This produces a heavy load on a new replica set.
 
-    Example:
+    **Example:**
 
     Suppose ``rebalancer_max_receiving`` is equal to 100, ``bucket_count`` is equal to 1000.
     There are 3 replica sets with 333, 333 and 334 buckets on each correspondingly.
@@ -1179,13 +1180,13 @@ Router public API
     optional attribute containing a message with the human-readable error description,
     and other attributes specific for this error code.
 
-    **Example**
+    **Example:**
 
     To call ``customer_add`` function from ``vshard/example``, say:
 
-.. code-block:: tarantoolsession
+    .. code-block:: lua
 
-    result = vshard.router.call(100, 'write', 'customer_add', {{customer_id = 2, bucket_id = 100, name = 'name2', accounts = {}}}, {timeout = 100})
+        result = vshard.router.call(100, 'write', 'customer_add', {{customer_id = 2, bucket_id = 100, name = 'name2', accounts = {}}}, {timeout = 100})
 
 .. _router_api-callro:
 
@@ -1250,7 +1251,7 @@ Router public API
 
 .. _router_api-route:
 
-.. function:: replicaset = vshard.router.route(bucket_id)
+.. function:: vshard.router.route(bucket_id)
 
     Return the replica set object for the bucket with the specified bucket id.
 
@@ -1258,23 +1259,43 @@ Router public API
 
     :Return: a replica set object
 
+    **Example:**
+
+    .. code-block:: lua
+
+        replicaset = vshard.router.route(123)
+
 .. _router_api-routeall:
 
-.. function:: replicaset = vshard.router.routeall()
+.. function:: vshard.router.routeall()
 
     Return all available replica set objects.
 
     :Return: a map of the following type: ``{UUID = replicaset}``
     :Rtype: a replica set object
 
+    **Example:**
+
+    .. code-block:: lua
+
+        replicaset = vshard.router.routeall()
+
 .. _router_api-bucket_id:
 
-.. function:: bucket_id = vshard.router.bucket_id(key)
+.. function:: vshard.router.bucket_id(key)
 
     Calculate the bucket id using a simple built-in hash function.
 
-    :Return: a bucket identified
+    :param key: a hash key. This can be any Lua object (number, table, string).
+
+    :Return: a bucket identifier
     :Rtype: number
+
+    **Example:**
+
+    .. code-block:: lua
+
+        bucket_id = vshard.router.bucket_id(18374927634039)
 
 .. _router_api-bucket_count:
 
@@ -1328,37 +1349,37 @@ Router public API
     * ``unavailable`` – the number of buckets known to the ``router`` but unavailable for any requests
     * ``unreachable`` – the number of buckets which replica sets are not known to the ``router``
 
-    **Example**
+    **Example:**
 
-.. code-block:: console
+    .. code-block:: tarantoolsession
 
-    unix/:./data/router_1.control> vshard.router.info()
-    ---
-    - replicasets:
-        ac522f65-aa94-4134-9f64-51ee384f1a54:
-          replica: &0
-            network_timeout: 0.5
-            status: available
-            uri: storage@127.0.0.1:3303
-            uuid: 1e02ae8a-afc0-4e91-ba34-843a356b8ed7
-          uuid: ac522f65-aa94-4134-9f64-51ee384f1a54
-          master: *0
-        cbf06940-0790-498b-948d-042b62cf3d29:
-          replica: &1
-            network_timeout: 0.5
-            status: available
-            uri: storage@127.0.0.1:3301
-            uuid: 8a274925-a26d-47fc-9e1b-af88ce939412
-          uuid: cbf06940-0790-498b-948d-042b62cf3d29
-          master: *1
-      bucket:
-        unreachable: 0
-        available_ro: 0
-        unknown: 0
-        available_rw: 3000
-      status: 0
-      alerts: []
-    ...
+        tarantool> vshard.router.info()
+        ---
+        - replicasets:
+            ac522f65-aa94-4134-9f64-51ee384f1a54:
+              replica: &0
+                network_timeout: 0.5
+                status: available
+                uri: storage@127.0.0.1:3303
+                uuid: 1e02ae8a-afc0-4e91-ba34-843a356b8ed7
+              uuid: ac522f65-aa94-4134-9f64-51ee384f1a54
+              master: *0
+            cbf06940-0790-498b-948d-042b62cf3d29:
+              replica: &1
+                network_timeout: 0.5
+                status: available
+                uri: storage@127.0.0.1:3301
+                uuid: 8a274925-a26d-47fc-9e1b-af88ce939412
+              uuid: cbf06940-0790-498b-948d-042b62cf3d29
+              master: *1
+          bucket:
+            unreachable: 0
+            available_ro: 0
+            unknown: 0
+            available_rw: 3000
+          status: 0
+          alerts: []
+        ...
 
 .. _router_api-buckets_info:
 
@@ -1487,9 +1508,9 @@ Storage public API
 
     Return the information on the storage instance in the following format:
 
-    .. code-block:: console
+    .. code-block:: tarantoolsession
 
-        vshard.storage.info()
+        tarantool> vshard.storage.info()
         ---
         - buckets:
             2995:
@@ -1646,9 +1667,9 @@ Storage internal API
 
     Returns information about the bucket id:
 
-    .. code-block:: console
+    .. code-block:: tarantoolsession
 
-        unix/:./data/storage_1_a.control> vshard.storage.bucket_stat(1)
+        tarantool> vshard.storage.bucket_stat(1)
         ---
         - 0
         - status: active
@@ -1672,9 +1693,9 @@ Storage internal API
 
     Collect all the data that is logically stored in the bucket id:
 
-    .. code-block:: console
+    .. code-block:: tarantoolsession
 
-        vshard.storage.bucket_collect(1)
+        tarantool> vshard.storage.bucket_collect(1)
         ---
         - 0
         - - - 514
@@ -1687,6 +1708,7 @@ Storage internal API
           - - 513
             - - [1, 1, 'Customer 1']
               - [5, 1, 'Customer 5']
+        ...
 
     :param bucket_id: a bucket identifier
 
