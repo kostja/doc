@@ -196,13 +196,6 @@ Tarantool - Rocks
                     Tarantool storage functionality
 
                 .. module_block::
-                    :title: box.error
-                    :specialtext: Built-in
-
-                    Tools to raise an error and keep its code when reaching
-                    a client
-
-                .. module_block::
                     :title: mysql
                     :specialtext: External
                     :sourcelink: https://github.com/tarantool/mysql
@@ -456,7 +449,7 @@ Tarantool - Rocks
                     :title: buffer
                     :specialtext: Built-in
 
-                    Provides an option for methods of the net.box module
+                    Provides an option for methods of the 'net.box' module
 
                 .. module_block::
                     :title: connpool
@@ -513,7 +506,7 @@ Tarantool - Rocks
                     :specialtext: External
                     :sourcelink: https://github.com/tarantool/curl
 
-                    Set of bindings for libcurl to use most of the standard
+                    Set of bindings for 'libcurl' to use most of the standard
                     HTTP client functions
 
             .. _Operating systems:
