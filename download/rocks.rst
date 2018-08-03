@@ -536,7 +536,7 @@ Tarantool - Rocks
                     :title: socket
                     :specialtext: Built-in
 
-                    Non-blocking routines for socket input/output
+                    Non-blocking routines for socket input / output
 
             .. _Power tools:
             .. container:: b-rock

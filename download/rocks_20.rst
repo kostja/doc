@@ -264,6 +264,7 @@ Tarantool - Rocks
                 .. module_block::
                     :title: fiber
                     :specialtext: Built-in
+
                     Fibers management and sending / receiving messages between
                     different processes
 
@@ -371,13 +372,13 @@ Tarantool - Rocks
 
                     Statistic module for Tarantool
 
-                 .. module_block::
+                .. module_block::
                     :title: string
                     :specialtext: Built-in
 
                     Tarantool extension for the standard Lua string library
 
-                 .. module_block::
+                .. module_block::
                     :title: table
                     :specialtext: Built-in
 
@@ -433,13 +434,13 @@ Tarantool - Rocks
                     Tool to get information on how the Tarantool server was
                     built
 
-                 .. module_block::
+                .. module_block::
                     :title: uuid
                     :specialtext: Built-in
 
                     Tools to get a universally unique identifier
 
-                 .. module_block::
+                .. module_block::
                     :title: uri
                     :specialtext: Built-in
 
@@ -541,7 +542,7 @@ Tarantool - Rocks
                     :title: socket
                     :specialtext: Built-in
 
-                    Non-blocking routines for socket input/output
+                    Non-blocking routines for socket input / output
 
             .. _Power tools:
             .. container:: b-rock
