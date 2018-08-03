@@ -100,7 +100,7 @@ Tarantool - Rocks
                     :title: msgpack
                     :specialtext: Built-in
 
-                    MsgPack encoder/decoder
+                    MsgPack encoder / decoder
 
                 .. module_block::
                     :title: pickle
@@ -119,7 +119,7 @@ Tarantool - Rocks
                     :title: yaml
                     :specialtext: Built-in
 
-                    YAML encoder/decoder
+                    YAML encoder / decoder
 
             .. _Database administration:
             .. container:: b-rock
@@ -524,7 +524,7 @@ Tarantool - Rocks
                     :title: fio
                     :specialtext: Built-in
 
-                    Routines for file input/output
+                    Routines for file input / output
 
                 .. module_block::
                     :title: os
