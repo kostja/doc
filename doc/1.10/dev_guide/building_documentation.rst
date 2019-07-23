@@ -8,6 +8,139 @@ Tarantool documentation is built using a simplified markup system named ``Sphinx
 (see http://sphinx-doc.org). You can build a local version of this documentation
 and you can contribute to Tarantool's version.
 
+You can either install all necessary software to build the documentation on your
+local machine or in docker container by using our preinstalled building
+environment.
+
+===============================================================================
+                          Building in docker container
+===============================================================================
+
+You need to install these packages:
+
+  * ``git``
+    (optional)
+  * ``docker``
+  * ``Python``
+    (versions 2.x or 3.x)
+
+You need to clone a git repository with Tarantool documentation source codes
+to your local folder:
+
+.. code-block:: console
+
+  $ git clone https://github.com/tarantool/doc.git ~/tarantool-doc
+
+.. NOTE::
+
+    If you don't have git you can download sources via web-browser - just visit
+    `This web page <https://github.com/tarantool/doc>`_ and press ``Clone or download``
+    and then ``Download ZIP button``. In that case you should unzip the archive
+    to ~/tarantool-doc or any other desired folder.
+
+You also need to download the builder sources for docker:
+
+.. code-block:: console
+
+  $ git clone https://gitlab.com/tarantool/tarantool.io/doc-builder.git
+
+.. NOTE::
+
+    The web-page is available at `This address <https://gitlab.com/tarantool/tarantool.io/doc-builder>`_.
+    You can download this as zip-archive by clicking to cloud icon and choosing zip.
+
+Now to set up the builder image in docker you need to choose wich version of python
+you will use (version 2 or 3).
+
+You can check what version is used in your system by default by using this command:
+
+.. code-block:: console
+
+  $ python
+
+If python interpreter is installed on your system you will see a greeting message
+like this:
+
+.. code-block:: console
+
+  Python 2.7.10 (default, Feb 22 2019, 21:55:15)
+  [GCC 4.2.1 Compatible Apple LLVM 10.0.1 (clang-1001.0.37.14)] on darwin
+  Type "help", "copyright", "credits" or "license" for more information.
+  >>>
+
+Note the ``Python`` keyword followed with its version at the begining.
+
+Now to proceed with building Tarantool documentation navigate to downloaded
+folder with builder source codes at ``~/doc-builder``:
+
+.. code-block:: console
+
+  $ cd ~/doc-builder
+
+The downloaded builder sources include two folders: ``python2`` and ``python3``
+- you should use the folder matched with your major version of python for the
+following procedures:
+
+.. code-block:: console
+
+  $ cd python2
+  $ docker build -t doc-builder:2 .
+
+or
+
+.. code-block:: console
+
+  $ cd python3
+  $ docker build -t doc-builder:3 .
+
+Now that we have the builder image ready lets start by building a ``Makefile``.
+Go to the Tarantool documentaition directory on your local system:
+
+.. code-block:: console
+
+  $ cd ~/tarantool-doc
+
+Then proceed with the following command:
+
+.. code-block:: console
+
+  $ docker run --rm -it -v $(pwd):/doc doc-builder:2 sh -c "cmake ."
+
+.. NOTE::
+
+    For the python3 just proceed with doc-builder:3 instead from now on
+
+This command will build a Makefile for a final stage of building Tarantool
+documentaion.
+
+Now to build the documentaion just use the following command from a folder with
+Tarantool documentation source codes:
+
+.. code-block:: console
+
+  $ docker run --rm -it -v $(pwd):/doc doc-builder:2 sh -c "make sphinx-pdf"
+
+.. NOTE::
+
+    To see possible variants of output (including localisation and file format)
+    you can use the ``make help`` at the end of this command. Alternatively just
+    open the generated Makefile in the local Tarantool documentaition folder to
+    see all possible build targets.
+
+If you followed up this instructions you should see a process of building requested
+documentation. At the end of this process you will see a message about
+generted output files.
+
+.. code-block:: console
+
+  Output written on Tarantool.pdf
+
+
+===============================================================================
+                          Building on local machine
+===============================================================================
+
+
 You need to install these packages:
 
 * ``git`` (a program for downloading source repositories)
