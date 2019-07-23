@@ -135,11 +135,9 @@ generted output files.
 
   Output written on Tarantool.pdf
 
-
 ===============================================================================
                           Building on local machine
 ===============================================================================
-
 
 You need to install these packages:
 
@@ -278,15 +276,19 @@ section of this documentation.
    If your local documentation build is valid, the manual will appear in
    the browser.
 
-6. To contribute to documentation, use the
-   `REST <http://docutils.sourceforge.net/docs/user/rst/quickstart.html>`_
-   format for drafting and submit your updates as a
-   `pull request <https://help.github.com/articles/creating-a-pull-request/>`_
-   via GitHub.
+===============================================================================
+                      Common guidelines for documentation
+===============================================================================
 
-   To comply with the writing and formatting style, use the
-   :ref:`guidelines <documentation_guidelines>` provided in the documentation,
-   common sense and existing documents.
+To contribute to documentation, use the
+`REST <http://docutils.sourceforge.net/docs/user/rst/quickstart.html>`_
+format for drafting and submit your updates as a
+`pull request <https://help.github.com/articles/creating-a-pull-request/>`_
+via GitHub.
+
+To comply with the writing and formatting style, use the
+:ref:`guidelines <documentation_guidelines>` provided in the documentation,
+common sense and existing documents.
 
 .. NOTE::
 
