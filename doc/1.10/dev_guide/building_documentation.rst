@@ -8,50 +8,46 @@ Tarantool documentation is built using a simplified markup system named ``Sphinx
 (see http://sphinx-doc.org). You can build a local version of this documentation
 and you can contribute to Tarantool's version.
 
-You can either install all necessary software to build the documentation on your
-local machine or in docker container by using our preinstalled building
-environment.
+You can:
+  * install all necessary software to build the documentation on your
+    local machine, or
+  * build the documentation in a docker container by using our pre-installed building
+    environment.
 
 ===============================================================================
-                          Building in docker container
+                          Building in a docker container
 ===============================================================================
 
 You need to install these packages:
 
-
   * ``docker``
   * ``git`` (optional)
 
-Then you need to clone a git repository with Tarantool documentation source codes
-to your local folder:
+Then you need to clone ``tarantool/doc`` repository to your local directory:
 
 .. code-block:: console
 
-  $ git clone https://github.com/tarantool/doc.git ~/tarantool-doc
+   $ git clone https://github.com/tarantool/doc.git ~/tarantool-doc
 
 .. NOTE::
 
     If you don't have ``git`` you can download sources via web-browser - just visit
-    `This web page <https://github.com/tarantool/doc>`_ and press ``Clone or download``
+    `this web page <https://github.com/tarantool/doc>`_ and press ``Clone or download``
     and then ``Download ZIP`` button. In that case you should unzip the archive
-    to ~/tarantool-doc or any other desired folder.
+    to ``~/tarantool-doc`` or any other desired directory.
 
-Go to the Tarantool documentaition directory on your local system:
+Go to the Tarantool documentation directory on your local system:
 
 .. code-block:: console
 
-  $ cd ~/tarantool-doc
+   $ cd ~/tarantool-doc
 
 Use provided Dockerfile to build a docker image for building Tarantool
-documentation by using following command:
+documentation by using the following command:
 
 .. code-block:: console
 
-  $ docker build -t doc-builder:2 .
-
-.. NOTE::
-
-    Note that last command has a space followed by a dot ``.`` at the very end.
+   $ docker build -t doc-builder:2 .
 
 Now that we have the builder image ready lets start by building a ``Makefile``.
 
@@ -59,8 +55,8 @@ Now that we have the builder image ready lets start by building a ``Makefile``.
 
   $ docker run --rm -it -v $(pwd):/doc doc-builder:2 sh -c "cmake ."
 
-Finaly to build the documentaion just use the following command from a folder with
-Tarantool documentation source codes:
+Finally, to build the documentation just use the following command from the directory
+with Tarantool documentation source codes:
 
 .. code-block:: console
 
@@ -68,15 +64,15 @@ Tarantool documentation source codes:
 
 .. NOTE::
 
-    Note that after keyword make there is a parameter, defining an output format
-    of the documentation building process. To see possible variants of output
-    (including localisation and file format)
-    you can use the ``make help`` at the end of this command. Alternatively just
-    open the generated Makefile in the local Tarantool documentaition folder to
+    Note that after  the keyword ``make`` there is a parameter defining the output
+    format of the documentation building process. To see possible variants of the output
+    (including localization and file format)
+    you can say ``make help`` at the end of this command. Alternatively just
+    open the generated ``Makefile`` in the local Tarantool documentation directory to
     see all possible build targets.
 
-If you followed up this instructions you should see a process of building requested
-documentation. At the end of this process you will see a message about
+If you followed up these instructions you should see the build process.
+At the end of this process you will see a message about
 generated output files. For example:
 
 .. code-block:: console
@@ -84,7 +80,7 @@ generated output files. For example:
   Output written on Tarantool.pdf
 
 ===============================================================================
-                          Building on local machine
+                          Building on a local machine
 ===============================================================================
 
 You need to install these packages:
