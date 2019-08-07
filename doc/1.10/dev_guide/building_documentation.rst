@@ -9,21 +9,22 @@ Tarantool documentation is built using a simplified markup system named ``Sphinx
 and you can contribute to Tarantool's version.
 
 You can:
-  * install all necessary software to build the documentation on your
-    local machine, or
-  * build the documentation in a docker container by using our pre-installed building
-    environment.
+
+* build the documentation in a docker container by using our pre-installed building
+  environment, or
+* install all necessary software to build the documentation on your
+  local machine.
 
 ===============================================================================
                           Building in a docker container
 ===============================================================================
 
-You need to install these packages:
+Install these packages:
 
-  * ``docker``
-  * ``git`` (optional)
+* ``docker``
+* ``git`` (optional)
 
-Then you need to clone ``tarantool/doc`` repository to your local directory:
+Clone ``tarantool/doc`` repository to your local directory:
 
 .. code-block:: console
 
@@ -31,8 +32,8 @@ Then you need to clone ``tarantool/doc`` repository to your local directory:
 
 .. NOTE::
 
-    If you don't have ``git`` you can download sources via web-browser - just visit
-    `this web page <https://github.com/tarantool/doc>`_ and press ``Clone or download``
+    If you don't have ``git``, you can download sources via web-browser -- just visit
+    `this web page <https://github.com/tarantool/doc>`_, press ``Clone or download``
     and then ``Download ZIP`` button. In that case you should unzip the archive
     to ``~/tarantool-doc`` or any other desired directory.
 
@@ -42,48 +43,48 @@ Go to the Tarantool documentation directory on your local system:
 
    $ cd ~/tarantool-doc
 
-Use provided Dockerfile to build a docker image for building Tarantool
-documentation by using the following command:
+Use the provided Dockerfile to build a docker image for building Tarantool
+documentation. Use the following command:
 
 .. code-block:: console
 
    $ docker build -t doc-builder:2 .
 
-Now that we have the builder image ready lets start by building a ``Makefile``.
+Now that we have the builder image ready, let's start by building a ``Makefile``.
 
 .. code-block:: console
 
-  $ docker run --rm -it -v $(pwd):/doc doc-builder:2 sh -c "cmake ."
+   $ docker run --rm -it -v $(pwd):/doc doc-builder:2 sh -c "cmake ."
 
-Finally, to build the documentation just use the following command from the directory
+Finally, to build the documentation, just use the following command from the directory
 with Tarantool documentation source codes:
 
 .. code-block:: console
 
-  $ docker run --rm -it -v $(pwd):/doc doc-builder:2 sh -c "make sphinx-pdf"
+   $ docker run --rm -it -v $(pwd):/doc doc-builder:2 sh -c "make sphinx-pdf"
 
 .. NOTE::
 
-    Note that after  the keyword ``make`` there is a parameter defining the output
+    Note that after the keyword ``make`` there is a parameter defining the output
     format of the documentation building process. To see possible variants of the output
-    (including localization and file format)
+    (including localization and file format),
     you can say ``make help`` at the end of this command. Alternatively just
-    open the generated ``Makefile`` in the local Tarantool documentation directory to
+    open the generated ``Makefile`` in your local Tarantool documentation directory to
     see all possible build targets.
 
-If you followed up these instructions you should see the build process.
-At the end of this process you will see a message about
+If you followed up these instructions, you should see the build process.
+At the end of this process, you will see a message about
 generated output files. For example:
 
 .. code-block:: console
 
-  Output written on Tarantool.pdf
+   Output written on Tarantool.pdf
 
 ===============================================================================
                           Building on a local machine
 ===============================================================================
 
-You need to install these packages:
+Install these packages:
 
 * ``git`` (a program for downloading source repositories)
 * ``CMake`` version 2.8 or later (a program for managing the build process)
@@ -95,7 +96,7 @@ You need to install these packages:
 * ``ImageMagick`` (a system for image conversion; on MacOS install it using
   ``brew``)
 
-You need to install these Python modules:
+Install these Python modules:
 
 * `pip <https://pypi.python.org/pypi/pip>`_, any version
 * `Sphinx <https://pypi.python.org/pypi/Sphinx>`_ version 1.4.4 or later
